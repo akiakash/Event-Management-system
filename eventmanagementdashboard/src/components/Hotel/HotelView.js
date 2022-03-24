@@ -23,18 +23,19 @@ const use_style = makeStyles((theme) => ({
 function HotelView() {
   const classes = use_style();
 
-  const [cleaning, setCleaning] = useState([]);
+  const [hostel, setHostel] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   const getRequest = () => {
-    axios.get("http://localhost:5000/cleaning").then((response) => {
-      setCleaning(response.data);
+    axios.get("http://localhost:3000/HotelManagement").then((response) => {
+      setHostel(response.data);
+      console.log(response.data);
     });
   };
 
   useEffect(() => {
     getRequest();
-  }, [cleaning]);
+  }, [hostel]);
 
   function deleteCleaning(_id) {
     swal({
@@ -48,7 +49,7 @@ function HotelView() {
         swal("Poof! Your data has been successfully Deleted!", {
           icon: "success",
         });
-        fetch(`http://localhost:5000/cleaning/${_id}`, {
+        fetch(`http://localhost:3000/HotelManagement/${_id}`, {
           method: "DELETE",
         })
           .then((response) => {
@@ -69,8 +70,8 @@ function HotelView() {
   const history = useHistory();
   function editCleaningCompany(_id) {
     console.log("Cleaning Company" + _id);
-    window.sessionStorage.setItem("CleaningID", _id);
-    history.push("/Cleaning_edit");
+    window.sessionStorage.setItem("HotelID", _id);
+    history.push("/HotelUpdate");
   }
 
   return (
@@ -81,7 +82,7 @@ function HotelView() {
             {/* <div className="logo-src" /> */}
             {/* <img src={logo} style={{ width: 110 }} /> */}
             <div>LOGO</div>
-            {/* <div style={{ fontFamily: "lyncer", fontSize: "10" }}>Healistry</div> */}
+            {/* <div style={{ fontFamily: "lyncer", fontSize: "10" }}>SLIIT</div> */}
             <div className="header__pane ml-auto">
               <div>
                 <button
@@ -472,12 +473,12 @@ function HotelView() {
               </div>
               {/* Add Form Here */}
               <div className={classes.root}>
-                {cleaning
+                {hostel
                   .filter((val) => {
                     if (searchTerm == "") {
                       return val;
                     } else if (
-                      val.CName.toLocaleLowerCase().includes(
+                      val.Name.toLocaleLowerCase().includes(
                         searchTerm.toLocaleLowerCase()
                       )
                     ) {
@@ -492,46 +493,38 @@ function HotelView() {
                         id="panel1a-header"
                       >
                         <Typography className={classes.heading}>
-                          {item.CName}
+                          {item.Name}
                         </Typography>
                       </AccordionSummary>
                       <AccordionDetails>
                         <table>
                           <tr>
-                            <th>Company Name </th>
-                            <td> - {item.CName}</td>
+                            <th>Hotel Name </th>
+                            <td> - {item.Name}</td>
                           </tr>
                           <tr>
-                            <th>Location </th>
-                            <td> - {item.Location}</td>
+                            <th>Mobile Number </th>
+                            <td> - {item.MobileNumber}</td>
                           </tr>
                           <tr>
-                            <th>Number of Employees </th>
-                            <td> - {item.NOE} Employees</td>
+                            <th>Address </th>
+                            <td> - {item.Address}</td>
                           </tr>
                           <tr>
-                            <th>Contact Numeber </th>
-                            <td> - {item.CNumber}</td>
+                            <th>Street </th>
+                            <td> - {item.Street}</td>
                           </tr>
                           <tr>
-                            <th>Since </th>
-                            <td> - {item.Since}</td>
+                            <th>State </th>
+                            <td> - {item.State}</td>
                           </tr>
                           <tr>
-                            <th>Image </th>
-                            <td> - {item.Image}</td>
+                            <th>Province </th>
+                            <td> - {item.Province}</td>
                           </tr>
                           <tr>
-                            <th>Description </th>
-                            <td> - {item.Description} </td>
-                          </tr>
-                          {/* <tr>
-                                                    <th>Likes </th>
-                                                    <td> - 112</td>
-                                                </tr> */}
-                          <tr>
-                            <th>Created At </th>
-                            <td> - {item.createdAt}</td>
+                            <th>Country </th>
+                            <td> - {item.Country} </td>
                           </tr>
                           <tr>
                             <td>
@@ -566,7 +559,7 @@ function HotelView() {
                     {/* <ul className="nav">
                       <li className="nav-item">
                         <a href="javascript:void(0);" className="nav-link">
-                          Copyright 2019-2021 Healistry.io. All rights reserved
+                          Copyright 2019-2021 SLIIT.io. All rights reserved
                         </a>
                       </li>
                     </ul> */}
@@ -575,7 +568,7 @@ function HotelView() {
                     <ul className="nav">
                       <li className="nav-item">
                         <a href="javascript:void(0);" className="nav-link">
-                          Copyright 2019-2021 Healistry.io. All rights reserved
+                          Copyright 2019-2021 SLIIT.io. All rights reserved
                         </a>
                       </li>
                     </ul>

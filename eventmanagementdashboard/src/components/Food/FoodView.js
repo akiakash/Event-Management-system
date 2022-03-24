@@ -81,7 +81,7 @@ function FoodView() {
             {/* <div className="logo-src" /> */}
             {/* <img src={logo} style={{ width: 110 }} /> */}
             <div>LOGO</div>
-            {/* <div style={{ fontFamily: "lyncer", fontSize: "10" }}>Healistry</div> */}
+            {/* <div style={{ fontFamily: "lyncer", fontSize: "10" }}>SLIIT</div> */}
             <div className="header__pane ml-auto">
               <div>
                 <button
@@ -542,7 +542,7 @@ function FoodView() {
                     {/* <ul className="nav">
                       <li className="nav-item">
                         <a href="javascript:void(0);" className="nav-link">
-                          Copyright 2019-2021 Healistry.io. All rights reserved
+                          Copyright 2019-2021 SLIIT.io. All rights reserved
                         </a>
                       </li>
                     </ul> */}
@@ -551,7 +551,7 @@ function FoodView() {
                     <ul className="nav">
                       <li className="nav-item">
                         <a href="javascript:void(0);" className="nav-link">
-                          Copyright 2019-2021 Healistry.io. All rights reserved
+                          Copyright 2019-2021 SLIIT.io. All rights reserved
                         </a>
                       </li>
                     </ul>

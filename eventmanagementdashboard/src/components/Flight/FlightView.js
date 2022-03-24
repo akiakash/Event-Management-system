@@ -1,155 +1,87 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import Form from "react-bootstrap/Form";
-import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
-import Radio from "@material-ui/core/Radio";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Col from "react-bootstrap/esm/Col";
-import Row from "react-bootstrap/esm/Row";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Button from "@material-ui/core/Button";
+import axios from "axios";
 import swal from "sweetalert";
+import { useHistory } from "react-router-dom";
 
-function PackageAdd() {
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-      margin: 50,
-    },
-    paper: {
-      padding: theme.spacing(5),
-      margin: "auto",
-      maxWidth: 1000,
-    },
-  }));
+const use_style = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
+  },
+}));
 
-  //   {
-  //     "name": "Theeban",
-  //     "price": "aki",
-  //     "includes": "akii",
-  //     "description": "akii"
-  // }
+function HotelView() {
+  const classes = use_style();
 
-  const classes = useStyles();
-  const [name, setName] = useState("");
-  const [price, setprice] = useState("");
-  const [includes, setincludes] = useState("");
-  const [description, setdescription] = useState("");
+  const [cleaning, setCleaning] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [postImage, setPostImage] = useState({ myFile: "" });
-
-  let [errors_dname, seterrors_dname] = useState("");
-  let [errors_location, seterrors_location] = useState("");
-  let [errors_noe, seterrors_noe] = useState("");
-  let [errors_since, seterrors_since] = useState("");
-  let [errors_description, seterrors_description] = useState("");
-  let [errors_cnumber, seterrors_cnumber] = useState("");
-
-  function CreateCleaningCompany() {
-    // setError(null);
-    // setLoading(true);
-
-    // let errors = {};
-
-    // //Form Validation
-    // if (!name.trim()) {
-    //   errors.name = "Company Name field required";
-    //   seterrors_dname(errors.name);
-    // }
-    // if (!location.trim()) {
-    //   errors.location = "Location field required";
-    //   seterrors_location(errors.location);
-    // }
-    // if (!noe.trim()) {
-    //   errors.noe = "Number of Employee field required";
-    //   seterrors_noe(errors.noe);
-    // }
-    // if (!since.trim()) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (since.length < 4) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (!description.trim()) {
-    //   errors.description = "Description field required";
-    //   seterrors_description(errors.description);
-    // }
-    // if (!cnumber.trim()) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
-    // if (cnumber.length < 10) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
-
-    // if (
-    //   name === "" ||
-    //   location === "" ||
-    //   noe === "" ||
-    //   since === "" ||
-    //   description === "" ||
-    //   errors_cnumber === "" ||
-    //   errors_since === ""
-    // ) {
-    //   setLoading(false);
-    // } else {
-    axios
-      .post("http://localhost:3000/PackageManagement", {
-        name: name,
-        price: price,
-        includes: includes,
-        description: description,
-      })
-      .then((response) => {
-        setLoading(false);
-        swal(
-          "Good job!",
-          "Your data has been successfully added..!",
-          "success"
-        );
-        window.location.reload();
-      })
-      .catch((error) => {
-        setLoading(false);
-        swal("Sorry!", "Something Error!", "error");
-      });
-    // }
-  }
-
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
+  const getRequest = () => {
+    axios.get("http://localhost:5000/cleaning").then((response) => {
+      setCleaning(response.data);
     });
   };
 
-  const handleFileUpload = async (e) => {
-    const file = e.target.files[0];
-    const base64 = await convertToBase64(file);
-    // setPostImage({ ...postImage, myFile: base64 });
-    setPostImage({ myFile: base64 });
-    console.log(base64);
-  };
+  useEffect(() => {
+    getRequest();
+  }, [cleaning]);
+
+  function deleteCleaning(_id) {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this data!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal("Poof! Your data has been successfully Deleted!", {
+          icon: "success",
+        });
+        fetch(`http://localhost:5000/cleaning/${_id}`, {
+          method: "DELETE",
+        })
+          .then((response) => {
+            response.json();
+            swal(
+              "Good job!",
+              "Your data has been successfully Deleted",
+              "success"
+            );
+          })
+          .catch((error) => {
+            swal("Sorry!", "Something Error...", "error");
+          });
+      }
+    });
+  }
+
+  const history = useHistory();
+  function editCleaningCompany(_id) {
+    console.log("Cleaning Company" + _id);
+    window.sessionStorage.setItem("CleaningID", _id);
+    history.push("/Cleaning_edit");
+  }
 
   return (
     <div>
       <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <div className="app-header header-shadow">
           <div className="app-header__logo">
+            {/* <div className="logo-src" /> */}
             {/* <img src={logo} style={{ width: 110 }} /> */}
             <div>LOGO</div>
+            {/* <div style={{ fontFamily: "lyncer", fontSize: "10" }}>SLIIT</div> */}
             <div className="header__pane ml-auto">
               <div>
                 <button
@@ -196,6 +128,9 @@ function PackageAdd() {
                     type="text"
                     className="search-input"
                     placeholder="Type to search"
+                    onChange={(e) => {
+                      setSearchTerm(e.target.value);
+                    }}
                   />
                   <button className="search-icon">
                     <span />
@@ -525,7 +460,7 @@ function PackageAdd() {
                       <i className="pe-7s-car icon-gradient bg-mean-fruit"></i>
                     </div>
                     <div>
-                      Add Cleaning Company Details
+                      Update Cleaning Company Details.
                       <div className="page-title-subheading">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                         Duis risus massa, tempor a imperdiet vel, faucibus sit
@@ -537,98 +472,105 @@ function PackageAdd() {
               </div>
               {/* Add Form Here */}
               <div className={classes.root}>
-                <Paper className={classes.paper}>
-                  <Form>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        Package Name
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          placeholder="Package Name"
-                        />
-                        {errors_dname && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_dname}
-                          </span>
-                        )}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        price
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={price}
-                          onChange={(e) => setprice(e.target.value)}
-                          placeholder="price"
-                        />
-                        {errors_location && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_location}
-                          </span>
-                        )}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        Includes
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={includes}
-                          onChange={(e) => setincludes(e.target.value)}
-                          placeholder="Includes"
-                        />
-                        {errors_noe && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
-                          </span>
-                        )}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        Description
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={description}
-                          onChange={(e) => setdescription(e.target.value)}
-                          placeholder="Description"
-                        />
-                        {errors_cnumber && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_cnumber}
-                          </span>
-                        )}
-                      </Col>
-                    </Form.Group>
-                    <center>
-                      <div className="button">
-                        <input
-                          type="button"
-                          onClick={CreateCleaningCompany}
-                          value={loading ? "Loading... Please Wait!" : "SUBMIT"}
-                          className="btn btn-block app-sidebar__heading Login-Button"
-                        />
-                      </div>
-                    </center>
-                  </Form>
-                </Paper>
+                {cleaning
+                  .filter((val) => {
+                    if (searchTerm == "") {
+                      return val;
+                    } else if (
+                      val.CName.toLocaleLowerCase().includes(
+                        searchTerm.toLocaleLowerCase()
+                      )
+                    ) {
+                      return val;
+                    }
+                  })
+                  .map((item) => (
+                    <Accordion>
+                      <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                      >
+                        <Typography className={classes.heading}>
+                          {item.CName}
+                        </Typography>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <table>
+                          <tr>
+                            <th>Company Name </th>
+                            <td> - {item.CName}</td>
+                          </tr>
+                          <tr>
+                            <th>Location </th>
+                            <td> - {item.Location}</td>
+                          </tr>
+                          <tr>
+                            <th>Number of Employees </th>
+                            <td> - {item.NOE} Employees</td>
+                          </tr>
+                          <tr>
+                            <th>Contact Numeber </th>
+                            <td> - {item.CNumber}</td>
+                          </tr>
+                          <tr>
+                            <th>Since </th>
+                            <td> - {item.Since}</td>
+                          </tr>
+                          <tr>
+                            <th>Image </th>
+                            <td> - {item.Image}</td>
+                          </tr>
+                          <tr>
+                            <th>Description </th>
+                            <td> - {item.Description} </td>
+                          </tr>
+                          {/* <tr>
+                                                    <th>Likes </th>
+                                                    <td> - 112</td>
+                                                </tr> */}
+                          <tr>
+                            <th>Created At </th>
+                            <td> - {item.createdAt}</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <Button
+                                variant="outlined"
+                                onClick={() => editCleaningCompany(item._id)}
+                                color="primary"
+                              >
+                                Edit
+                              </Button>
+                            </td>
+                            <td>
+                              <Button
+                                variant="outlined"
+                                onClick={() => deleteCleaning(item._id)}
+                                color="secondary"
+                              >
+                                Delete
+                              </Button>
+                            </td>
+                          </tr>
+                        </table>
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
               </div>
             </div>
             <div className="app-wrapper-footer">
               <div className="app-footer">
                 <div className="app-footer__inner">
-                  <div className="app-footer-left"></div>
+                  <div className="app-footer-left">
+                    {/* <ul className="nav">
+                      <li className="nav-item">
+                        <a href="javascript:void(0);" className="nav-link">
+                          Copyright 2019-2021 SLIIT.io. All rights reserved
+                        </a>
+                      </li>
+                    </ul> */}
+                  </div>
                   <div className="app-footer-right">
                     <ul className="nav">
                       <li className="nav-item">
@@ -647,4 +589,5 @@ function PackageAdd() {
     </div>
   );
 }
-export default PackageAdd;
+
+export default HotelView;

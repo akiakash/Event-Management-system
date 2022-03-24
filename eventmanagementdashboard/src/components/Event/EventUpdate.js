@@ -626,7 +626,7 @@ function EventUpdate() {
                     <ul className="nav">
                       <li className="nav-item">
                         <a href="javascript:void(0);" className="nav-link">
-                          Copyright 2019-2021 Healistry.io. All rights reserved
+                          Copyright 2019-2021 SLIIT.io. All rights reserved
                         </a>
                       </li>
                     </ul>

@@ -3,15 +3,49 @@ import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
-import Radio from "@material-ui/core/Radio";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import RadioGroup from "@material-ui/core/RadioGroup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
 import swal from "sweetalert";
+import { useHistory } from "react-router-dom";
 
-function PackageAdd() {
+function HotelUpdate() {
+  const [name, setName] = useState("");
+  const [location, setLocation] = useState("");
+  const [noe, setNoe] = useState("");
+  const [cnumber, setCnumber] = useState("");
+  const [since, setSince] = useState("");
+  const [image, setImage] = useState("");
+  const [description, setDescription] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [postImage, setPostImage] = useState({ myFile: "" });
+  const [cleaning, setCleaning] = useState([]);
+
+  let [errors_dname, seterrors_dname] = useState("");
+  let [errors_location, seterrors_location] = useState("");
+  let [errors_noe, seterrors_noe] = useState("");
+  let [errors_since, seterrors_since] = useState("");
+  let [errors_description, seterrors_description] = useState("");
+  let [errors_cnumber, seterrors_cnumber] = useState("");
+
+  const id = window.sessionStorage.getItem("CleaningID");
+
+  useEffect(() => {
+    axios.get(`http://localhost:5000/cleaning/${id}`).then((response) => {
+      //   console.log(response.data);
+      setName(response.data.CName);
+      setLocation(response.data.Location);
+      setNoe(response.data.NOE);
+      setCnumber(response.data.CNumber);
+      setSince(response.data.Since);
+      setDescription(response.data.Description);
+      setPostImage(response.data.Image);
+      setCleaning(response.data);
+      console.log(response.data);
+    });
+  }, []);
+
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -24,102 +58,85 @@ function PackageAdd() {
     },
   }));
 
-  //   {
-  //     "name": "Theeban",
-  //     "price": "aki",
-  //     "includes": "akii",
-  //     "description": "akii"
-  // }
-
   const classes = useStyles();
-  const [name, setName] = useState("");
-  const [price, setprice] = useState("");
-  const [includes, setincludes] = useState("");
-  const [description, setdescription] = useState("");
+  const history = useHistory();
 
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [postImage, setPostImage] = useState({ myFile: "" });
+  function UpdateCleaningCompany() {
+    setError(null);
+    setLoading(true);
 
-  let [errors_dname, seterrors_dname] = useState("");
-  let [errors_location, seterrors_location] = useState("");
-  let [errors_noe, seterrors_noe] = useState("");
-  let [errors_since, seterrors_since] = useState("");
-  let [errors_description, seterrors_description] = useState("");
-  let [errors_cnumber, seterrors_cnumber] = useState("");
+    let errors = {};
 
-  function CreateCleaningCompany() {
-    // setError(null);
-    // setLoading(true);
+    //Form Validation
+    if (!name.trim()) {
+      errors.name = "Company Name field required";
+      seterrors_dname(errors.name);
+    }
+    if (!location.trim()) {
+      errors.location = "Location field required";
+      seterrors_location(errors.location);
+    }
+    if (!noe.trim()) {
+      errors.noe = "Number of Employee field required";
+      seterrors_noe(errors.noe);
+    }
+    if (!since.trim()) {
+      errors.since = "Since field required";
+      seterrors_since(errors.since);
+    }
+    if (!description.trim()) {
+      errors.description = "Description field required";
+      seterrors_description(errors.description);
+    }
+    if (!cnumber.trim()) {
+      errors.cnumber = "Contact Number field required";
+      seterrors_cnumber(errors.cnumber);
+    }
 
-    // let errors = {};
-
-    // //Form Validation
-    // if (!name.trim()) {
-    //   errors.name = "Company Name field required";
-    //   seterrors_dname(errors.name);
-    // }
-    // if (!location.trim()) {
-    //   errors.location = "Location field required";
-    //   seterrors_location(errors.location);
-    // }
-    // if (!noe.trim()) {
-    //   errors.noe = "Number of Employee field required";
-    //   seterrors_noe(errors.noe);
-    // }
-    // if (!since.trim()) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (since.length < 4) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (!description.trim()) {
-    //   errors.description = "Description field required";
-    //   seterrors_description(errors.description);
-    // }
-    // if (!cnumber.trim()) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
-    // if (cnumber.length < 10) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
-
-    // if (
-    //   name === "" ||
-    //   location === "" ||
-    //   noe === "" ||
-    //   since === "" ||
-    //   description === "" ||
-    //   errors_cnumber === "" ||
-    //   errors_since === ""
-    // ) {
-    //   setLoading(false);
-    // } else {
-    axios
-      .post("http://localhost:3000/PackageManagement", {
-        name: name,
-        price: price,
-        includes: includes,
-        description: description,
-      })
-      .then((response) => {
-        setLoading(false);
-        swal(
-          "Good job!",
-          "Your data has been successfully added..!",
-          "success"
-        );
-        window.location.reload();
-      })
-      .catch((error) => {
-        setLoading(false);
-        swal("Sorry!", "Something Error!", "error");
+    if (
+      name === "" ||
+      location === "" ||
+      noe === "" ||
+      since === "" ||
+      description === ""
+    ) {
+      setLoading(false);
+    } else {
+      console.log({
+        CName: name,
+        Location: location,
+        NOE: noe,
+        CNumber: cnumber,
+        Since: since,
+        Image: postImage.myFile,
+        Description: description,
       });
-    // }
+      axios
+        .patch(`http://localhost:5000/cleaning/${id}`, {
+          CName: name,
+          Location: location,
+          NOE: noe,
+          CNumber: cnumber,
+          Since: since,
+          Image: postImage.myFile,
+          Description: description,
+        })
+        .then((response) => {
+          setLoading(false);
+          swal(
+            "Good job!",
+            "Your data has been successfully Updated..!",
+            "success"
+          );
+          // window.location.reload();
+          history.push("/cleaning_update");
+        })
+        .catch((error) => {
+          setLoading(false);
+          alert("Sorry, Something Error...");
+          swal("Sorry!", "Something Error..!", "warning");
+        });
+    }
   }
 
   const convertToBase64 = (file) => {
@@ -140,7 +157,7 @@ function PackageAdd() {
     const base64 = await convertToBase64(file);
     // setPostImage({ ...postImage, myFile: base64 });
     setPostImage({ myFile: base64 });
-    console.log(base64);
+    // console.log(base64);
   };
 
   return (
@@ -541,14 +558,14 @@ function PackageAdd() {
                   <Form>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Package Name
+                        Company Name
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          value={name}
+                          defaultValue={cleaning.CName}
                           onChange={(e) => setName(e.target.value)}
-                          placeholder="Package Name"
+                          placeholder="Company Name"
                         />
                         {errors_dname && (
                           <span style={{ color: "red" }} className="errors">
@@ -559,14 +576,14 @@ function PackageAdd() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        price
+                        Location
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          value={price}
-                          onChange={(e) => setprice(e.target.value)}
-                          placeholder="price"
+                          defaultValue={cleaning.Location}
+                          onChange={(e) => setLocation(e.target.value)}
+                          placeholder="Location"
                         />
                         {errors_location && (
                           <span style={{ color: "red" }} className="errors">
@@ -577,18 +594,54 @@ function PackageAdd() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Includes
+                        Number of Employees
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
-                          type="text"
-                          value={includes}
-                          onChange={(e) => setincludes(e.target.value)}
-                          placeholder="Includes"
+                          type="number"
+                          defaultValue={cleaning.NOE}
+                          onChange={(e) => setNoe(e.target.value)}
+                          placeholder="Number of Employees"
                         />
                         {errors_noe && (
                           <span style={{ color: "red" }} className="errors">
                             {errors_noe}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Contact Number
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="number"
+                          defaultValue={cleaning.CNumber}
+                          onChange={(e) => setCnumber(e.target.value)}
+                          placeholder="Contact Number"
+                        />
+                        {errors_cnumber && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_cnumber}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Since Year
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="number"
+                          defaultValue={cleaning.Since}
+                          onChange={(e) => setSince(e.target.value)}
+                          placeholder="Since Year"
+                        />
+                        {errors_since && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_since}
                           </span>
                         )}
                       </Col>
@@ -600,22 +653,36 @@ function PackageAdd() {
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          value={description}
-                          onChange={(e) => setdescription(e.target.value)}
+                          defaultValue={cleaning.Description}
+                          onChange={(e) => setDescription(e.target.value)}
                           placeholder="Description"
                         />
-                        {errors_cnumber && (
+                        {errors_description && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_cnumber}
+                            {errors_description}
                           </span>
                         )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Image
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="file"
+                          label="Image"
+                          name="myFile"
+                          accept=".jpeg, .png, .jpg"
+                          onChange={(e) => handleFileUpload(e)}
+                        />
                       </Col>
                     </Form.Group>
                     <center>
                       <div className="button">
                         <input
                           type="button"
-                          onClick={CreateCleaningCompany}
+                          onClick={UpdateCleaningCompany}
                           value={loading ? "Loading... Please Wait!" : "SUBMIT"}
                           className="btn btn-block app-sidebar__heading Login-Button"
                         />
@@ -647,4 +714,4 @@ function PackageAdd() {
     </div>
   );
 }
-export default PackageAdd;
+export default HotelUpdate;

@@ -27,6 +27,10 @@ import AgentAdd from "./components/Agent/AgentAdd";
 import AgentReport from "./components/Agent/AgentReport";
 import AgentUpdate from "./components/Agent/AgentUpdate";
 import AgentView from "./components/Agent/AgentView";
+import FlightAdd from "./components/Flight/FlightAdd";
+import FlightReport from "./components/Flight/FlightReport";
+import FlightUpdate from "./components/Flight/FlightUpdate";
+import FlightView from "./components/Flight/FlightView";
 
 // All routing routes ddefined here
 const Routing = () => {
@@ -57,6 +61,10 @@ const Routing = () => {
       <Route exact path="/AgentReport" component={AgentReport} />
       <Route exact path="/AgentUpdate" component={AgentUpdate} />
       <Route exact path="/AgentView" component={AgentView} />
+      <Route exact path="/FlightAdd" component={FlightAdd} />
+      <Route exact path="/FlightReport" component={FlightReport} />
+      <Route exact path="/FlightUpdate" component={FlightUpdate} />
+      <Route exact path="/FlightView" component={FlightView} />
     </Switch>
   );
 };

@@ -13,7 +13,7 @@ import { useRef } from "react";
 import { padding } from "@mui/system";
 import Button from "@mui/material/Button";
 
-export default function EventReport() {
+export default function FlightReport() {
   const [cleaning, setCleaning] = useState([]);
   const getRequest = () => {
     axios.get("http://localhost:5000/cleaning").then((response) => {

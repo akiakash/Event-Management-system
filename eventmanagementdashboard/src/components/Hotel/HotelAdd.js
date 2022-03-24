@@ -24,13 +24,14 @@ function HotelAdd() {
     },
   }));
   const classes = useStyles();
-  const [name, setName] = useState("");
-  const [location, setLocation] = useState("");
-  const [noe, setNoe] = useState("");
-  const [cnumber, setCnumber] = useState("");
-  const [since, setSince] = useState("");
-  const [image, setImage] = useState("");
-  const [description, setDescription] = useState("");
+  const [Name, setName] = useState("");
+  const [MobileNumber, setMobileNumber] = useState("");
+  const [Address, setAddress] = useState("");
+  const [Street, setStreet] = useState("");
+  const [State, setState] = useState("");
+  const [Province, setProvince] = useState("");
+  const [Country, setCountry] = useState("");
+
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [postImage, setPostImage] = useState({ myFile: "" });
@@ -43,80 +44,80 @@ function HotelAdd() {
   let [errors_cnumber, seterrors_cnumber] = useState("");
 
   function CreateCleaningCompany() {
-    setError(null);
-    setLoading(true);
+    // setError(null);
+    // setLoading(true);
 
-    let errors = {};
+    // let errors = {};
 
-    //Form Validation
-    if (!name.trim()) {
-      errors.name = "Company Name field required";
-      seterrors_dname(errors.name);
-    }
-    if (!location.trim()) {
-      errors.location = "Location field required";
-      seterrors_location(errors.location);
-    }
-    if (!noe.trim()) {
-      errors.noe = "Number of Employee field required";
-      seterrors_noe(errors.noe);
-    }
-    if (!since.trim()) {
-      errors.since = "Please Enter a Valid Since year";
-      seterrors_since(errors.since);
-    }
-    if (since.length < 4) {
-      errors.since = "Please Enter a Valid Since year";
-      seterrors_since(errors.since);
-    }
-    if (!description.trim()) {
-      errors.description = "Description field required";
-      seterrors_description(errors.description);
-    }
-    if (!cnumber.trim()) {
-      errors.cnumber = "Please Enter a Valid Contact Number";
-      seterrors_cnumber(errors.cnumber);
-    }
-    if (cnumber.length < 10) {
-      errors.cnumber = "Please Enter a Valid Contact Number";
-      seterrors_cnumber(errors.cnumber);
-    }
+    // //Form Validation
+    // if (!name.trim()) {
+    //   errors.name = "Company Name field required";
+    //   seterrors_dname(errors.name);
+    // }
+    // if (!location.trim()) {
+    //   errors.location = "Location field required";
+    //   seterrors_location(errors.location);
+    // }
+    // if (!noe.trim()) {
+    //   errors.noe = "Number of Employee field required";
+    //   seterrors_noe(errors.noe);
+    // }
+    // if (!since.trim()) {
+    //   errors.since = "Please Enter a Valid Since year";
+    //   seterrors_since(errors.since);
+    // }
+    // if (since.length < 4) {
+    //   errors.since = "Please Enter a Valid Since year";
+    //   seterrors_since(errors.since);
+    // }
+    // if (!description.trim()) {
+    //   errors.description = "Description field required";
+    //   seterrors_description(errors.description);
+    // }
+    // if (!cnumber.trim()) {
+    //   errors.cnumber = "Please Enter a Valid Contact Number";
+    //   seterrors_cnumber(errors.cnumber);
+    // }
+    // if (cnumber.length < 10) {
+    //   errors.cnumber = "Please Enter a Valid Contact Number";
+    //   seterrors_cnumber(errors.cnumber);
+    // }
 
-    if (
-      name === "" ||
-      location === "" ||
-      noe === "" ||
-      since === "" ||
-      description === "" ||
-      errors_cnumber === "" ||
-      errors_since === ""
-    ) {
-      setLoading(false);
-    } else {
-      axios
-        .post("http://localhost:5000/cleaning", {
-          CName: name,
-          Location: location,
-          NOE: noe,
-          CNumber: cnumber,
-          Since: since,
-          Image: postImage.myFile,
-          Description: description,
-        })
-        .then((response) => {
-          setLoading(false);
-          swal(
-            "Good job!",
-            "Your data has been successfully added..!",
-            "success"
-          );
-          window.location.reload();
-        })
-        .catch((error) => {
-          setLoading(false);
-          swal("Sorry!", "Something Error!", "error");
-        });
-    }
+    // if (
+    //   name === "" ||
+    //   location === "" ||
+    //   noe === "" ||
+    //   since === "" ||
+    //   description === "" ||
+    //   errors_cnumber === "" ||
+    //   errors_since === ""
+    // ) {
+    //   setLoading(false);
+    // } else {
+    axios
+      .post("http://localhost:3000/HotelManagement", {
+        Name: Name,
+        MobileNumber: MobileNumber,
+        Address: Address,
+        Street: Street,
+        State: State,
+        Province: Province,
+        Country: Country,
+      })
+      .then((response) => {
+        setLoading(false);
+        swal(
+          "Good job!",
+          "Your data has been successfully added..!",
+          "success"
+        );
+        window.location.reload();
+      })
+      .catch((error) => {
+        setLoading(false);
+        swal("Sorry!", "Something Error!", "error");
+      });
+    // }
   }
 
   const convertToBase64 = (file) => {
@@ -538,14 +539,14 @@ function HotelAdd() {
                   <Form>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Company Name
+                        Hotel Name
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          value={name}
+                          value={Name}
                           onChange={(e) => setName(e.target.value)}
-                          placeholder="Company Name"
+                          placeholder="Hotel Name"
                         />
                         {errors_dname && (
                           <span style={{ color: "red" }} className="errors">
@@ -556,14 +557,14 @@ function HotelAdd() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Location
+                        Mobile Number
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          value={location}
-                          onChange={(e) => setLocation(e.target.value)}
-                          placeholder="Location"
+                          value={MobileNumber}
+                          onChange={(e) => setMobileNumber(e.target.value)}
+                          placeholder="Mobile Number"
                         />
                         {errors_location && (
                           <span style={{ color: "red" }} className="errors">
@@ -574,14 +575,14 @@ function HotelAdd() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Number of Employees
+                        Address
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
-                          type="number"
-                          value={noe}
-                          onChange={(e) => setNoe(e.target.value)}
-                          placeholder="Number of Employees"
+                          type="text"
+                          value={Address}
+                          onChange={(e) => setAddress(e.target.value)}
+                          placeholder="Address"
                         />
                         {errors_noe && (
                           <span style={{ color: "red" }} className="errors">
@@ -592,14 +593,14 @@ function HotelAdd() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Contact Number
+                        Street
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
-                          type="number"
-                          value={cnumber}
-                          onChange={(e) => setCnumber(e.target.value)}
-                          placeholder="Contact Number"
+                          type="text"
+                          value={Street}
+                          onChange={(e) => setStreet(e.target.value)}
+                          placeholder="Street"
                         />
                         {errors_cnumber && (
                           <span style={{ color: "red" }} className="errors">
@@ -610,14 +611,14 @@ function HotelAdd() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Since Year
+                        State
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
-                          type="number"
-                          value={since}
-                          onChange={(e) => setSince(e.target.value)}
-                          placeholder="Since Year"
+                          type="text"
+                          value={State}
+                          onChange={(e) => setState(e.target.value)}
+                          placeholder="State"
                         />
                         {errors_since && (
                           <span style={{ color: "red" }} className="errors">
@@ -628,14 +629,14 @@ function HotelAdd() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Description
+                        Province
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          value={description}
-                          onChange={(e) => setDescription(e.target.value)}
-                          placeholder="Description"
+                          value={Province}
+                          onChange={(e) => setProvince(e.target.value)}
+                          placeholder="Province"
                         />
                         {errors_description && (
                           <span style={{ color: "red" }} className="errors">
@@ -646,16 +647,20 @@ function HotelAdd() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Image
+                        Country
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
-                          type="file"
-                          label="Image"
-                          name="myFile"
-                          accept=".jpeg, .png, .jpg"
-                          onChange={(e) => handleFileUpload(e)}
+                          type="text"
+                          value={Country}
+                          onChange={(e) => setCountry(e.target.value)}
+                          placeholder="Country"
                         />
+                        {errors_description && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_description}
+                          </span>
+                        )}
                       </Col>
                     </Form.Group>
                     <center>
@@ -680,7 +685,7 @@ function HotelAdd() {
                     <ul className="nav">
                       <li className="nav-item">
                         <a href="javascript:void(0);" className="nav-link">
-                          Copyright 2019-2021 Healistry.io. All rights reserved
+                          Copyright 2019-2021 SLIIT.io. All rights reserved
                         </a>
                       </li>
                     </ul>

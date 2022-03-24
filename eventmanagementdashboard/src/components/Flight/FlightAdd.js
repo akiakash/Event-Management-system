@@ -11,7 +11,7 @@ import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
 import swal from "sweetalert";
 
-function PackageAdd() {
+function FlightAdd() {
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -23,20 +23,14 @@ function PackageAdd() {
       maxWidth: 1000,
     },
   }));
-
-  //   {
-  //     "name": "Theeban",
-  //     "price": "aki",
-  //     "includes": "akii",
-  //     "description": "akii"
-  // }
-
   const classes = useStyles();
   const [name, setName] = useState("");
-  const [price, setprice] = useState("");
-  const [includes, setincludes] = useState("");
-  const [description, setdescription] = useState("");
-
+  const [location, setLocation] = useState("");
+  const [noe, setNoe] = useState("");
+  const [cnumber, setCnumber] = useState("");
+  const [since, setSince] = useState("");
+  const [image, setImage] = useState("");
+  const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [postImage, setPostImage] = useState({ myFile: "" });
@@ -49,77 +43,80 @@ function PackageAdd() {
   let [errors_cnumber, seterrors_cnumber] = useState("");
 
   function CreateCleaningCompany() {
-    // setError(null);
-    // setLoading(true);
+    setError(null);
+    setLoading(true);
 
-    // let errors = {};
+    let errors = {};
 
-    // //Form Validation
-    // if (!name.trim()) {
-    //   errors.name = "Company Name field required";
-    //   seterrors_dname(errors.name);
-    // }
-    // if (!location.trim()) {
-    //   errors.location = "Location field required";
-    //   seterrors_location(errors.location);
-    // }
-    // if (!noe.trim()) {
-    //   errors.noe = "Number of Employee field required";
-    //   seterrors_noe(errors.noe);
-    // }
-    // if (!since.trim()) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (since.length < 4) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (!description.trim()) {
-    //   errors.description = "Description field required";
-    //   seterrors_description(errors.description);
-    // }
-    // if (!cnumber.trim()) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
-    // if (cnumber.length < 10) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
+    //Form Validation
+    if (!name.trim()) {
+      errors.name = "Company Name field required";
+      seterrors_dname(errors.name);
+    }
+    if (!location.trim()) {
+      errors.location = "Location field required";
+      seterrors_location(errors.location);
+    }
+    if (!noe.trim()) {
+      errors.noe = "Number of Employee field required";
+      seterrors_noe(errors.noe);
+    }
+    if (!since.trim()) {
+      errors.since = "Please Enter a Valid Since year";
+      seterrors_since(errors.since);
+    }
+    if (since.length < 4) {
+      errors.since = "Please Enter a Valid Since year";
+      seterrors_since(errors.since);
+    }
+    if (!description.trim()) {
+      errors.description = "Description field required";
+      seterrors_description(errors.description);
+    }
+    if (!cnumber.trim()) {
+      errors.cnumber = "Please Enter a Valid Contact Number";
+      seterrors_cnumber(errors.cnumber);
+    }
+    if (cnumber.length < 10) {
+      errors.cnumber = "Please Enter a Valid Contact Number";
+      seterrors_cnumber(errors.cnumber);
+    }
 
-    // if (
-    //   name === "" ||
-    //   location === "" ||
-    //   noe === "" ||
-    //   since === "" ||
-    //   description === "" ||
-    //   errors_cnumber === "" ||
-    //   errors_since === ""
-    // ) {
-    //   setLoading(false);
-    // } else {
-    axios
-      .post("http://localhost:3000/PackageManagement", {
-        name: name,
-        price: price,
-        includes: includes,
-        description: description,
-      })
-      .then((response) => {
-        setLoading(false);
-        swal(
-          "Good job!",
-          "Your data has been successfully added..!",
-          "success"
-        );
-        window.location.reload();
-      })
-      .catch((error) => {
-        setLoading(false);
-        swal("Sorry!", "Something Error!", "error");
-      });
-    // }
+    if (
+      name === "" ||
+      location === "" ||
+      noe === "" ||
+      since === "" ||
+      description === "" ||
+      errors_cnumber === "" ||
+      errors_since === ""
+    ) {
+      setLoading(false);
+    } else {
+      axios
+        .post("http://localhost:5000/cleaning", {
+          CName: name,
+          Location: location,
+          NOE: noe,
+          CNumber: cnumber,
+          Since: since,
+          Image: postImage.myFile,
+          Description: description,
+        })
+        .then((response) => {
+          setLoading(false);
+          swal(
+            "Good job!",
+            "Your data has been successfully added..!",
+            "success"
+          );
+          window.location.reload();
+        })
+        .catch((error) => {
+          setLoading(false);
+          swal("Sorry!", "Something Error!", "error");
+        });
+    }
   }
 
   const convertToBase64 = (file) => {
@@ -541,14 +538,14 @@ function PackageAdd() {
                   <Form>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Package Name
+                        Company Name
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
                           value={name}
                           onChange={(e) => setName(e.target.value)}
-                          placeholder="Package Name"
+                          placeholder="Company Name"
                         />
                         {errors_dname && (
                           <span style={{ color: "red" }} className="errors">
@@ -559,14 +556,14 @@ function PackageAdd() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        price
+                        Location
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          value={price}
-                          onChange={(e) => setprice(e.target.value)}
-                          placeholder="price"
+                          value={location}
+                          onChange={(e) => setLocation(e.target.value)}
+                          placeholder="Location"
                         />
                         {errors_location && (
                           <span style={{ color: "red" }} className="errors">
@@ -577,18 +574,54 @@ function PackageAdd() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Includes
+                        Number of Employees
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
-                          type="text"
-                          value={includes}
-                          onChange={(e) => setincludes(e.target.value)}
-                          placeholder="Includes"
+                          type="number"
+                          value={noe}
+                          onChange={(e) => setNoe(e.target.value)}
+                          placeholder="Number of Employees"
                         />
                         {errors_noe && (
                           <span style={{ color: "red" }} className="errors">
                             {errors_noe}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Contact Number
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="number"
+                          value={cnumber}
+                          onChange={(e) => setCnumber(e.target.value)}
+                          placeholder="Contact Number"
+                        />
+                        {errors_cnumber && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_cnumber}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Since Year
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="number"
+                          value={since}
+                          onChange={(e) => setSince(e.target.value)}
+                          placeholder="Since Year"
+                        />
+                        {errors_since && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_since}
                           </span>
                         )}
                       </Col>
@@ -601,14 +634,28 @@ function PackageAdd() {
                         <Form.Control
                           type="text"
                           value={description}
-                          onChange={(e) => setdescription(e.target.value)}
+                          onChange={(e) => setDescription(e.target.value)}
                           placeholder="Description"
                         />
-                        {errors_cnumber && (
+                        {errors_description && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_cnumber}
+                            {errors_description}
                           </span>
                         )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Image
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="file"
+                          label="Image"
+                          name="myFile"
+                          accept=".jpeg, .png, .jpg"
+                          onChange={(e) => handleFileUpload(e)}
+                        />
                       </Col>
                     </Form.Group>
                     <center>
@@ -647,4 +694,4 @@ function PackageAdd() {
     </div>
   );
 }
-export default PackageAdd;
+export default FlightAdd;

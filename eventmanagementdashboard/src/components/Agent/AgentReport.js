@@ -58,9 +58,9 @@ export default function AgentReport() {
               className="column"
               style={{ float: "left", width: "50%", textAlign: "right" }}
             >
-              <span>info@Healistry.com</span>
+              <span>info@SLIIT.com</span>
               <br />
-              <span style={{ color: "#4ad7d1" }}>WWW.Healistry.com</span>
+              <span style={{ color: "#4ad7d1" }}>WWW.SLIIT.com</span>
               <br />
               <span>011 1111 543</span>
             </div>
@@ -72,7 +72,7 @@ export default function AgentReport() {
                   Annual Report
                 </span>
                 <br />
-                Healistry Cleaning Company Report
+                SLIIT Cleaning Company Report
               </span>
             </div>
             <div style={{ textAlign: "center" }}>

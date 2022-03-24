@@ -10,17 +10,17 @@ import swal from "sweetalert";
 import { useHistory } from "react-router-dom";
 
 function HotelUpdate() {
-  const [name, setName] = useState("");
-  const [location, setLocation] = useState("");
-  const [noe, setNoe] = useState("");
-  const [cnumber, setCnumber] = useState("");
-  const [since, setSince] = useState("");
-  const [image, setImage] = useState("");
-  const [description, setDescription] = useState("");
+  const [Name, setName] = useState("");
+  const [MobileNumber, setMobileNumber] = useState("");
+  const [Address, setAddress] = useState("");
+  const [Street, setStreet] = useState("");
+  const [State, setState] = useState("");
+  const [Province, setProvince] = useState("");
+  const [Country, setCountry] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [postImage, setPostImage] = useState({ myFile: "" });
-  const [cleaning, setCleaning] = useState([]);
+  const [hotel, setHotel] = useState([]);
 
   let [errors_dname, seterrors_dname] = useState("");
   let [errors_location, seterrors_location] = useState("");
@@ -29,21 +29,23 @@ function HotelUpdate() {
   let [errors_description, seterrors_description] = useState("");
   let [errors_cnumber, seterrors_cnumber] = useState("");
 
-  const id = window.sessionStorage.getItem("CleaningID");
+  const id = window.sessionStorage.getItem("HotelID");
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/cleaning/${id}`).then((response) => {
-      //   console.log(response.data);
-      setName(response.data.CName);
-      setLocation(response.data.Location);
-      setNoe(response.data.NOE);
-      setCnumber(response.data.CNumber);
-      setSince(response.data.Since);
-      setDescription(response.data.Description);
-      setPostImage(response.data.Image);
-      setCleaning(response.data);
-      console.log(response.data);
-    });
+    axios
+      .get(`http://localhost:3000/HotelManagement/${id}`)
+      .then((response) => {
+        //   console.log(response.data);
+        setName(response.data.Name);
+        setMobileNumber(response.data.MobileNumber);
+        setAddress(response.data.Address);
+        setStreet(response.data.Street);
+        setState(response.data.State);
+        setProvince(response.data.Province);
+        setCountry(response.data.Country);
+        setHotel(response.data);
+        console.log(response.data);
+      });
   }, []);
 
   const useStyles = makeStyles((theme) => ({
@@ -62,81 +64,81 @@ function HotelUpdate() {
   const history = useHistory();
 
   function UpdateCleaningCompany() {
-    setError(null);
-    setLoading(true);
+    // setError(null);
+    // setLoading(true);
 
-    let errors = {};
+    // let errors = {};
 
-    //Form Validation
-    if (!name.trim()) {
-      errors.name = "Company Name field required";
-      seterrors_dname(errors.name);
-    }
-    if (!location.trim()) {
-      errors.location = "Location field required";
-      seterrors_location(errors.location);
-    }
-    if (!noe.trim()) {
-      errors.noe = "Number of Employee field required";
-      seterrors_noe(errors.noe);
-    }
-    if (!since.trim()) {
-      errors.since = "Since field required";
-      seterrors_since(errors.since);
-    }
-    if (!description.trim()) {
-      errors.description = "Description field required";
-      seterrors_description(errors.description);
-    }
-    if (!cnumber.trim()) {
-      errors.cnumber = "Contact Number field required";
-      seterrors_cnumber(errors.cnumber);
-    }
+    // //Form Validation
+    // if (!name.trim()) {
+    //   errors.name = "Company Name field required";
+    //   seterrors_dname(errors.name);
+    // }
+    // if (!location.trim()) {
+    //   errors.location = "Location field required";
+    //   seterrors_location(errors.location);
+    // }
+    // if (!noe.trim()) {
+    //   errors.noe = "Number of Employee field required";
+    //   seterrors_noe(errors.noe);
+    // }
+    // if (!since.trim()) {
+    //   errors.since = "Since field required";
+    //   seterrors_since(errors.since);
+    // }
+    // if (!description.trim()) {
+    //   errors.description = "Description field required";
+    //   seterrors_description(errors.description);
+    // }
+    // if (!cnumber.trim()) {
+    //   errors.cnumber = "Contact Number field required";
+    //   seterrors_cnumber(errors.cnumber);
+    // }
 
-    if (
-      name === "" ||
-      location === "" ||
-      noe === "" ||
-      since === "" ||
-      description === ""
-    ) {
-      setLoading(false);
-    } else {
-      console.log({
-        CName: name,
-        Location: location,
-        NOE: noe,
-        CNumber: cnumber,
-        Since: since,
-        Image: postImage.myFile,
-        Description: description,
+    // if (
+    //   name === "" ||
+    //   location === "" ||
+    //   noe === "" ||
+    //   since === "" ||
+    //   description === ""
+    // ) {
+    //   setLoading(false);
+    // } else {
+    //   console.log({
+    //     CName: name,
+    //     Location: location,
+    //     NOE: noe,
+    //     CNumber: cnumber,
+    //     Since: since,
+    //     Image: postImage.myFile,
+    //     Description: description,
+    //   });
+    axios
+      .patch(`http://localhost:3000/HotelManagement/${id}`, {
+        Name: Name,
+        MobileNumber: MobileNumber,
+        Address: Address,
+        Street: Street,
+        State: State,
+        Province: Province,
+        Country: Country,
+      })
+      .then((response) => {
+        setLoading(false);
+        swal(
+          "Good job!",
+          "Your data has been successfully Updated..!",
+          "success"
+        );
+        // window.location.reload();
+        history.push("/HotelView");
+      })
+      .catch((error) => {
+        setLoading(false);
+        alert("Sorry, Something Error...");
+        swal("Sorry!", "Something Error..!", "warning");
       });
-      axios
-        .patch(`http://localhost:5000/cleaning/${id}`, {
-          CName: name,
-          Location: location,
-          NOE: noe,
-          CNumber: cnumber,
-          Since: since,
-          Image: postImage.myFile,
-          Description: description,
-        })
-        .then((response) => {
-          setLoading(false);
-          swal(
-            "Good job!",
-            "Your data has been successfully Updated..!",
-            "success"
-          );
-          // window.location.reload();
-          history.push("/cleaning_update");
-        })
-        .catch((error) => {
-          setLoading(false);
-          alert("Sorry, Something Error...");
-          swal("Sorry!", "Something Error..!", "warning");
-        });
-    }
+    // }
   }
 
   const convertToBase64 = (file) => {
@@ -558,14 +560,14 @@ function HotelUpdate() {
                   <Form>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Company Name
+                        Hotel Name
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          defaultValue={cleaning.CName}
+                          defaultValue={hotel.Name}
                           onChange={(e) => setName(e.target.value)}
-                          placeholder="Company Name"
+                          placeholder="Hotel Name"
                         />
                         {errors_dname && (
                           <span style={{ color: "red" }} className="errors">
@@ -576,14 +578,14 @@ function HotelUpdate() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Location
+                        MobileNumber
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          defaultValue={cleaning.Location}
-                          onChange={(e) => setLocation(e.target.value)}
-                          placeholder="Location"
+                          defaultValue={hotel.MobileNumber}
+                          onChange={(e) => setMobileNumber(e.target.value)}
+                          placeholder="MobileNumber"
                         />
                         {errors_location && (
                           <span style={{ color: "red" }} className="errors">
@@ -594,14 +596,14 @@ function HotelUpdate() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Number of Employees
+                        Address
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
-                          type="number"
-                          defaultValue={cleaning.NOE}
-                          onChange={(e) => setNoe(e.target.value)}
-                          placeholder="Number of Employees"
+                          type="text"
+                          defaultValue={hotel.Address}
+                          onChange={(e) => setAddress(e.target.value)}
+                          placeholder="Address"
                         />
                         {errors_noe && (
                           <span style={{ color: "red" }} className="errors">
@@ -612,14 +614,14 @@ function HotelUpdate() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Contact Number
+                        Street
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
-                          type="number"
-                          defaultValue={cleaning.CNumber}
-                          onChange={(e) => setCnumber(e.target.value)}
-                          placeholder="Contact Number"
+                          type="text"
+                          defaultValue={hotel.Street}
+                          onChange={(e) => setStreet(e.target.value)}
+                          placeholder="Street"
                         />
                         {errors_cnumber && (
                           <span style={{ color: "red" }} className="errors">
@@ -630,14 +632,14 @@ function HotelUpdate() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Since Year
+                        State
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
-                          type="number"
-                          defaultValue={cleaning.Since}
-                          onChange={(e) => setSince(e.target.value)}
-                          placeholder="Since Year"
+                          type="text"
+                          defaultValue={hotel.State}
+                          onChange={(e) => setState(e.target.value)}
+                          placeholder="State"
                         />
                         {errors_since && (
                           <span style={{ color: "red" }} className="errors">
@@ -648,14 +650,14 @@ function HotelUpdate() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Description
+                        Province
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          defaultValue={cleaning.Description}
-                          onChange={(e) => setDescription(e.target.value)}
-                          placeholder="Description"
+                          defaultValue={hotel.Province}
+                          onChange={(e) => setProvince(e.target.value)}
+                          placeholder="Province"
                         />
                         {errors_description && (
                           <span style={{ color: "red" }} className="errors">
@@ -666,16 +668,20 @@ function HotelUpdate() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Image
+                        Country
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
-                          type="file"
-                          label="Image"
-                          name="myFile"
-                          accept=".jpeg, .png, .jpg"
-                          onChange={(e) => handleFileUpload(e)}
+                          type="text"
+                          defaultValue={hotel.Country}
+                          onChange={(e) => setCountry(e.target.value)}
+                          placeholder="Country"
                         />
+                        {errors_description && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_description}
+                          </span>
+                        )}
                       </Col>
                     </Form.Group>
                     <center>
@@ -700,7 +706,7 @@ function HotelUpdate() {
                     <ul className="nav">
                       <li className="nav-item">
                         <a href="javascript:void(0);" className="nav-link">
-                          Copyright 2019-2021 Healistry.io. All rights reserved
+                          Copyright 2019-2021 SLIIT.io. All rights reserved
                         </a>
                       </li>
                     </ul>
