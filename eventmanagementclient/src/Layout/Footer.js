@@ -18,7 +18,7 @@ function Footer() {
 
         <div className="column">
           <div className="col-sm-4 col-md-3 item">
-            <h3>Quick Links</h3>
+            <h3>Quick Links akash</h3>
             <ul>
               <li>
                 <a href="#">Terms & Conditions</a>
