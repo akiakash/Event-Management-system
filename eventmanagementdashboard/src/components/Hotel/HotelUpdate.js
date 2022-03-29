@@ -17,6 +17,8 @@ function HotelUpdate() {
   const [State, setState] = useState("");
   const [Province, setProvince] = useState("");
   const [Country, setCountry] = useState("");
+  const [Price, setPrice] = useState("");
+  const [Image, setImage] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [postImage, setPostImage] = useState({ myFile: "" });
@@ -43,6 +45,8 @@ function HotelUpdate() {
         setState(response.data.State);
         setProvince(response.data.Province);
         setCountry(response.data.Country);
+        setPrice(response.data.Price);
+        setImage(response.data.Image);
         setHotel(response.data);
         console.log(response.data);
       });
@@ -122,6 +126,7 @@ function HotelUpdate() {
         State: State,
         Province: Province,
         Country: Country,
+        Price: Price,
       })
       .then((response) => {
         setLoading(false);
@@ -680,6 +685,24 @@ function HotelUpdate() {
                         {errors_description && (
                           <span style={{ color: "red" }} className="errors">
                             {errors_description}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Price
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="text"
+                          defaultValue={hotel.Price}
+                          onChange={(e) => setPrice(e.target.value)}
+                          placeholder="Price"
+                        />
+                        {errors_since && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_since}
                           </span>
                         )}
                       </Col>

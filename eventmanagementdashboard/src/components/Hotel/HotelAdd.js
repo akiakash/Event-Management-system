@@ -31,6 +31,8 @@ function HotelAdd() {
   const [State, setState] = useState("");
   const [Province, setProvince] = useState("");
   const [Country, setCountry] = useState("");
+  const [Price, setPrice] = useState("");
+  const [image, setImage] = useState("");
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -94,6 +96,17 @@ function HotelAdd() {
     // ) {
     //   setLoading(false);
     // } else {
+
+    console.log("Name : ", Name);
+    console.log("MobileNumber : ", MobileNumber);
+    console.log("Address : ", Address);
+    console.log("Street : ", Street);
+    console.log("State : ", State);
+    console.log("Province : ", Province);
+    console.log("Country : ", Country);
+    console.log("Price : ", Price);
+    console.log("postImage.myFile : ", postImage.myFile);
+
     axios
       .post("http://localhost:3000/HotelManagement", {
         Name: Name,
@@ -103,6 +116,8 @@ function HotelAdd() {
         State: State,
         Province: Province,
         Country: Country,
+        Price: Price,
+        Image: postImage.myFile,
       })
       .then((response) => {
         setLoading(false);
@@ -136,7 +151,6 @@ function HotelAdd() {
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertToBase64(file);
-    // setPostImage({ ...postImage, myFile: base64 });
     setPostImage({ myFile: base64 });
     console.log(base64);
   };
@@ -561,7 +575,7 @@ function HotelAdd() {
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
-                          type="text"
+                          type="Number"
                           value={MobileNumber}
                           onChange={(e) => setMobileNumber(e.target.value)}
                           placeholder="Mobile Number"
@@ -655,6 +669,43 @@ function HotelAdd() {
                           value={Country}
                           onChange={(e) => setCountry(e.target.value)}
                           placeholder="Country"
+                        />
+                        {errors_description && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_description}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Price
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="Number"
+                          value={Price}
+                          onChange={(e) => setPrice(e.target.value)}
+                          placeholder="Price"
+                        />
+                        {errors_description && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_description}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Image
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="file"
+                          label="Image"
+                          name="myFile"
+                          accept=".jpeg, .png, .jpg"
+                          onChange={(e) => handleFileUpload(e)}
                         />
                         {errors_description && (
                           <span style={{ color: "red" }} className="errors">

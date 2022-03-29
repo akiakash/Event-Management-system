@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import swal from "sweetalert";
 import { useHistory } from "react-router-dom";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
 const use_style = makeStyles((theme) => ({
   root: {
@@ -472,85 +477,105 @@ function HotelView() {
                 </div>
               </div>
               {/* Add Form Here */}
-              <div className={classes.root}>
-                {hostel
-                  .filter((val) => {
-                    if (searchTerm == "") {
-                      return val;
-                    } else if (
-                      val.Name.toLocaleLowerCase().includes(
-                        searchTerm.toLocaleLowerCase()
-                      )
-                    ) {
-                      return val;
-                    }
-                  })
-                  .map((item) => (
-                    <Accordion>
-                      <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                      >
-                        <Typography className={classes.heading}>
-                          {item.Name}
-                        </Typography>
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <table>
-                          <tr>
-                            <th>Hotel Name </th>
-                            <td> - {item.Name}</td>
-                          </tr>
-                          <tr>
-                            <th>Mobile Number </th>
-                            <td> - {item.MobileNumber}</td>
-                          </tr>
-                          <tr>
-                            <th>Address </th>
-                            <td> - {item.Address}</td>
-                          </tr>
-                          <tr>
-                            <th>Street </th>
-                            <td> - {item.Street}</td>
-                          </tr>
-                          <tr>
-                            <th>State </th>
-                            <td> - {item.State}</td>
-                          </tr>
-                          <tr>
-                            <th>Province </th>
-                            <td> - {item.Province}</td>
-                          </tr>
-                          <tr>
-                            <th>Country </th>
-                            <td> - {item.Country} </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <Button
-                                variant="outlined"
-                                onClick={() => editCleaningCompany(item._id)}
-                                color="primary"
-                              >
-                                Edit
-                              </Button>
-                            </td>
-                            <td>
-                              <Button
-                                variant="outlined"
-                                onClick={() => deleteCleaning(item._id)}
-                                color="secondary"
-                              >
-                                Delete
-                              </Button>
-                            </td>
-                          </tr>
-                        </table>
-                      </AccordionDetails>
-                    </Accordion>
-                  ))}
-              </div>
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>{""}</TableCell>
+                      <TableCell style={{ fontWeight: "bold" }}>Name</TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        MobileNumber
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Address
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Street
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        State
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Province
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Country
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Price
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Actions
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  {hostel
+                    .filter((val) => {
+                      if (searchTerm == "") {
+                        return val;
+                      } else if (
+                        val.Name.toLocaleLowerCase().includes(
+                          searchTerm.toLocaleLowerCase()
+                        )
+                      ) {
+                        return val;
+                      }
+                    })
+                    .map((item) => (
+                      <TableBody>
+                        <TableRow
+                          key="Name"
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          <TableCell component="th" scope="row">
+                            <img
+                              src={item.Image}
+                              alt="image"
+                              width={"40px"}
+                              style={{ borderRadius: 100 }}
+                            />
+                          </TableCell>
+                          <TableCell component="th" scope="row">
+                            {item.Name}
+                          </TableCell>
+                          <TableCell align="right">
+                            {item.MobileNumber}
+                          </TableCell>
+                          <TableCell align="right">{item.Address}</TableCell>
+                          <TableCell align="right">{item.Street}</TableCell>
+                          <TableCell align="right">{item.State}</TableCell>
+                          <TableCell align="right">{item.Province}</TableCell>
+                          <TableCell align="right">{item.Country}</TableCell>
+                          <TableCell align="right">{item.Price}</TableCell>
+                          <TableCell align="right">
+                            <div>
+                              <div style={{ display: "inline-block" }}>
+                                <Button
+                                  // variant="outlined"
+                                  onClick={() => editCleaningCompany(item._id)}
+                                  color="primary"
+                                >
+                                  <EditIcon />
+                                </Button>
+                              </div>
+                              <div style={{ display: "inline-block" }}>
+                                <Button
+                                  // variant="outlined"
+                                  onClick={() => deleteCleaning(item._id)}
+                                  color="secondary"
+                                >
+                                  <DeleteIcon />
+                                </Button>
+                              </div>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    ))}
+                </Table>
+              </TableContainer>
             </div>
             <div className="app-wrapper-footer">
               <div className="app-footer">

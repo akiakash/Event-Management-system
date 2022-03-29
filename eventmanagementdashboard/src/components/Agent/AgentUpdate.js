@@ -10,9 +10,12 @@ import swal from "sweetalert";
 import { useHistory } from "react-router-dom";
 
 function AgentUpdate() {
-  const [name, setName] = useState("");
+  const [FirstName, setFirstName] = useState("");
+  const [LastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [ContactNumber, setContactNumber] = useState("");
   const [language, setLanguage] = useState("");
+  const [Description, setDescription] = useState("");
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -33,10 +36,12 @@ function AgentUpdate() {
       .get(`http://localhost:3000/AgentManagement/${id}`)
       .then((response) => {
         //   console.log(response.data);
-        setName(response.data.Name);
+        setFirstName(response.data.FirstName);
+        setLastName(response.data.LastName);
         setEmail(response.data.Email);
+        setContactNumber(response.data.ContactNumber);
         setLanguage(response.data.Language);
-
+        setDescription(response.data.Description);
         setAgent(response.data);
         console.log(response.data);
       });
@@ -109,9 +114,17 @@ function AgentUpdate() {
     //   });
     axios
       .patch(`http://localhost:3000/AgentManagement/${id}`, {
-        Name: name,
+        // Name: name,
+        // Email: email,
+        // Language: language,
+
+        FirstName: FirstName,
+        LastName: LastName,
         Email: email,
+        ContactNumber: ContactNumber,
         Language: language,
+        Description: Description,
+        // ProfileImage: postImage.myFile,
       })
       .then((response) => {
         setLoading(false);
@@ -550,14 +563,32 @@ function AgentUpdate() {
                   <Form>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Agent Name
+                        Agent Firt Name
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          defaultValue={agent.Name}
-                          onChange={(e) => setName(e.target.value)}
-                          placeholder="Agent Name"
+                          defaultValue={agent.FirstName}
+                          onChange={(e) => setFirstName(e.target.value)}
+                          placeholder="Agent First Name"
+                        />
+                        {errors_dname && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_dname}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Agent Last Name
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="text"
+                          defaultValue={agent.LastName}
+                          onChange={(e) => setLastName(e.target.value)}
+                          placeholder="Agent Last Name"
                         />
                         {errors_dname && (
                           <span style={{ color: "red" }} className="errors">
@@ -586,6 +617,24 @@ function AgentUpdate() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
+                        Agent ContactNumber
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="text"
+                          defaultValue={agent.ContactNumber}
+                          onChange={(e) => setContactNumber(e.target.value)}
+                          placeholder="Agent ContactNumber"
+                        />
+                        {errors_location && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_location}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
                         Agent Language
                       </Form.Label>
                       <Col sm={9}>
@@ -593,6 +642,24 @@ function AgentUpdate() {
                           type="text"
                           defaultValue={agent.Language}
                           onChange={(e) => setLanguage(e.target.value)}
+                          placeholder="Number of Employees"
+                        />
+                        {errors_noe && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_noe}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Agent Description
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="text"
+                          defaultValue={agent.Description}
+                          onChange={(e) => setDescription(e.target.value)}
                           placeholder="Number of Employees"
                         />
                         {errors_noe && (
