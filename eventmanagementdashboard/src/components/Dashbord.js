@@ -207,7 +207,10 @@ function Dashbord() {
                 </button>
               </span>
             </div>
-            <div className="scrollbar-sidebar">
+            <div
+              className="scrollbar-sidebar"
+              // style={{ backgroundColor: "#000" }}
+            >
               <div className="app-sidebar__inner">
                 <ul className="vertical-nav-menu">
                   <li className="app-sidebar__heading">Dashboards</li>

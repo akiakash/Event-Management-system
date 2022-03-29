@@ -24,9 +24,13 @@ function AgentAdd() {
     },
   }));
   const classes = useStyles();
-  const [name, setName] = useState("");
+  const [FirstName, setFirstName] = useState("");
+  const [LastName, setLastName] = useState("");
   const [Email, setEmail] = useState("");
+  const [ContactNumber, setContactNumber] = useState("");
   const [Language, setLanguage] = useState("");
+  const [Description, setDescription] = useState("");
+  const [ProfileImage, setProfileImage] = useState("");
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -92,9 +96,13 @@ function AgentAdd() {
     // } else {
     axios
       .post("http://localhost:3000/AgentManagement", {
-        Name: name,
+        FirstName: FirstName,
+        LastName: LastName,
         Email: Email,
+        ContactNumber: ContactNumber,
         Language: Language,
+        Description: Description,
+        ProfileImage: postImage.myFile,
       })
       .then((response) => {
         setLoading(false);
@@ -531,14 +539,32 @@ function AgentAdd() {
                   <Form>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Agent Name
+                        Agent First Name
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          placeholder="Agent Name"
+                          value={FirstName}
+                          onChange={(e) => setFirstName(e.target.value)}
+                          placeholder="Agent First Name"
+                        />
+                        {errors_dname && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_dname}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Agent Last Name
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="text"
+                          value={LastName}
+                          onChange={(e) => setLastName(e.target.value)}
+                          placeholder="Agent Last Name"
                         />
                         {errors_dname && (
                           <span style={{ color: "red" }} className="errors">
@@ -567,6 +593,24 @@ function AgentAdd() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
+                        Agent Contact Number
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="Number"
+                          value={ContactNumber}
+                          onChange={(e) => setContactNumber(e.target.value)}
+                          placeholder="Agent Contact Number"
+                        />
+                        {errors_location && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_location}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
                         Agent Language
                       </Form.Label>
                       <Col sm={9}>
@@ -579,6 +623,43 @@ function AgentAdd() {
                         {errors_noe && (
                           <span style={{ color: "red" }} className="errors">
                             {errors_noe}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Agent Description
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="text"
+                          value={Description}
+                          onChange={(e) => setDescription(e.target.value)}
+                          placeholder="Agent Description"
+                        />
+                        {errors_noe && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_noe}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Agent Profile Image
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="file"
+                          label="Image"
+                          name="myFile"
+                          accept=".jpeg, .png, .jpg"
+                          onChange={(e) => handleFileUpload(e)}
+                        />
+                        {errors_description && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_description}
                           </span>
                         )}
                       </Col>
