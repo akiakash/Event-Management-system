@@ -2,6 +2,7 @@ import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
 
+//All imported Paths
 import Dashbord from "./components/Dashbord";
 import HotelAdd from "./components/Hotel/HotelAdd";
 import HotelView from "./components/Hotel/HotelView";
