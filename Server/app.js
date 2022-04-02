@@ -50,8 +50,9 @@ app.get("/", (req, res) => {
   res.send("We are on Home");
 });
 
-mongoose.connect("Mongo DB Connection", () =>
-  console.log("Successfully Fucked Up")
+mongoose.connect(
+  "mongodb+srv://akash:Akiakash1@cluster0.mrwvz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  () => console.log("Successfully Fucked Up")
 );
 
 app.listen(3000);
