@@ -17,6 +17,8 @@ function FoodUpdate() {
   const [name, setName] = useState("");
   const [Description, setDescription] = useState("");
   const [Quantity, setQuantity] = useState("");
+  const [Price, setPrice] = useState("");
+  const [FoodImage, setFoodImage] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [postImage, setPostImage] = useState({ myFile: "" });
@@ -37,6 +39,8 @@ function FoodUpdate() {
       setName(response.data.CName);
       setDescription(response.data.Description);
       setQuantity(response.data.Quantity);
+      setPrice(response.data.Price);
+      setFoodImage(response.data.FoodImage);
       setFoods(response.data);
       console.log(response.data);
     });
@@ -112,6 +116,8 @@ function FoodUpdate() {
         Name: name,
         Description: Description,
         Quantity: Quantity,
+        Price: Price,
+        FoodImage: postImage.myFile,
       })
       .then((response) => {
         setLoading(false);
@@ -598,6 +604,49 @@ function FoodUpdate() {
                         {errors_noe && (
                           <span style={{ color: "red" }} className="errors">
                             {errors_noe}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Price
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="number"
+                          defaultValue={foods.Price}
+                          onChange={(e) => setPrice(e.target.value)}
+                          placeholder="Price"
+                        />
+                        {errors_noe && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_noe}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Image
+                      </Form.Label>
+                      <Col sm={9}>
+                        <img
+                          src={FoodImage}
+                          alt="image"
+                          width={"70px"}
+                          style={{ borderRadius: 1000 }}
+                        />
+                        <Form.Control
+                          type="file"
+                          label="Image"
+                          name="myFile"
+                          accept=".jpeg, .png, .jpg"
+                          onChange={(e) => handleFileUpload(e)}
+                        />
+                        {errors_description && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_description}
                           </span>
                         )}
                       </Col>

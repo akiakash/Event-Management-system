@@ -34,6 +34,7 @@ function FoodAdd() {
   const [name, setName] = useState("");
   const [Description, setDescription] = useState("");
   const [Quantity, setQuantity] = useState("");
+  const [Price, setPrice] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [postImage, setPostImage] = useState({ myFile: "" });
@@ -101,6 +102,8 @@ function FoodAdd() {
         Name: name,
         Description: Description,
         Quantity: Quantity,
+        Price: Price,
+        FoodImage: postImage.myFile,
       })
       .then((response) => {
         setLoading(false);
@@ -585,6 +588,43 @@ function FoodAdd() {
                         {errors_noe && (
                           <span style={{ color: "red" }} className="errors">
                             {errors_noe}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Price
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="number"
+                          value={Price}
+                          onChange={(e) => setPrice(e.target.value)}
+                          placeholder="Price"
+                        />
+                        {errors_noe && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_noe}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Image
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="file"
+                          label="Image"
+                          name="myFile"
+                          accept=".jpeg, .png, .jpg"
+                          onChange={(e) => handleFileUpload(e)}
+                        />
+                        {errors_description && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_description}
                           </span>
                         )}
                       </Col>

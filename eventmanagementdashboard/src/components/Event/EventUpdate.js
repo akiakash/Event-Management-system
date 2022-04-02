@@ -10,9 +10,14 @@ import swal from "sweetalert";
 import { useHistory } from "react-router-dom";
 
 function EventUpdate() {
-  const [name, setName] = useState("");
-  const [Category, setCategory] = useState("");
+  const [EventName, setEventName] = useState("");
+  const [PerformanceName, setPerformanceName] = useState("");
+  const [StartingTime, setStartingTime] = useState("");
   const [Description, setDescription] = useState("");
+  const [Destination, setDestination] = useState("");
+  const [EventBookingPrice, setEventBookingPrice] = useState("");
+  const [Image, setImage] = useState("");
+  const [CoverImage, setCoverImage] = useState("");
   // const [cnumber, setCnumber] = useState("");
   // const [since, setSince] = useState("");
   // const [image, setImage] = useState("");
@@ -36,9 +41,14 @@ function EventUpdate() {
       .get(`http://localhost:3000/EventManagement/${id}`)
       .then((response) => {
         //   console.log(response.data);
-        setName(response.data.Name);
-        setCategory(response.data.Category);
+        setEventName(response.data.EventName);
+        setPerformanceName(response.data.PerformanceName);
+        setStartingTime(response.data.StartingTime);
         setDescription(response.data.Description);
+        setDestination(response.data.Destination);
+        setEventBookingPrice(response.data.EventBookingPrice);
+        setImage(response.data.Imge);
+        setCoverImage(response.data.ConverPhoto);
         setEvents(response.data);
         console.log(response.data);
       });
@@ -111,9 +121,14 @@ function EventUpdate() {
     //   });
     axios
       .patch(`http://localhost:3000/EventManagement/${id}`, {
-        Category: Category,
-        Name: name,
+        EventName: EventName,
+        PerformanceName: PerformanceName,
+        StartingTime: StartingTime,
         Description: Description,
+        Destination: Destination,
+        EventBookingPrice: EventBookingPrice,
+        Imge: postImage.myFile,
+        ConverPhoto: postCoverImage.myFile,
       })
       .then((response) => {
         setLoading(false);
@@ -152,6 +167,15 @@ function EventUpdate() {
     // setPostImage({ ...postImage, myFile: base64 });
     setPostImage({ myFile: base64 });
     // console.log(base64);
+  };
+
+  const [postCoverImage, setPostCoverImage] = useState({ myFile: "" });
+  const handleFileUpload01 = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertToBase64(file);
+    // setPostImage({ ...postImage, myFile: base64 });
+    setPostCoverImage({ myFile: base64 });
+    console.log(base64);
   };
 
   return (
@@ -552,13 +576,13 @@ function EventUpdate() {
                   <Form>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Category
+                        Event Name
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          defaultValue={events.Category}
-                          onChange={(e) => setCategory(e.target.value)}
+                          defaultValue={events.EventName}
+                          onChange={(e) => setEventName(e.target.value)}
                           placeholder="Category"
                         />
                         {errors_dname && (
@@ -570,18 +594,36 @@ function EventUpdate() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Name
+                        Performancer Name
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          defaultValue={events.Name}
-                          onChange={(e) => setName(e.target.value)}
+                          defaultValue={events.PerformanceName}
+                          onChange={(e) => setPerformanceName(e.target.value)}
                           placeholder="Name"
                         />
                         {errors_location && (
                           <span style={{ color: "red" }} className="errors">
                             {errors_location}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Starting Time
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="text"
+                          defaultValue={events.StartingTime}
+                          onChange={(e) => setStartingTime(e.target.value)}
+                          placeholder="Starting Time"
+                        />
+                        {errors_noe && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_noe}
                           </span>
                         )}
                       </Col>
@@ -600,6 +642,92 @@ function EventUpdate() {
                         {errors_noe && (
                           <span style={{ color: "red" }} className="errors">
                             {errors_noe}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Destination
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="text"
+                          defaultValue={events.Destination}
+                          onChange={(e) => setDestination(e.target.value)}
+                          placeholder="Description"
+                        />
+                        {errors_noe && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_noe}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Event Booking Price
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="text"
+                          defaultValue={events.EventBookingPrice}
+                          onChange={(e) => setEventBookingPrice(e.target.value)}
+                          placeholder="Description"
+                        />
+                        {errors_noe && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_noe}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Image
+                      </Form.Label>
+                      <Col sm={9}>
+                        <img
+                          src={Image}
+                          alt="image"
+                          width={"70px"}
+                          style={{ borderRadius: 1000 }}
+                        />
+                        <Form.Control
+                          type="file"
+                          label="Image"
+                          name="myFile"
+                          accept=".jpeg, .png, .jpg"
+                          onChange={(e) => handleFileUpload(e)}
+                        />
+                        {errors_description && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_description}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        ConverPhoto
+                      </Form.Label>
+                      <Col sm={9}>
+                        <img
+                          src={CoverImage}
+                          alt="image"
+                          width={"70px"}
+                          style={{ borderRadius: 1000 }}
+                        />
+                        <Form.Control
+                          type="file"
+                          label="ConverPhoto"
+                          name="myFile"
+                          accept=".jpeg, .png, .jpg"
+                          onChange={(e) => handleFileUpload01(e)}
+                        />
+                        {errors_description && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_description}
                           </span>
                         )}
                       </Col>
