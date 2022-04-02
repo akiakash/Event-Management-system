@@ -41,6 +41,10 @@ const PostSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  Image: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Vehicle", PostSchema);
