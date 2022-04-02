@@ -3,6 +3,8 @@ import React from "react";
 import Footer from "../../Layout/Footer";
 import NavBar from "../../Layout/NavBar";
 import { Button } from "@mui/material";
+import './package.css'
+import { IoFastFoodSharp } from 'react-icons/io5';
 
 function SinglePackage() {
   return (
@@ -31,15 +33,17 @@ function SinglePackage() {
         </div>
         <div>
           <h2>Add Extra features</h2>
-          <div className="row">
+          <div className="row" >
             <div
               style={{
                 border: "1px solid #000",
                 width: "200px",
-                height: "110px",
+                height: "140px",
                 borderRadius: 10,
                 marginRight: 15,
               }}
+
+              className="crd"
             >
               <center>
                 <h3>Master chef foods</h3>
@@ -50,24 +54,28 @@ function SinglePackage() {
               style={{
                 border: "1px solid #000",
                 width: "200px",
-                height: "110px",
+                height: "140px",
                 borderRadius: 10,
                 marginRight: 15,
               }}
+              className="crd"
             >
-              <center>
-                <h3>Master chef foods</h3>
-                <h4>RS 10000</h4>
+              <center >
+              <IoFastFoodSharp  size={45}/>
+                <h4 > MASTER CHEF FOODS</h4>
+                <h4 >10 $</h4>
+               
               </center>
             </div>
             <div
               style={{
                 border: "1px solid #000",
                 width: "200px",
-                height: "110px",
+                height: "140px",
                 borderRadius: 10,
                 marginRight: 15,
               }}
+              className="crd"
             >
               <center>
                 <h3>Per Extra one day</h3>
@@ -78,10 +86,11 @@ function SinglePackage() {
               style={{
                 border: "1px solid #000",
                 width: "200px",
-                height: "110px",
+                height: "140px",
                 borderRadius: 10,
                 marginRight: 15,
               }}
+              className="crd"
             >
               <center>
                 <h3>Rent Camera</h3>
@@ -92,10 +101,11 @@ function SinglePackage() {
               style={{
                 border: "1px solid #000",
                 width: "200px",
-                height: "110px",
+                height: "140px",
                 borderRadius: 10,
                 marginRight: 15,
               }}
+              className="crd"
             >
               <center>
                 <h3>Per Extra bed </h3>
@@ -105,21 +115,21 @@ function SinglePackage() {
           </div>
         </div>
         <div>
-          <input type="date"></input>
-          <input type="text" placeholder="Location" />
-          <select name="Adult " id="Adult ">
+          <input type="date" className="input"></input>
+          <input type="text" placeholder="Location"  className="input"/>
+          <select name="Adult " id="Adult " className="select">
             <option value="volvo">Volvo</option>
             <option value="saab">Saab</option>
             <option value="opel">Opel</option>
             <option value="audi">Audi</option>
           </select>
-          <select name="Adult " id="Adult ">
+          <select name="Adult " id="Adult " className="select">
             <option value="volvo">Volvo</option>
             <option value="saab">Saab</option>
             <option value="opel">Opel</option>
             <option value="audi">Audi</option>
           </select>
-          <select name="Adult " id="Adult ">
+          <select name="Adult " id="Adult " className="select">
             <option value="volvo">Volvo</option>
             <option value="saab">Saab</option>
             <option value="opel">Opel</option>
@@ -127,7 +137,7 @@ function SinglePackage() {
           </select>
         </div>
         <div>
-          <h2>Total Bill - Rs 30,0000</h2>
+          <h2 style={{paddingTop:"30px",fontSize:"35px"}}>Total Bill - Rs 30,0000</h2>
         </div>
         <center style={{ margin: 20 }}>
           <Button variant="outlined" style={{ marginRight: 10 }}>
