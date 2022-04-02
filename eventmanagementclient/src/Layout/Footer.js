@@ -1,10 +1,12 @@
 import React from "react";
 import "./Footer";
+import {TiSocialFacebook,TiSocialTwitter,TiSocialInstagramCircular} from 'react-icons/ti';
+import background from './footerimg.png';
 
 function Footer() {
   return (
     <div>
-      <div className="row" style={{ backgroundColor: "#bbb" }}>
+      <div className="row" style={{ backgroundImage: `url(${background})` }}>
         <div className="column">
           <div className="col-sm-4 col-md-3 item">
             <img
@@ -59,7 +61,7 @@ function Footer() {
         </div>
       </div>
       <center>
-        <p>Icons</p>
+        <p><TiSocialFacebook size={30}/>  <TiSocialTwitter size={30}/> <TiSocialInstagramCircular size={30}/> </p>
         <p>Copyright @ Travel Aspire Alrights Reservered</p>
       </center>
     </div>
