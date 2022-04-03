@@ -23,6 +23,7 @@ router.post("/", async (req, res) => {
     MobileNumber: req.body.MobileNumber,
     Qualifications: req.body.Qualifications,
     Language: req.body.Language,
+    ProfileImage: req.body.ProfileImage,
   });
 
   try {
@@ -71,6 +72,7 @@ router.patch("/:managersId", async (req, res) => {
           MobileNumber: req.body.MobileNumber,
           Qualifications: req.body.Qualifications,
           Language: req.body.Language,
+          ProfileImage: req.body.ProfileImage,
         },
       }
     );

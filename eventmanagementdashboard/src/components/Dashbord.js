@@ -401,6 +401,66 @@ function Dashbord() {
                       </li>
                     </ul>
                   </li>
+                  <li>
+                    <a href="#">
+                      <i className="metismenu-icon pe-7s-diamond" />
+                      FLIGHT
+                      <i className="metismenu-state-icon pe-7s-angle-down caret-left" />
+                    </a>
+                    <ul>
+                      <li>
+                        <a href="/FlightAdd">
+                          <i className="metismenu-icon" />
+                          FLIGHT | ADD
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightView">
+                          <i className="metismenu-icon"></i> FLIGHT | VIEW
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightUpdate">
+                          <i className="metismenu-icon"></i> FLIGHT | UPDATE
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightReport">
+                          <i className="metismenu-icon"></i> FLIGHT | REPORT
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i className="metismenu-icon pe-7s-diamond" />
+                      MANAGER
+                      <i className="metismenu-state-icon pe-7s-angle-down caret-left" />
+                    </a>
+                    <ul>
+                      <li>
+                        <a href="/ManagerAdd">
+                          <i className="metismenu-icon" />
+                          MANAGER | ADD
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ManagerView">
+                          <i className="metismenu-icon"></i> MANAGER | VIEW
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ManagerUpdate">
+                          <i className="metismenu-icon"></i> MANAGER | UPDATE
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ManagerReport">
+                          <i className="metismenu-icon"></i> MANAGER | REPORT
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
                 </ul>
               </div>
             </div>

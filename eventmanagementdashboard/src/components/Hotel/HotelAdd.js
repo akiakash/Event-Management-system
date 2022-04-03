@@ -97,15 +97,15 @@ function HotelAdd() {
     //   setLoading(false);
     // } else {
 
-    console.log("Name : ", Name);
-    console.log("MobileNumber : ", MobileNumber);
-    console.log("Address : ", Address);
-    console.log("Street : ", Street);
-    console.log("State : ", State);
-    console.log("Province : ", Province);
-    console.log("Country : ", Country);
-    console.log("Price : ", Price);
-    console.log("postImage.myFile : ", postImage.myFile);
+    // console.log("Name : ", Name);
+    // console.log("MobileNumber : ", MobileNumber);
+    // console.log("Address : ", Address);
+    // console.log("Street : ", Street);
+    // console.log("State : ", State);
+    // console.log("Province : ", Province);
+    // console.log("Country : ", Country);
+    // console.log("Price : ", Price);
+    // console.log("postImage.myFile : ", postImage.myFile);
 
     axios
       .post("http://localhost:3000/HotelManagement", {
@@ -520,6 +520,66 @@ function HotelAdd() {
                       <li>
                         <a href="/AgentReport">
                           <i className="metismenu-icon"></i> AGENT | REPORT
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i className="metismenu-icon pe-7s-diamond" />
+                      FLIGHT
+                      <i className="metismenu-state-icon pe-7s-angle-down caret-left" />
+                    </a>
+                    <ul>
+                      <li>
+                        <a href="/FlightAdd">
+                          <i className="metismenu-icon" />
+                          FLIGHT | ADD
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightView">
+                          <i className="metismenu-icon"></i> FLIGHT | VIEW
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightUpdate">
+                          <i className="metismenu-icon"></i> FLIGHT | UPDATE
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightReport">
+                          <i className="metismenu-icon"></i> FLIGHT | REPORT
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i className="metismenu-icon pe-7s-diamond" />
+                      MANAGER
+                      <i className="metismenu-state-icon pe-7s-angle-down caret-left" />
+                    </a>
+                    <ul>
+                      <li>
+                        <a href="/ManagerAdd">
+                          <i className="metismenu-icon" />
+                          MANAGER | ADD
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ManagerView">
+                          <i className="metismenu-icon"></i> MANAGER | VIEW
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ManagerUpdate">
+                          <i className="metismenu-icon"></i> MANAGER | UPDATE
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ManagerReport">
+                          <i className="metismenu-icon"></i> MANAGER | REPORT
                         </a>
                       </li>
                     </ul>

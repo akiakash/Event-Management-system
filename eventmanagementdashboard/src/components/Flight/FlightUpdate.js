@@ -10,13 +10,15 @@ import swal from "sweetalert";
 import { useHistory } from "react-router-dom";
 
 function HotelUpdate() {
-  const [name, setName] = useState("");
-  const [location, setLocation] = useState("");
-  const [noe, setNoe] = useState("");
-  const [cnumber, setCnumber] = useState("");
-  const [since, setSince] = useState("");
-  const [image, setImage] = useState("");
-  const [description, setDescription] = useState("");
+  const [AirlineName, setAirlineName] = useState("");
+  const [FromLocation, setFromLocation] = useState("");
+  const [ToLocation, setToLocation] = useState("");
+  const [DepartureTime, setDepartureTime] = useState("");
+  const [ArrivalTime, setArrivalTime] = useState("");
+  const [TotalSeats, setTotalSeats] = useState("");
+  const [SeatsPrice, setSeatsPrice] = useState("");
+  const [Duration, setDuration] = useState("");
+  const [Flight, setFlight] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [postImage, setPostImage] = useState({ myFile: "" });
@@ -29,21 +31,24 @@ function HotelUpdate() {
   let [errors_description, seterrors_description] = useState("");
   let [errors_cnumber, seterrors_cnumber] = useState("");
 
-  const id = window.sessionStorage.getItem("CleaningID");
+  const id = window.sessionStorage.getItem("FlightID");
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/cleaning/${id}`).then((response) => {
-      //   console.log(response.data);
-      setName(response.data.CName);
-      setLocation(response.data.Location);
-      setNoe(response.data.NOE);
-      setCnumber(response.data.CNumber);
-      setSince(response.data.Since);
-      setDescription(response.data.Description);
-      setPostImage(response.data.Image);
-      setCleaning(response.data);
-      console.log(response.data);
-    });
+    axios
+      .get(`http://localhost:3000/FlightManagement/${id}`)
+      .then((response) => {
+        //   console.log(response.data);
+        setAirlineName(response.data.AirlineName);
+        setFromLocation(response.data.FromLocation);
+        setToLocation(response.data.ToLocation);
+        setDepartureTime(response.data.DepartureTime);
+        setArrivalTime(response.data.ArrivalTime);
+        setDuration(response.data.Duration);
+        setTotalSeats(response.data.TotalSeats);
+        setSeatsPrice(response.data.SeatsPrice);
+        setFlight(response.data);
+        console.log(response.data);
+      });
   }, []);
 
   const useStyles = makeStyles((theme) => ({
@@ -62,81 +67,82 @@ function HotelUpdate() {
   const history = useHistory();
 
   function UpdateCleaningCompany() {
-    setError(null);
-    setLoading(true);
+    // setError(null);
+    // setLoading(true);
 
-    let errors = {};
+    // let errors = {};
 
-    //Form Validation
-    if (!name.trim()) {
-      errors.name = "Company Name field required";
-      seterrors_dname(errors.name);
-    }
-    if (!location.trim()) {
-      errors.location = "Location field required";
-      seterrors_location(errors.location);
-    }
-    if (!noe.trim()) {
-      errors.noe = "Number of Employee field required";
-      seterrors_noe(errors.noe);
-    }
-    if (!since.trim()) {
-      errors.since = "Since field required";
-      seterrors_since(errors.since);
-    }
-    if (!description.trim()) {
-      errors.description = "Description field required";
-      seterrors_description(errors.description);
-    }
-    if (!cnumber.trim()) {
-      errors.cnumber = "Contact Number field required";
-      seterrors_cnumber(errors.cnumber);
-    }
+    // //Form Validation
+    // if (!name.trim()) {
+    //   errors.name = "Company Name field required";
+    //   seterrors_dname(errors.name);
+    // }
+    // if (!location.trim()) {
+    //   errors.location = "Location field required";
+    //   seterrors_location(errors.location);
+    // }
+    // if (!noe.trim()) {
+    //   errors.noe = "Number of Employee field required";
+    //   seterrors_noe(errors.noe);
+    // }
+    // if (!since.trim()) {
+    //   errors.since = "Since field required";
+    //   seterrors_since(errors.since);
+    // }
+    // if (!description.trim()) {
+    //   errors.description = "Description field required";
+    //   seterrors_description(errors.description);
+    // }
+    // if (!cnumber.trim()) {
+    //   errors.cnumber = "Contact Number field required";
+    //   seterrors_cnumber(errors.cnumber);
+    // }
 
-    if (
-      name === "" ||
-      location === "" ||
-      noe === "" ||
-      since === "" ||
-      description === ""
-    ) {
-      setLoading(false);
-    } else {
-      console.log({
-        CName: name,
-        Location: location,
-        NOE: noe,
-        CNumber: cnumber,
-        Since: since,
-        Image: postImage.myFile,
-        Description: description,
+    // if (
+    //   name === "" ||
+    //   location === "" ||
+    //   noe === "" ||
+    //   since === "" ||
+    //   description === ""
+    // ) {
+    //   setLoading(false);
+    // } else {
+    //   console.log({
+    //     CName: name,
+    //     Location: location,
+    //     NOE: noe,
+    //     CNumber: cnumber,
+    //     Since: since,
+    //     Image: postImage.myFile,
+    //     Description: description,
+    //   });
+    axios
+      .patch(`http://localhost:3000/FlightManagement/${id}`, {
+        AirlineName: AirlineName,
+        FromLocation: FromLocation,
+        ToLocation: ToLocation,
+        DepartureTime: DepartureTime,
+        ArrivalTime: ArrivalTime,
+        Duration: Duration,
+        TotalSeats: TotalSeats,
+        SeatsPrice: SeatsPrice,
+      })
+      .then((response) => {
+        setLoading(false);
+        swal(
+          "Good job!",
+          "Your data has been successfully Updated..!",
+          "success"
+        );
+        // window.location.reload();
+        history.push("/cleaning_update");
+      })
+      .catch((error) => {
+        setLoading(false);
+        alert("Sorry, Something Error...");
+        swal("Sorry!", "Something Error..!", "warning");
       });
-      axios
-        .patch(`http://localhost:5000/cleaning/${id}`, {
-          CName: name,
-          Location: location,
-          NOE: noe,
-          CNumber: cnumber,
-          Since: since,
-          Image: postImage.myFile,
-          Description: description,
-        })
-        .then((response) => {
-          setLoading(false);
-          swal(
-            "Good job!",
-            "Your data has been successfully Updated..!",
-            "success"
-          );
-          // window.location.reload();
-          history.push("/cleaning_update");
-        })
-        .catch((error) => {
-          setLoading(false);
-          alert("Sorry, Something Error...");
-          swal("Sorry!", "Something Error..!", "warning");
-        });
-    }
+    // }
   }
 
   const convertToBase64 = (file) => {
@@ -529,6 +535,66 @@ function HotelUpdate() {
                       </li>
                     </ul>
                   </li>
+                  <li>
+                    <a href="#">
+                      <i className="metismenu-icon pe-7s-diamond" />
+                      FLIGHT
+                      <i className="metismenu-state-icon pe-7s-angle-down caret-left" />
+                    </a>
+                    <ul>
+                      <li>
+                        <a href="/FlightAdd">
+                          <i className="metismenu-icon" />
+                          FLIGHT | ADD
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightView">
+                          <i className="metismenu-icon"></i> FLIGHT | VIEW
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightUpdate">
+                          <i className="metismenu-icon"></i> FLIGHT | UPDATE
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightReport">
+                          <i className="metismenu-icon"></i> FLIGHT | REPORT
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i className="metismenu-icon pe-7s-diamond" />
+                      MANAGER
+                      <i className="metismenu-state-icon pe-7s-angle-down caret-left" />
+                    </a>
+                    <ul>
+                      <li>
+                        <a href="/ManagerAdd">
+                          <i className="metismenu-icon" />
+                          MANAGER | ADD
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ManagerView">
+                          <i className="metismenu-icon"></i> MANAGER | VIEW
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ManagerUpdate">
+                          <i className="metismenu-icon"></i> MANAGER | UPDATE
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ManagerReport">
+                          <i className="metismenu-icon"></i> MANAGER | REPORT
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -558,14 +624,14 @@ function HotelUpdate() {
                   <Form>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Company Name
+                        Airline Name
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          defaultValue={cleaning.CName}
-                          onChange={(e) => setName(e.target.value)}
-                          placeholder="Company Name"
+                          defaultValue={Flight.AirlineName}
+                          onChange={(e) => setAirlineName(e.target.value)}
+                          placeholder="Airline Name"
                         />
                         {errors_dname && (
                           <span style={{ color: "red" }} className="errors">
@@ -576,14 +642,14 @@ function HotelUpdate() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Location
+                        FromLocation
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          defaultValue={cleaning.Location}
-                          onChange={(e) => setLocation(e.target.value)}
-                          placeholder="Location"
+                          defaultValue={Flight.FromLocation}
+                          onChange={(e) => setFromLocation(e.target.value)}
+                          placeholder="FromLocation"
                         />
                         {errors_location && (
                           <span style={{ color: "red" }} className="errors">
@@ -594,14 +660,14 @@ function HotelUpdate() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Number of Employees
+                        ToLocation
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
-                          type="number"
-                          defaultValue={cleaning.NOE}
-                          onChange={(e) => setNoe(e.target.value)}
-                          placeholder="Number of Employees"
+                          type="text"
+                          defaultValue={Flight.ToLocation}
+                          onChange={(e) => setToLocation(e.target.value)}
+                          placeholder="ToLocation"
                         />
                         {errors_noe && (
                           <span style={{ color: "red" }} className="errors">
@@ -612,14 +678,14 @@ function HotelUpdate() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Contact Number
+                        DepartureTime
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
-                          type="number"
-                          defaultValue={cleaning.CNumber}
-                          onChange={(e) => setCnumber(e.target.value)}
-                          placeholder="Contact Number"
+                          type="time"
+                          defaultValue={Flight.DepartureTime}
+                          onChange={(e) => setDepartureTime(e.target.value)}
+                          placeholder="DepartureTime"
                         />
                         {errors_cnumber && (
                           <span style={{ color: "red" }} className="errors">
@@ -630,14 +696,14 @@ function HotelUpdate() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Since Year
+                        ArrivalTime
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
-                          type="number"
-                          defaultValue={cleaning.Since}
-                          onChange={(e) => setSince(e.target.value)}
-                          placeholder="Since Year"
+                          type="time"
+                          defaultValue={Flight.ArrivalTime}
+                          onChange={(e) => setArrivalTime(e.target.value)}
+                          placeholder="ArrivalTime"
                         />
                         {errors_since && (
                           <span style={{ color: "red" }} className="errors">
@@ -648,14 +714,14 @@ function HotelUpdate() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Description
+                        Duration
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          defaultValue={cleaning.Description}
-                          onChange={(e) => setDescription(e.target.value)}
-                          placeholder="Description"
+                          defaultValue={Flight.Duration}
+                          onChange={(e) => setDuration(e.target.value)}
+                          placeholder="Duration"
                         />
                         {errors_description && (
                           <span style={{ color: "red" }} className="errors">
@@ -666,16 +732,38 @@ function HotelUpdate() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Image
+                        TotalSeats
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
-                          type="file"
-                          label="Image"
-                          name="myFile"
-                          accept=".jpeg, .png, .jpg"
-                          onChange={(e) => handleFileUpload(e)}
+                          type="number"
+                          defaultValue={Flight.TotalSeats}
+                          onChange={(e) => setTotalSeats(e.target.value)}
+                          placeholder="TotalSeats"
                         />
+                        {errors_description && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_description}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        SeatsPrice
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="number"
+                          defaultValue={Flight.SeatsPrice}
+                          onChange={(e) => setSeatsPrice(e.target.value)}
+                          placeholder="SeatsPrice"
+                        />
+                        {errors_description && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_description}
+                          </span>
+                        )}
                       </Col>
                     </Form.Group>
                     <center>

@@ -10,6 +10,16 @@ import axios from "axios";
 import swal from "sweetalert";
 import { useHistory } from "react-router-dom";
 
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 const use_style = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -447,6 +457,66 @@ function PackageView() {
                       </li>
                     </ul>
                   </li>
+                  <li>
+                    <a href="#">
+                      <i className="metismenu-icon pe-7s-diamond" />
+                      FLIGHT
+                      <i className="metismenu-state-icon pe-7s-angle-down caret-left" />
+                    </a>
+                    <ul>
+                      <li>
+                        <a href="/FlightAdd">
+                          <i className="metismenu-icon" />
+                          FLIGHT | ADD
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightView">
+                          <i className="metismenu-icon"></i> FLIGHT | VIEW
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightUpdate">
+                          <i className="metismenu-icon"></i> FLIGHT | UPDATE
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightReport">
+                          <i className="metismenu-icon"></i> FLIGHT | REPORT
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i className="metismenu-icon pe-7s-diamond" />
+                      MANAGER
+                      <i className="metismenu-state-icon pe-7s-angle-down caret-left" />
+                    </a>
+                    <ul>
+                      <li>
+                        <a href="/ManagerAdd">
+                          <i className="metismenu-icon" />
+                          MANAGER | ADD
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ManagerView">
+                          <i className="metismenu-icon"></i> MANAGER | VIEW
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ManagerUpdate">
+                          <i className="metismenu-icon"></i> MANAGER | UPDATE
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ManagerReport">
+                          <i className="metismenu-icon"></i> MANAGER | REPORT
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -471,7 +541,121 @@ function PackageView() {
                 </div>
               </div>
               {/* Add Form Here */}
-              <div className={classes.root}>
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>{""}</TableCell>
+                      <TableCell style={{ fontWeight: "bold" }}>Name</TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Price
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Includes
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Description
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        M.C.F.P
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        H.L.V.P
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        P.E.O.D.P
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        R.C.P
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        P.E.B.P
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Actions
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  {packages
+                    .filter((val) => {
+                      if (searchTerm == "") {
+                        return val;
+                      } else if (
+                        val.name
+                          .toLocaleLowerCase()
+                          .includes(searchTerm.toLocaleLowerCase())
+                      ) {
+                        return val;
+                      }
+                    })
+                    .map((item) => (
+                      <TableBody>
+                        <TableRow
+                          key="Name"
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          <TableCell component="th" scope="row">
+                            <img
+                              src={item.Image}
+                              alt="image"
+                              width={"40px"}
+                              style={{ borderRadius: 100 }}
+                            />
+                          </TableCell>
+                          <TableCell component="th" scope="row">
+                            {item.name}
+                          </TableCell>
+                          <TableCell align="right">{item.price}</TableCell>
+                          <TableCell align="right">{item.includes}</TableCell>
+                          <TableCell align="right">
+                            {item.description}
+                          </TableCell>
+                          <TableCell align="right">
+                            {item.MasterChefFoodsPrice}
+                          </TableCell>
+                          <TableCell align="right">
+                            {item.HighLuxaryVechilePrice}
+                          </TableCell>
+                          <TableCell align="right">
+                            {item.PerExtraOneDayPrice}
+                          </TableCell>
+                          <TableCell align="right">
+                            {item.RentCameraPrice}
+                          </TableCell>
+                          <TableCell align="right">
+                            {item.PerExtraBedPrice}
+                          </TableCell>
+                          <TableCell align="right">
+                            <div>
+                              <div style={{ display: "inline-block" }}>
+                                <Button
+                                  // variant="outlined"
+                                  onClick={() => editCleaningCompany(item._id)}
+                                  color="primary"
+                                >
+                                  <EditIcon />
+                                </Button>
+                              </div>
+                              <div style={{ display: "inline-block" }}>
+                                <Button
+                                  // variant="outlined"
+                                  onClick={() => deleteCleaning(item._id)}
+                                  color="secondary"
+                                >
+                                  <DeleteIcon />
+                                </Button>
+                              </div>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    ))}
+                </Table>
+              </TableContainer>
+
+              {/* <div className={classes.root}>
                 {packages
                   .filter((val) => {
                     if (searchTerm == "") {
@@ -537,7 +721,7 @@ function PackageView() {
                       </AccordionDetails>
                     </Accordion>
                   ))}
-              </div>
+              </div> */}
             </div>
             <div className="app-wrapper-footer">
               <div className="app-footer">

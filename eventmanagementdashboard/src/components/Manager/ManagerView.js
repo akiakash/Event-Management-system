@@ -1,208 +1,97 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import Form from "react-bootstrap/Form";
-import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
-import Radio from "@material-ui/core/Radio";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Col from "react-bootstrap/esm/Col";
-import Row from "react-bootstrap/esm/Row";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Button from "@material-ui/core/Button";
+import axios from "axios";
 import swal from "sweetalert";
+import { useHistory } from "react-router-dom";
 
-function VehicleAdd() {
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-      margin: 50,
-    },
-    paper: {
-      padding: theme.spacing(5),
-      margin: "auto",
-      maxWidth: 1000,
-    },
-  }));
-  const classes = useStyles();
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-  //   "category":"Theeban",
-  //   "Model":"akash",
-  //   "CarNumber":"aki",
-  //   "colour": "aksh",
-  //   "Driver":"aki",
-  //   "Seat":"akash",
-  //   "ChildSeat":"aki",
-  //   "Gps":"aki",
-  //   "Price":1995000,
-  //   "Description":"aki"
+const use_style = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
+  },
+}));
 
-  const [category, setCategory] = useState("");
-  const [model, setModel] = useState("");
-  const [carNumber, setCarNumber] = useState("");
-  const [colour, setColour] = useState("");
-  const [driver, setDriver] = useState("");
-  const [seat, setSeat] = useState("");
-  const [childSeat, setChildSeat] = useState("");
-  const [gps, setGps] = useState("");
-  const [price, setPrice] = useState("");
-  const [description, setDescription] = useState("");
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [postImage, setPostImage] = useState({ myFile: "" });
+function ManagerView() {
+  const classes = use_style();
 
-  let [errors_dname, seterrors_dname] = useState("");
-  let [errors_location, seterrors_location] = useState("");
-  let [errors_noe, seterrors_noe] = useState("");
-  let [errors_since, seterrors_since] = useState("");
-  let [errors_description, seterrors_description] = useState("");
-  let [errors_cnumber, seterrors_cnumber] = useState("");
+  const [foods, setFoods] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  function CreateCleaningCompany() {
-    console.log("category : ", category);
-    console.log("model : ", model);
-    console.log("carNumber : ", carNumber);
-    console.log("colour : ", colour);
-    console.log("driver : ", driver);
-    console.log("seat : ", seat);
-    console.log("childSeat : ", childSeat);
-    console.log("gps : ", gps);
-    console.log("price : ", typeof parseInt(price));
-    console.log("description : ", description);
-
-    axios
-      .post("http://localhost:3000/VehicleManagement", {
-        category: category,
-        Model: model,
-        CarNumber: carNumber,
-        colour: colour,
-        Driver: driver,
-        Seat: seat,
-        ChildSeat: childSeat,
-        Gps: gps,
-        Price: parseInt(price),
-        Description: description,
-        Image: postImage.myFile,
-      })
-      .then((response) => {
-        //   setLoading(false);
-        console.log(response);
-        swal(
-          "Good job!",
-          "Your data has been successfully added..!",
-          "success"
-        );
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.log(error);
-        setLoading(false);
-        swal("Sorry!", "Something Error!", "error");
-      });
-
-    // setError(null);
-    // setLoading(true);
-
-    // let errors = {};
-
-    // //Form Validation
-    // if (!name.trim()) {
-    //   errors.name = "Company Name field required";
-    //   seterrors_dname(errors.name);
-    // }
-    // if (!location.trim()) {
-    //   errors.location = "Location field required";
-    //   seterrors_location(errors.location);
-    // }
-    // if (!noe.trim()) {
-    //   errors.noe = "Number of Employee field required";
-    //   seterrors_noe(errors.noe);
-    // }
-    // if (!since.trim()) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (since.length < 4) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (!description.trim()) {
-    //   errors.description = "Description field required";
-    //   seterrors_description(errors.description);
-    // }
-    // if (!cnumber.trim()) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
-    // if (cnumber.length < 10) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
-
-    // if (
-    //   name === "" ||
-    //   location === "" ||
-    //   noe === "" ||
-    //   since === "" ||
-    //   description === "" ||
-    //   errors_cnumber === "" ||
-    //   errors_since === ""
-    // ) {
-    //   setLoading(false);
-    // } else {
-    //   axios
-    //     .post("http://localhost:5000/cleaning", {
-    //       CName: name,
-    //       Location: location,
-    //       NOE: noe,
-    //       CNumber: cnumber,
-    //       Since: since,
-    //       Image: postImage.myFile,
-    //       Description: description,
-    //     })
-    //     .then((response) => {
-    //       setLoading(false);
-    //       swal(
-    //         "Good job!",
-    //         "Your data has been successfully added..!",
-    //         "success"
-    //       );
-    //       window.location.reload();
-    //     })
-    //     .catch((error) => {
-    //       setLoading(false);
-    //       swal("Sorry!", "Something Error!", "error");
-    //     });
-    // }
-  }
-
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
+  const getRequest = () => {
+    axios.get("http://localhost:3000/ManagerManagement").then((response) => {
+      setFoods(response.data);
     });
   };
 
-  const handleFileUpload = async (e) => {
-    const file = e.target.files[0];
-    const base64 = await convertToBase64(file);
-    // setPostImage({ ...postImage, myFile: base64 });
-    setPostImage({ myFile: base64 });
-    console.log(base64);
-  };
+  useEffect(() => {
+    getRequest();
+  }, [foods]);
+
+  function deleteCleaning(_id) {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this data!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal("Poof! Your data has been successfully Deleted!", {
+          icon: "success",
+        });
+        fetch(`http://localhost:3000/ManagerManagement/${_id}`, {
+          method: "DELETE",
+        })
+          .then((response) => {
+            response.json();
+            swal(
+              "Good job!",
+              "Your data has been successfully Deleted",
+              "success"
+            );
+          })
+          .catch((error) => {
+            swal("Sorry!", "Something Error...", "error");
+          });
+      }
+    });
+  }
+
+  const history = useHistory();
+  function editCleaningCompany(_id) {
+    console.log("Cleaning Company" + _id);
+    window.sessionStorage.setItem("ManagerID", _id); //CleaningID
+    history.push("/ManagerUpdate");
+  }
 
   return (
     <div>
       <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <div className="app-header header-shadow">
           <div className="app-header__logo">
+            {/* <div className="logo-src" /> */}
             {/* <img src={logo} style={{ width: 110 }} /> */}
             <div>LOGO</div>
+            {/* <div style={{ fontFamily: "lyncer", fontSize: "10" }}>SLIIT</div> */}
             <div className="header__pane ml-auto">
               <div>
                 <button
@@ -249,6 +138,9 @@ function VehicleAdd() {
                     type="text"
                     className="search-input"
                     placeholder="Type to search"
+                    onChange={(e) => {
+                      setSearchTerm(e.target.value);
+                    }}
                   />
                   <button className="search-icon">
                     <span />
@@ -638,7 +530,7 @@ function VehicleAdd() {
                       <i className="pe-7s-car icon-gradient bg-mean-fruit"></i>
                     </div>
                     <div>
-                      Add Cleaning Company Details
+                      Update Cleaning Company Details.
                       <div className="page-title-subheading">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                         Duis risus massa, tempor a imperdiet vel, faucibus sit
@@ -649,226 +541,114 @@ function VehicleAdd() {
                 </div>
               </div>
               {/* Add Form Here */}
-              <div className={classes.root}>
-                <Paper className={classes.paper}>
-                  <Form>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        Category
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={category}
-                          onChange={(e) => setCategory(e.target.value)}
-                          placeholder="Category"
-                        />
-                        {/* {errors_dname && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_dname}
-                          </span>
-                        )} */}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        Module
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={model}
-                          onChange={(e) => setModel(e.target.value)}
-                          placeholder="Module"
-                        />
-                        {/* {errors_location && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_location}
-                          </span>
-                        )} */}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        Car Number
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={carNumber}
-                          onChange={(e) => setCarNumber(e.target.value)}
-                          placeholder="Car Number"
-                        />
-                        {/* {errors_noe && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
-                          </span>
-                        )} */}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        Colour
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={colour}
-                          onChange={(e) => setColour(e.target.value)}
-                          placeholder="Colour"
-                        />
-                        {/* {errors_cnumber && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_cnumber}
-                          </span>
-                        )} */}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        Driver
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={driver}
-                          onChange={(e) => setDriver(e.target.value)}
-                          placeholder="Driver"
-                        />
-                        {/* {errors_since && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_since}
-                          </span>
-                        )} */}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        No of Seat
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="number"
-                          value={seat}
-                          onChange={(e) => setSeat(e.target.value)}
-                          placeholder="No of Seat"
-                        />
-                        {/* {errors_description && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_description}
-                          </span>
-                        )} */}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        Child Seat
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={childSeat}
-                          onChange={(e) => setChildSeat(e.target.value)}
-                          placeholder="Child Seat"
-                        />
-                        {/* {errors_description && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_description}
-                          </span>
-                        )} */}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        GPS
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={gps}
-                          onChange={(e) => setGps(e.target.value)}
-                          placeholder="GPS"
-                        />
-                        {/* {errors_description && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_description}
-                          </span>
-                        )} */}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        Price
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={price}
-                          onChange={(e) => setPrice(e.target.value)}
-                          placeholder="Price"
-                        />
-                        {/* {errors_description && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_description}
-                          </span>
-                        )} */}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        Description
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={description}
-                          onChange={(e) => setDescription(e.target.value)}
-                          placeholder="Description"
-                        />
-                        {errors_description && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_description}
-                          </span>
-                        )}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        Image
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="file"
-                          label="Image"
-                          name="myFile"
-                          accept=".jpeg, .png, .jpg"
-                          onChange={(e) => handleFileUpload(e)}
-                        />
-                        {errors_description && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_description}
-                          </span>
-                        )}
-                      </Col>
-                    </Form.Group>
-                    <center>
-                      <div className="button">
-                        <input
-                          type="button"
-                          onClick={CreateCleaningCompany}
-                          value={loading ? "Loading... Please Wait!" : "SUBMIT"}
-                          className="btn btn-block app-sidebar__heading Login-Button"
-                        />
-                      </div>
-                    </center>
-                  </Form>
-                </Paper>
-              </div>
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>{""}</TableCell>
+                      <TableCell style={{ fontWeight: "bold" }}>
+                        FirstName
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        LastName
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Email
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        MobileNumber
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Qualifications
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Language
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Actions
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  {foods
+                    .filter((val) => {
+                      if (searchTerm == "") {
+                        return val;
+                      } else if (
+                        val.FirstName.toLocaleLowerCase().includes(
+                          searchTerm.toLocaleLowerCase()
+                        )
+                      ) {
+                        return val;
+                      }
+                    })
+                    .map((item) => (
+                      <TableBody>
+                        <TableRow
+                          key="Name"
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          <TableCell component="th" scope="row">
+                            <img
+                              src={item.ProfileImage}
+                              alt="image"
+                              width={"40px"}
+                              style={{ borderRadius: 1000 }}
+                            />
+                          </TableCell>
+                          <TableCell component="th" scope="row">
+                            {item.FirstName}
+                          </TableCell>
+                          <TableCell align="right">{item.LastName}</TableCell>
+                          <TableCell align="right">{item.Email}</TableCell>
+                          <TableCell align="right">
+                            {item.MobileNumber}
+                          </TableCell>
+                          <TableCell align="right">
+                            {item.Qualifications}
+                          </TableCell>
+                          <TableCell align="right">{item.Language}</TableCell>
+                          <TableCell align="right">
+                            <div>
+                              <div style={{ display: "inline-block" }}>
+                                <Button
+                                  // variant="outlined"
+                                  onClick={() => editCleaningCompany(item._id)}
+                                  color="primary"
+                                >
+                                  <EditIcon />
+                                </Button>
+                              </div>
+                              <div style={{ display: "inline-block" }}>
+                                <Button
+                                  // variant="outlined"
+                                  onClick={() => deleteCleaning(item._id)}
+                                  color="secondary"
+                                >
+                                  <DeleteIcon />
+                                </Button>
+                              </div>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    ))}
+                </Table>
+              </TableContainer>
             </div>
             <div className="app-wrapper-footer">
               <div className="app-footer">
                 <div className="app-footer__inner">
-                  <div className="app-footer-left"></div>
+                  <div className="app-footer-left">
+                    {/* <ul className="nav">
+                      <li className="nav-item">
+                        <a href="javascript:void(0);" className="nav-link">
+                          Copyright 2019-2021 SLIIT.io. All rights reserved
+                        </a>
+                      </li>
+                    </ul> */}
+                  </div>
                   <div className="app-footer-right">
                     <ul className="nav">
                       <li className="nav-item">
@@ -887,4 +667,5 @@ function VehicleAdd() {
     </div>
   );
 }
-export default VehicleAdd;
+
+export default ManagerView;

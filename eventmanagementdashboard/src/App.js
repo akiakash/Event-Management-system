@@ -31,6 +31,10 @@ import FlightAdd from "./components/Flight/FlightAdd";
 import FlightReport from "./components/Flight/FlightReport";
 import FlightUpdate from "./components/Flight/FlightUpdate";
 import FlightView from "./components/Flight/FlightView";
+import ManagerAdd from "./components/Manager/ManagerAdd";
+import ManagerView from "./components/Manager/ManagerView";
+import ManagerUpdate from "./components/Manager/ManagerUpdate";
+import ManagerReport from "./components/Manager/ManagerReport";
 
 // All routing routes ddefined here
 const Routing = () => {
@@ -65,6 +69,10 @@ const Routing = () => {
       <Route exact path="/FlightReport" component={FlightReport} />
       <Route exact path="/FlightUpdate" component={FlightUpdate} />
       <Route exact path="/FlightView" component={FlightView} />
+      <Route exact path="/ManagerAdd" component={ManagerAdd} />
+      <Route exact path="/ManagerReport" component={ManagerReport} />
+      <Route exact path="/ManagerUpdate" component={ManagerUpdate} />
+      <Route exact path="/ManagerView" component={ManagerView} />
     </Switch>
   );
 };

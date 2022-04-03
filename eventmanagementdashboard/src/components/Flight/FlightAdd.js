@@ -24,13 +24,14 @@ function FlightAdd() {
     },
   }));
   const classes = useStyles();
-  const [name, setName] = useState("");
-  const [location, setLocation] = useState("");
-  const [noe, setNoe] = useState("");
-  const [cnumber, setCnumber] = useState("");
-  const [since, setSince] = useState("");
-  const [image, setImage] = useState("");
-  const [description, setDescription] = useState("");
+  const [AirlineName, setAirlineName] = useState("");
+  const [FromLocation, setFromLocation] = useState("");
+  const [ToLocation, setToLocation] = useState("");
+  const [DepartureTime, setDepartureTime] = useState("");
+  const [ArrivalTime, setArrivalTime] = useState("");
+  const [TotalSeats, setTotalSeats] = useState("");
+  const [SeatsPrice, setSeatsPrice] = useState("");
+  const [Duration, setDuration] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [postImage, setPostImage] = useState({ myFile: "" });
@@ -43,80 +44,81 @@ function FlightAdd() {
   let [errors_cnumber, seterrors_cnumber] = useState("");
 
   function CreateCleaningCompany() {
-    setError(null);
-    setLoading(true);
+    // setError(null);
+    // setLoading(true);
 
-    let errors = {};
+    // let errors = {};
 
-    //Form Validation
-    if (!name.trim()) {
-      errors.name = "Company Name field required";
-      seterrors_dname(errors.name);
-    }
-    if (!location.trim()) {
-      errors.location = "Location field required";
-      seterrors_location(errors.location);
-    }
-    if (!noe.trim()) {
-      errors.noe = "Number of Employee field required";
-      seterrors_noe(errors.noe);
-    }
-    if (!since.trim()) {
-      errors.since = "Please Enter a Valid Since year";
-      seterrors_since(errors.since);
-    }
-    if (since.length < 4) {
-      errors.since = "Please Enter a Valid Since year";
-      seterrors_since(errors.since);
-    }
-    if (!description.trim()) {
-      errors.description = "Description field required";
-      seterrors_description(errors.description);
-    }
-    if (!cnumber.trim()) {
-      errors.cnumber = "Please Enter a Valid Contact Number";
-      seterrors_cnumber(errors.cnumber);
-    }
-    if (cnumber.length < 10) {
-      errors.cnumber = "Please Enter a Valid Contact Number";
-      seterrors_cnumber(errors.cnumber);
-    }
+    // //Form Validation
+    // if (!name.trim()) {
+    //   errors.name = "Company Name field required";
+    //   seterrors_dname(errors.name);
+    // }
+    // if (!location.trim()) {
+    //   errors.location = "Location field required";
+    //   seterrors_location(errors.location);
+    // }
+    // if (!noe.trim()) {
+    //   errors.noe = "Number of Employee field required";
+    //   seterrors_noe(errors.noe);
+    // }
+    // if (!since.trim()) {
+    //   errors.since = "Please Enter a Valid Since year";
+    //   seterrors_since(errors.since);
+    // }
+    // if (since.length < 4) {
+    //   errors.since = "Please Enter a Valid Since year";
+    //   seterrors_since(errors.since);
+    // }
+    // if (!description.trim()) {
+    //   errors.description = "Description field required";
+    //   seterrors_description(errors.description);
+    // }
+    // if (!cnumber.trim()) {
+    //   errors.cnumber = "Please Enter a Valid Contact Number";
+    //   seterrors_cnumber(errors.cnumber);
+    // }
+    // if (cnumber.length < 10) {
+    //   errors.cnumber = "Please Enter a Valid Contact Number";
+    //   seterrors_cnumber(errors.cnumber);
+    // }
 
-    if (
-      name === "" ||
-      location === "" ||
-      noe === "" ||
-      since === "" ||
-      description === "" ||
-      errors_cnumber === "" ||
-      errors_since === ""
-    ) {
-      setLoading(false);
-    } else {
-      axios
-        .post("http://localhost:5000/cleaning", {
-          CName: name,
-          Location: location,
-          NOE: noe,
-          CNumber: cnumber,
-          Since: since,
-          Image: postImage.myFile,
-          Description: description,
-        })
-        .then((response) => {
-          setLoading(false);
-          swal(
-            "Good job!",
-            "Your data has been successfully added..!",
-            "success"
-          );
-          window.location.reload();
-        })
-        .catch((error) => {
-          setLoading(false);
-          swal("Sorry!", "Something Error!", "error");
-        });
-    }
+    // if (
+    //   name === "" ||
+    //   location === "" ||
+    //   noe === "" ||
+    //   since === "" ||
+    //   description === "" ||
+    //   errors_cnumber === "" ||
+    //   errors_since === ""
+    // ) {
+    //   setLoading(false);
+    // } else {
+    axios
+      .post("http://localhost:3000/FlightManagement", {
+        AirlineName: AirlineName,
+        FromLocation: FromLocation,
+        ToLocation: ToLocation,
+        DepartureTime: DepartureTime,
+        ArrivalTime: ArrivalTime,
+        Duration: Duration,
+        TotalSeats: TotalSeats,
+        SeatsPrice: SeatsPrice,
+      })
+      .then((response) => {
+        setLoading(false);
+        swal(
+          "Good job!",
+          "Your data has been successfully added..!",
+          "success"
+        );
+        window.location.reload();
+      })
+      .catch((error) => {
+        setLoading(false);
+        swal("Sorry!", "Something Error!", "error");
+      });
+    // }
   }
 
   const convertToBase64 = (file) => {
@@ -509,6 +511,66 @@ function FlightAdd() {
                       </li>
                     </ul>
                   </li>
+                  <li>
+                    <a href="#">
+                      <i className="metismenu-icon pe-7s-diamond" />
+                      FLIGHT
+                      <i className="metismenu-state-icon pe-7s-angle-down caret-left" />
+                    </a>
+                    <ul>
+                      <li>
+                        <a href="/FlightAdd">
+                          <i className="metismenu-icon" />
+                          FLIGHT | ADD
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightView">
+                          <i className="metismenu-icon"></i> FLIGHT | VIEW
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightUpdate">
+                          <i className="metismenu-icon"></i> FLIGHT | UPDATE
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightReport">
+                          <i className="metismenu-icon"></i> FLIGHT | REPORT
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i className="metismenu-icon pe-7s-diamond" />
+                      MANAGER
+                      <i className="metismenu-state-icon pe-7s-angle-down caret-left" />
+                    </a>
+                    <ul>
+                      <li>
+                        <a href="/ManagerAdd">
+                          <i className="metismenu-icon" />
+                          MANAGER | ADD
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ManagerView">
+                          <i className="metismenu-icon"></i> MANAGER | VIEW
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ManagerUpdate">
+                          <i className="metismenu-icon"></i> MANAGER | UPDATE
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ManagerReport">
+                          <i className="metismenu-icon"></i> MANAGER | REPORT
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -538,14 +600,14 @@ function FlightAdd() {
                   <Form>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Company Name
+                        Airline Name
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          placeholder="Company Name"
+                          value={AirlineName}
+                          onChange={(e) => setAirlineName(e.target.value)}
+                          placeholder="Airline Name"
                         />
                         {errors_dname && (
                           <span style={{ color: "red" }} className="errors">
@@ -556,14 +618,14 @@ function FlightAdd() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Location
+                        FromLocation
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          value={location}
-                          onChange={(e) => setLocation(e.target.value)}
-                          placeholder="Location"
+                          value={FromLocation}
+                          onChange={(e) => setFromLocation(e.target.value)}
+                          placeholder="FromLocation"
                         />
                         {errors_location && (
                           <span style={{ color: "red" }} className="errors">
@@ -574,14 +636,14 @@ function FlightAdd() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Number of Employees
+                        ToLocation
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="number"
-                          value={noe}
-                          onChange={(e) => setNoe(e.target.value)}
-                          placeholder="Number of Employees"
+                          value={ToLocation}
+                          onChange={(e) => setToLocation(e.target.value)}
+                          placeholder="ToLocation"
                         />
                         {errors_noe && (
                           <span style={{ color: "red" }} className="errors">
@@ -592,14 +654,14 @@ function FlightAdd() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Contact Number
+                        DepartureTime
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
-                          type="number"
-                          value={cnumber}
-                          onChange={(e) => setCnumber(e.target.value)}
-                          placeholder="Contact Number"
+                          type="time"
+                          value={DepartureTime}
+                          onChange={(e) => setDepartureTime(e.target.value)}
+                          placeholder="DepartureTime"
                         />
                         {errors_cnumber && (
                           <span style={{ color: "red" }} className="errors">
@@ -610,14 +672,14 @@ function FlightAdd() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Since Year
+                        ArrivalTime
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
-                          type="number"
-                          value={since}
-                          onChange={(e) => setSince(e.target.value)}
-                          placeholder="Since Year"
+                          type="time"
+                          value={ArrivalTime}
+                          onChange={(e) => setArrivalTime(e.target.value)}
+                          placeholder="ArrivalTime"
                         />
                         {errors_since && (
                           <span style={{ color: "red" }} className="errors">
@@ -628,14 +690,14 @@ function FlightAdd() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Description
+                        Duration
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          value={description}
-                          onChange={(e) => setDescription(e.target.value)}
-                          placeholder="Description"
+                          value={Duration}
+                          onChange={(e) => setDuration(e.target.value)}
+                          placeholder="Duration"
                         />
                         {errors_description && (
                           <span style={{ color: "red" }} className="errors">
@@ -646,16 +708,38 @@ function FlightAdd() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Image
+                        TotalSeats
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
-                          type="file"
-                          label="Image"
-                          name="myFile"
-                          accept=".jpeg, .png, .jpg"
-                          onChange={(e) => handleFileUpload(e)}
+                          type="number"
+                          value={TotalSeats}
+                          onChange={(e) => setTotalSeats(e.target.value)}
+                          placeholder="TotalSeats"
                         />
+                        {errors_description && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_description}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        SeatsPrice
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="number"
+                          value={SeatsPrice}
+                          onChange={(e) => setSeatsPrice(e.target.value)}
+                          placeholder="SeatsPrice"
+                        />
+                        {errors_description && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_description}
+                          </span>
+                        )}
                       </Col>
                     </Form.Group>
                     <center>

@@ -25,6 +25,10 @@ const PostSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  ProfileImage: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Manager", PostSchema);

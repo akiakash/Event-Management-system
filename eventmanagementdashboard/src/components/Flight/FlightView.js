@@ -10,6 +10,16 @@ import axios from "axios";
 import swal from "sweetalert";
 import { useHistory } from "react-router-dom";
 
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 const use_style = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -27,7 +37,7 @@ function HotelView() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const getRequest = () => {
-    axios.get("http://localhost:5000/cleaning").then((response) => {
+    axios.get("http://localhost:3000/FlightManagement").then((response) => {
       setCleaning(response.data);
     });
   };
@@ -48,7 +58,7 @@ function HotelView() {
         swal("Poof! Your data has been successfully Deleted!", {
           icon: "success",
         });
-        fetch(`http://localhost:5000/cleaning/${_id}`, {
+        fetch(`http://localhost:3000/FlightManagement/${_id}`, {
           method: "DELETE",
         })
           .then((response) => {
@@ -68,9 +78,9 @@ function HotelView() {
 
   const history = useHistory();
   function editCleaningCompany(_id) {
-    console.log("Cleaning Company" + _id);
-    window.sessionStorage.setItem("CleaningID", _id);
-    history.push("/Cleaning_edit");
+    console.log("FlightID" + _id);
+    window.sessionStorage.setItem("FlightID", _id);
+    history.push("/FlightUpdate");
   }
 
   return (
@@ -447,6 +457,66 @@ function HotelView() {
                       </li>
                     </ul>
                   </li>
+                  <li>
+                    <a href="#">
+                      <i className="metismenu-icon pe-7s-diamond" />
+                      FLIGHT
+                      <i className="metismenu-state-icon pe-7s-angle-down caret-left" />
+                    </a>
+                    <ul>
+                      <li>
+                        <a href="/FlightAdd">
+                          <i className="metismenu-icon" />
+                          FLIGHT | ADD
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightView">
+                          <i className="metismenu-icon"></i> FLIGHT | VIEW
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightUpdate">
+                          <i className="metismenu-icon"></i> FLIGHT | UPDATE
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightReport">
+                          <i className="metismenu-icon"></i> FLIGHT | REPORT
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i className="metismenu-icon pe-7s-diamond" />
+                      MANAGER
+                      <i className="metismenu-state-icon pe-7s-angle-down caret-left" />
+                    </a>
+                    <ul>
+                      <li>
+                        <a href="/ManagerAdd">
+                          <i className="metismenu-icon" />
+                          MANAGER | ADD
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ManagerView">
+                          <i className="metismenu-icon"></i> MANAGER | VIEW
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ManagerUpdate">
+                          <i className="metismenu-icon"></i> MANAGER | UPDATE
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ManagerReport">
+                          <i className="metismenu-icon"></i> MANAGER | REPORT
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -471,93 +541,102 @@ function HotelView() {
                 </div>
               </div>
               {/* Add Form Here */}
-              <div className={classes.root}>
-                {cleaning
-                  .filter((val) => {
-                    if (searchTerm == "") {
-                      return val;
-                    } else if (
-                      val.CName.toLocaleLowerCase().includes(
-                        searchTerm.toLocaleLowerCase()
-                      )
-                    ) {
-                      return val;
-                    }
-                  })
-                  .map((item) => (
-                    <Accordion>
-                      <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                      >
-                        <Typography className={classes.heading}>
-                          {item.CName}
-                        </Typography>
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <table>
-                          <tr>
-                            <th>Company Name </th>
-                            <td> - {item.CName}</td>
-                          </tr>
-                          <tr>
-                            <th>Location </th>
-                            <td> - {item.Location}</td>
-                          </tr>
-                          <tr>
-                            <th>Number of Employees </th>
-                            <td> - {item.NOE} Employees</td>
-                          </tr>
-                          <tr>
-                            <th>Contact Numeber </th>
-                            <td> - {item.CNumber}</td>
-                          </tr>
-                          <tr>
-                            <th>Since </th>
-                            <td> - {item.Since}</td>
-                          </tr>
-                          <tr>
-                            <th>Image </th>
-                            <td> - {item.Image}</td>
-                          </tr>
-                          <tr>
-                            <th>Description </th>
-                            <td> - {item.Description} </td>
-                          </tr>
-                          {/* <tr>
-                                                    <th>Likes </th>
-                                                    <td> - 112</td>
-                                                </tr> */}
-                          <tr>
-                            <th>Created At </th>
-                            <td> - {item.createdAt}</td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <Button
-                                variant="outlined"
-                                onClick={() => editCleaningCompany(item._id)}
-                                color="primary"
-                              >
-                                Edit
-                              </Button>
-                            </td>
-                            <td>
-                              <Button
-                                variant="outlined"
-                                onClick={() => deleteCleaning(item._id)}
-                                color="secondary"
-                              >
-                                Delete
-                              </Button>
-                            </td>
-                          </tr>
-                        </table>
-                      </AccordionDetails>
-                    </Accordion>
-                  ))}
-              </div>
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell style={{ fontWeight: "bold" }}>
+                        AirlineName
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        FromLocation
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        ToLocation
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        DepartureTime
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        ArrivalTime
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Duration
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        TotalSeats
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        SeatsPrice
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Actions
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  {cleaning
+                    .filter((val) => {
+                      if (searchTerm == "") {
+                        return val;
+                      } else if (
+                        val.AirlineName.toLocaleLowerCase().includes(
+                          searchTerm.toLocaleLowerCase()
+                        )
+                      ) {
+                        return val;
+                      }
+                    })
+                    .map((item) => (
+                      <TableBody>
+                        <TableRow
+                          key="Name"
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          <TableCell component="th" scope="row">
+                            {item.AirlineName}
+                          </TableCell>
+                          <TableCell align="right">
+                            {item.FromLocation}
+                          </TableCell>
+                          <TableCell align="right">{item.ToLocation}</TableCell>
+                          <TableCell align="right">
+                            {item.DepartureTime}
+                          </TableCell>
+                          <TableCell align="right">
+                            {item.ArrivalTime}
+                          </TableCell>
+                          <TableCell align="right">{item.Duration}</TableCell>
+                          <TableCell align="right">{item.TotalSeats}</TableCell>
+                          <TableCell align="right">{item.SeatsPrice}</TableCell>
+                          <TableCell align="right">
+                            <div>
+                              <div style={{ display: "inline-block" }}>
+                                <Button
+                                  // variant="outlined"
+                                  onClick={() => editCleaningCompany(item._id)}
+                                  color="primary"
+                                >
+                                  <EditIcon />
+                                </Button>
+                              </div>
+                              <div style={{ display: "inline-block" }}>
+                                <Button
+                                  // variant="outlined"
+                                  onClick={() => deleteCleaning(item._id)}
+                                  color="secondary"
+                                >
+                                  <DeleteIcon />
+                                </Button>
+                              </div>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    ))}
+                </Table>
+              </TableContainer>
             </div>
             <div className="app-wrapper-footer">
               <div className="app-footer">

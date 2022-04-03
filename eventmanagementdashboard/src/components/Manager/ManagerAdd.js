@@ -3,15 +3,12 @@ import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
-import Radio from "@material-ui/core/Radio";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import RadioGroup from "@material-ui/core/RadioGroup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
 import swal from "sweetalert";
 
-function VehicleAdd() {
+function ManagerAdd() {
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -23,29 +20,15 @@ function VehicleAdd() {
       maxWidth: 1000,
     },
   }));
+
   const classes = useStyles();
-
-  //   "category":"Theeban",
-  //   "Model":"akash",
-  //   "CarNumber":"aki",
-  //   "colour": "aksh",
-  //   "Driver":"aki",
-  //   "Seat":"akash",
-  //   "ChildSeat":"aki",
-  //   "Gps":"aki",
-  //   "Price":1995000,
-  //   "Description":"aki"
-
-  const [category, setCategory] = useState("");
-  const [model, setModel] = useState("");
-  const [carNumber, setCarNumber] = useState("");
-  const [colour, setColour] = useState("");
-  const [driver, setDriver] = useState("");
-  const [seat, setSeat] = useState("");
-  const [childSeat, setChildSeat] = useState("");
-  const [gps, setGps] = useState("");
-  const [price, setPrice] = useState("");
-  const [description, setDescription] = useState("");
+  const [FirstName, setFirstName] = useState("");
+  const [LastName, setLastName] = useState("");
+  const [Email, setEmail] = useState("");
+  const [MobileNumber, setMobileNumber] = useState("");
+  const [Qualifications, setQualifications] = useState("");
+  const [Language, setLanguage] = useState("");
+  const [ProfileImage, setProfileImage] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [postImage, setPostImage] = useState({ myFile: "" });
@@ -58,47 +41,6 @@ function VehicleAdd() {
   let [errors_cnumber, seterrors_cnumber] = useState("");
 
   function CreateCleaningCompany() {
-    console.log("category : ", category);
-    console.log("model : ", model);
-    console.log("carNumber : ", carNumber);
-    console.log("colour : ", colour);
-    console.log("driver : ", driver);
-    console.log("seat : ", seat);
-    console.log("childSeat : ", childSeat);
-    console.log("gps : ", gps);
-    console.log("price : ", typeof parseInt(price));
-    console.log("description : ", description);
-
-    axios
-      .post("http://localhost:3000/VehicleManagement", {
-        category: category,
-        Model: model,
-        CarNumber: carNumber,
-        colour: colour,
-        Driver: driver,
-        Seat: seat,
-        ChildSeat: childSeat,
-        Gps: gps,
-        Price: parseInt(price),
-        Description: description,
-        Image: postImage.myFile,
-      })
-      .then((response) => {
-        //   setLoading(false);
-        console.log(response);
-        swal(
-          "Good job!",
-          "Your data has been successfully added..!",
-          "success"
-        );
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.log(error);
-        setLoading(false);
-        swal("Sorry!", "Something Error!", "error");
-      });
-
     // setError(null);
     // setLoading(true);
 
@@ -149,29 +91,29 @@ function VehicleAdd() {
     // ) {
     //   setLoading(false);
     // } else {
-    //   axios
-    //     .post("http://localhost:5000/cleaning", {
-    //       CName: name,
-    //       Location: location,
-    //       NOE: noe,
-    //       CNumber: cnumber,
-    //       Since: since,
-    //       Image: postImage.myFile,
-    //       Description: description,
-    //     })
-    //     .then((response) => {
-    //       setLoading(false);
-    //       swal(
-    //         "Good job!",
-    //         "Your data has been successfully added..!",
-    //         "success"
-    //       );
-    //       window.location.reload();
-    //     })
-    //     .catch((error) => {
-    //       setLoading(false);
-    //       swal("Sorry!", "Something Error!", "error");
-    //     });
+    axios
+      .post("http://localhost:3000/ManagerManagement", {
+        FirstName: FirstName,
+        LastName: LastName,
+        Email: Email,
+        MobileNumber: MobileNumber,
+        Qualifications: Qualifications,
+        Language: Language,
+        ProfileImage: postImage.myFile,
+      })
+      .then((response) => {
+        setLoading(false);
+        swal(
+          "Good job!",
+          "Your data has been successfully added..!",
+          "success"
+        );
+        window.location.reload();
+      })
+      .catch((error) => {
+        setLoading(false);
+        swal("Sorry!", "Something Error!", "error");
+      });
     // }
   }
 
@@ -654,180 +596,108 @@ function VehicleAdd() {
                   <Form>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Category
+                        First Name
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          value={category}
-                          onChange={(e) => setCategory(e.target.value)}
-                          placeholder="Category"
+                          value={FirstName}
+                          onChange={(e) => setFirstName(e.target.value)}
+                          placeholder="First Name"
                         />
-                        {/* {errors_dname && (
+                        {errors_dname && (
                           <span style={{ color: "red" }} className="errors">
                             {errors_dname}
                           </span>
-                        )} */}
+                        )}
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Module
+                        LastName
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          value={model}
-                          onChange={(e) => setModel(e.target.value)}
-                          placeholder="Module"
+                          value={LastName}
+                          onChange={(e) => setLastName(e.target.value)}
+                          placeholder="LastName"
                         />
-                        {/* {errors_location && (
+                        {errors_location && (
                           <span style={{ color: "red" }} className="errors">
                             {errors_location}
                           </span>
-                        )} */}
+                        )}
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Car Number
+                        Email
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
-                          type="text"
-                          value={carNumber}
-                          onChange={(e) => setCarNumber(e.target.value)}
-                          placeholder="Car Number"
+                          type="email"
+                          value={Email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="Email"
                         />
-                        {/* {errors_noe && (
+                        {errors_noe && (
                           <span style={{ color: "red" }} className="errors">
                             {errors_noe}
                           </span>
-                        )} */}
+                        )}
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Colour
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={colour}
-                          onChange={(e) => setColour(e.target.value)}
-                          placeholder="Colour"
-                        />
-                        {/* {errors_cnumber && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_cnumber}
-                          </span>
-                        )} */}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        Driver
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={driver}
-                          onChange={(e) => setDriver(e.target.value)}
-                          placeholder="Driver"
-                        />
-                        {/* {errors_since && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_since}
-                          </span>
-                        )} */}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        No of Seat
+                        MobileNumber
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="number"
-                          value={seat}
-                          onChange={(e) => setSeat(e.target.value)}
-                          placeholder="No of Seat"
+                          value={MobileNumber}
+                          onChange={(e) => setMobileNumber(e.target.value)}
+                          placeholder="MobileNumber"
                         />
-                        {/* {errors_description && (
+                        {errors_noe && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_description}
+                            {errors_noe}
                           </span>
-                        )} */}
+                        )}
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Child Seat
+                        Qualifications
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          value={childSeat}
-                          onChange={(e) => setChildSeat(e.target.value)}
-                          placeholder="Child Seat"
+                          value={Qualifications}
+                          onChange={(e) => setQualifications(e.target.value)}
+                          placeholder="Qualifications"
                         />
-                        {/* {errors_description && (
+                        {errors_noe && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_description}
+                            {errors_noe}
                           </span>
-                        )} */}
+                        )}
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        GPS
+                        Language
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
-                          type="text"
-                          value={gps}
-                          onChange={(e) => setGps(e.target.value)}
-                          placeholder="GPS"
+                          type="number"
+                          value={Language}
+                          onChange={(e) => setLanguage(e.target.value)}
+                          placeholder="Language"
                         />
-                        {/* {errors_description && (
+                        {errors_noe && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_description}
-                          </span>
-                        )} */}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        Price
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={price}
-                          onChange={(e) => setPrice(e.target.value)}
-                          placeholder="Price"
-                        />
-                        {/* {errors_description && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_description}
-                          </span>
-                        )} */}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        Description
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={description}
-                          onChange={(e) => setDescription(e.target.value)}
-                          placeholder="Description"
-                        />
-                        {errors_description && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_description}
+                            {errors_noe}
                           </span>
                         )}
                       </Col>
@@ -887,4 +757,4 @@ function VehicleAdd() {
     </div>
   );
 }
-export default VehicleAdd;
+export default ManagerAdd;

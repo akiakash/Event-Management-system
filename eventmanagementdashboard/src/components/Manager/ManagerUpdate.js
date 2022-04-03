@@ -3,15 +3,51 @@ import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
-import Radio from "@material-ui/core/Radio";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import RadioGroup from "@material-ui/core/RadioGroup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
 import swal from "sweetalert";
+import { useHistory } from "react-router-dom";
 
-function VehicleAdd() {
+function ManagerUpdate() {
+  const [FirstName, setFirstName] = useState("");
+  const [LastName, setLastName] = useState("");
+  const [Email, setEmail] = useState("");
+  const [MobileNumber, setMobileNumber] = useState("");
+  const [Qualifications, setQualifications] = useState("");
+  const [Language, setLanguage] = useState("");
+  const [Image, setImage] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [postImage, setPostImage] = useState({ myFile: "" });
+  const [foods, setFoods] = useState([]);
+
+  let [errors_dname, seterrors_dname] = useState("");
+  let [errors_location, seterrors_location] = useState("");
+  let [errors_noe, seterrors_noe] = useState("");
+  let [errors_since, seterrors_since] = useState("");
+  let [errors_description, seterrors_description] = useState("");
+  let [errors_cnumber, seterrors_cnumber] = useState("");
+
+  const id = window.sessionStorage.getItem("ManagerID");
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/ManagerManagement/${id}`)
+      .then((response) => {
+        //   console.log(response.data);
+        setFirstName(response.data.FirstName);
+        setLastName(response.data.LastName);
+        setEmail(response.data.Email);
+        setMobileNumber(response.data.MobileNumber);
+        setQualifications(response.data.Qualifications);
+        setLanguage(response.data.Language);
+        setImage(response.data.ProfileImage);
+        setFoods(response.data);
+        console.log(response.data);
+      });
+  }, []);
+
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -23,88 +59,17 @@ function VehicleAdd() {
       maxWidth: 1000,
     },
   }));
+
   const classes = useStyles();
+  const history = useHistory();
 
-  //   "category":"Theeban",
-  //   "Model":"akash",
-  //   "CarNumber":"aki",
-  //   "colour": "aksh",
-  //   "Driver":"aki",
-  //   "Seat":"akash",
-  //   "ChildSeat":"aki",
-  //   "Gps":"aki",
-  //   "Price":1995000,
-  //   "Description":"aki"
-
-  const [category, setCategory] = useState("");
-  const [model, setModel] = useState("");
-  const [carNumber, setCarNumber] = useState("");
-  const [colour, setColour] = useState("");
-  const [driver, setDriver] = useState("");
-  const [seat, setSeat] = useState("");
-  const [childSeat, setChildSeat] = useState("");
-  const [gps, setGps] = useState("");
-  const [price, setPrice] = useState("");
-  const [description, setDescription] = useState("");
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [postImage, setPostImage] = useState({ myFile: "" });
-
-  let [errors_dname, seterrors_dname] = useState("");
-  let [errors_location, seterrors_location] = useState("");
-  let [errors_noe, seterrors_noe] = useState("");
-  let [errors_since, seterrors_since] = useState("");
-  let [errors_description, seterrors_description] = useState("");
-  let [errors_cnumber, seterrors_cnumber] = useState("");
-
-  function CreateCleaningCompany() {
-    console.log("category : ", category);
-    console.log("model : ", model);
-    console.log("carNumber : ", carNumber);
-    console.log("colour : ", colour);
-    console.log("driver : ", driver);
-    console.log("seat : ", seat);
-    console.log("childSeat : ", childSeat);
-    console.log("gps : ", gps);
-    console.log("price : ", typeof parseInt(price));
-    console.log("description : ", description);
-
-    axios
-      .post("http://localhost:3000/VehicleManagement", {
-        category: category,
-        Model: model,
-        CarNumber: carNumber,
-        colour: colour,
-        Driver: driver,
-        Seat: seat,
-        ChildSeat: childSeat,
-        Gps: gps,
-        Price: parseInt(price),
-        Description: description,
-        Image: postImage.myFile,
-      })
-      .then((response) => {
-        //   setLoading(false);
-        console.log(response);
-        swal(
-          "Good job!",
-          "Your data has been successfully added..!",
-          "success"
-        );
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.log(error);
-        setLoading(false);
-        swal("Sorry!", "Something Error!", "error");
-      });
-
+  function UpdateCleaningCompany() {
     // setError(null);
     // setLoading(true);
 
     // let errors = {};
 
-    // //Form Validation
+    //Form Validation
     // if (!name.trim()) {
     //   errors.name = "Company Name field required";
     //   seterrors_dname(errors.name);
@@ -118,11 +83,7 @@ function VehicleAdd() {
     //   seterrors_noe(errors.noe);
     // }
     // if (!since.trim()) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (since.length < 4) {
-    //   errors.since = "Please Enter a Valid Since year";
+    //   errors.since = "Since field required";
     //   seterrors_since(errors.since);
     // }
     // if (!description.trim()) {
@@ -130,11 +91,7 @@ function VehicleAdd() {
     //   seterrors_description(errors.description);
     // }
     // if (!cnumber.trim()) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
-    // if (cnumber.length < 10) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
+    //   errors.cnumber = "Contact Number field required";
     //   seterrors_cnumber(errors.cnumber);
     // }
 
@@ -143,35 +100,44 @@ function VehicleAdd() {
     //   location === "" ||
     //   noe === "" ||
     //   since === "" ||
-    //   description === "" ||
-    //   errors_cnumber === "" ||
-    //   errors_since === ""
+    //   description === ""
     // ) {
     //   setLoading(false);
     // } else {
-    //   axios
-    //     .post("http://localhost:5000/cleaning", {
-    //       CName: name,
-    //       Location: location,
-    //       NOE: noe,
-    //       CNumber: cnumber,
-    //       Since: since,
-    //       Image: postImage.myFile,
-    //       Description: description,
-    //     })
-    //     .then((response) => {
-    //       setLoading(false);
-    //       swal(
-    //         "Good job!",
-    //         "Your data has been successfully added..!",
-    //         "success"
-    //       );
-    //       window.location.reload();
-    //     })
-    //     .catch((error) => {
-    //       setLoading(false);
-    //       swal("Sorry!", "Something Error!", "error");
-    //     });
+    //   console.log({
+    //     CName: name,
+    //     Location: location,
+    //     NOE: noe,
+    //     CNumber: cnumber,
+    //     Since: since,
+    //     Image: postImage.myFile,
+    //     Description: description,
+    //   });
+    axios
+      .patch(`http://localhost:3000/ManagerManagement/${id}`, {
+        FirstName: FirstName,
+        LastName: LastName,
+        Email: Email,
+        MobileNumber: MobileNumber,
+        Qualifications: Qualifications,
+        Language: Language,
+        ProfileImage: postImage.myFile,
+      })
+      .then((response) => {
+        setLoading(false);
+        swal(
+          "Good job!",
+          "Your data has been successfully Updated..!",
+          "success"
+        );
+        // window.location.reload();
+        history.push("/ManagerView");
+      })
+      .catch((error) => {
+        setLoading(false);
+        alert("Sorry, Something Error...");
+        swal("Sorry!", "Something Error..!", "warning");
+      });
     // }
   }
 
@@ -193,7 +159,7 @@ function VehicleAdd() {
     const base64 = await convertToBase64(file);
     // setPostImage({ ...postImage, myFile: base64 });
     setPostImage({ myFile: base64 });
-    console.log(base64);
+    // console.log(base64);
   };
 
   return (
@@ -654,180 +620,108 @@ function VehicleAdd() {
                   <Form>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Category
+                        First Name
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          value={category}
-                          onChange={(e) => setCategory(e.target.value)}
-                          placeholder="Category"
+                          defaultValue={foods.FirstName}
+                          onChange={(e) => setFirstName(e.target.value)}
+                          placeholder="First Name"
                         />
-                        {/* {errors_dname && (
+                        {errors_dname && (
                           <span style={{ color: "red" }} className="errors">
                             {errors_dname}
                           </span>
-                        )} */}
+                        )}
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Module
+                        LastName
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          value={model}
-                          onChange={(e) => setModel(e.target.value)}
-                          placeholder="Module"
+                          defaultValue={foods.LastName}
+                          onChange={(e) => setLastName(e.target.value)}
+                          placeholder="LastName"
                         />
-                        {/* {errors_location && (
+                        {errors_location && (
                           <span style={{ color: "red" }} className="errors">
                             {errors_location}
                           </span>
-                        )} */}
+                        )}
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Car Number
+                        Email
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
-                          type="text"
-                          value={carNumber}
-                          onChange={(e) => setCarNumber(e.target.value)}
-                          placeholder="Car Number"
+                          type="email"
+                          defaultValue={foods.Email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="Email"
                         />
-                        {/* {errors_noe && (
+                        {errors_noe && (
                           <span style={{ color: "red" }} className="errors">
                             {errors_noe}
                           </span>
-                        )} */}
+                        )}
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Colour
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={colour}
-                          onChange={(e) => setColour(e.target.value)}
-                          placeholder="Colour"
-                        />
-                        {/* {errors_cnumber && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_cnumber}
-                          </span>
-                        )} */}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        Driver
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={driver}
-                          onChange={(e) => setDriver(e.target.value)}
-                          placeholder="Driver"
-                        />
-                        {/* {errors_since && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_since}
-                          </span>
-                        )} */}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        No of Seat
+                        MobileNumber
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="number"
-                          value={seat}
-                          onChange={(e) => setSeat(e.target.value)}
-                          placeholder="No of Seat"
+                          defaultValue={foods.MobileNumber}
+                          onChange={(e) => setMobileNumber(e.target.value)}
+                          placeholder="MobileNumber"
                         />
-                        {/* {errors_description && (
+                        {errors_noe && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_description}
+                            {errors_noe}
                           </span>
-                        )} */}
+                        )}
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Child Seat
+                        Qualifications
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          value={childSeat}
-                          onChange={(e) => setChildSeat(e.target.value)}
-                          placeholder="Child Seat"
+                          defaultValue={foods.Qualifications}
+                          onChange={(e) => setQualifications(e.target.value)}
+                          placeholder="Qualifications"
                         />
-                        {/* {errors_description && (
+                        {errors_noe && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_description}
+                            {errors_noe}
                           </span>
-                        )} */}
+                        )}
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        GPS
+                        Language
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          value={gps}
-                          onChange={(e) => setGps(e.target.value)}
-                          placeholder="GPS"
+                          defaultValue={foods.Language}
+                          onChange={(e) => setLanguage(e.target.value)}
+                          placeholder="Language"
                         />
-                        {/* {errors_description && (
+                        {errors_noe && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_description}
-                          </span>
-                        )} */}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        Price
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={price}
-                          onChange={(e) => setPrice(e.target.value)}
-                          placeholder="Price"
-                        />
-                        {/* {errors_description && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_description}
-                          </span>
-                        )} */}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        Description
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={description}
-                          onChange={(e) => setDescription(e.target.value)}
-                          placeholder="Description"
-                        />
-                        {errors_description && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_description}
+                            {errors_noe}
                           </span>
                         )}
                       </Col>
@@ -837,6 +731,12 @@ function VehicleAdd() {
                         Image
                       </Form.Label>
                       <Col sm={9}>
+                        <img
+                          src={Image}
+                          alt="image"
+                          width={"70px"}
+                          style={{ borderRadius: 1000 }}
+                        />
                         <Form.Control
                           type="file"
                           label="Image"
@@ -855,7 +755,7 @@ function VehicleAdd() {
                       <div className="button">
                         <input
                           type="button"
-                          onClick={CreateCleaningCompany}
+                          onClick={UpdateCleaningCompany}
                           value={loading ? "Loading... Please Wait!" : "SUBMIT"}
                           className="btn btn-block app-sidebar__heading Login-Button"
                         />
@@ -887,4 +787,4 @@ function VehicleAdd() {
     </div>
   );
 }
-export default VehicleAdd;
+export default ManagerUpdate;

@@ -36,6 +36,12 @@ function PackageAdd() {
   const [price, setprice] = useState("");
   const [includes, setincludes] = useState("");
   const [description, setdescription] = useState("");
+  const [MasterChefFoodsPrice, setMasterChefFoodsPrice] = useState("");
+  const [HighLuxaryVechilePrice, setHighLuxaryVechilePrice] = useState("");
+  const [PerExtraOneDayPrice, setPerExtraOneDayPrice] = useState("");
+  const [RentCameraPrice, setRentCameraPrice] = useState("");
+  const [PerExtraBedPrice, setPerExtraBedPrice] = useState("");
+  const [Image, setImage] = useState("");
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -105,6 +111,12 @@ function PackageAdd() {
         price: price,
         includes: includes,
         description: description,
+        MasterChefFoodsPrice: MasterChefFoodsPrice,
+        HighLuxaryVechilePrice: HighLuxaryVechilePrice,
+        PerExtraOneDayPrice: PerExtraOneDayPrice,
+        RentCameraPrice: RentCameraPrice,
+        PerExtraBedPrice: PerExtraBedPrice,
+        Image: postImage.myFile,
       })
       .then((response) => {
         setLoading(false);
@@ -512,6 +524,66 @@ function PackageAdd() {
                       </li>
                     </ul>
                   </li>
+                  <li>
+                    <a href="#">
+                      <i className="metismenu-icon pe-7s-diamond" />
+                      FLIGHT
+                      <i className="metismenu-state-icon pe-7s-angle-down caret-left" />
+                    </a>
+                    <ul>
+                      <li>
+                        <a href="/FlightAdd">
+                          <i className="metismenu-icon" />
+                          FLIGHT | ADD
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightView">
+                          <i className="metismenu-icon"></i> FLIGHT | VIEW
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightUpdate">
+                          <i className="metismenu-icon"></i> FLIGHT | UPDATE
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightReport">
+                          <i className="metismenu-icon"></i> FLIGHT | REPORT
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i className="metismenu-icon pe-7s-diamond" />
+                      MANAGER
+                      <i className="metismenu-state-icon pe-7s-angle-down caret-left" />
+                    </a>
+                    <ul>
+                      <li>
+                        <a href="/ManagerAdd">
+                          <i className="metismenu-icon" />
+                          MANAGER | ADD
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ManagerView">
+                          <i className="metismenu-icon"></i> MANAGER | VIEW
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ManagerUpdate">
+                          <i className="metismenu-icon"></i> MANAGER | UPDATE
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/ManagerReport">
+                          <i className="metismenu-icon"></i> MANAGER | REPORT
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -607,6 +679,121 @@ function PackageAdd() {
                         {errors_cnumber && (
                           <span style={{ color: "red" }} className="errors">
                             {errors_cnumber}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Master Chef Foods Price
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="number"
+                          value={MasterChefFoodsPrice}
+                          onChange={(e) =>
+                            setMasterChefFoodsPrice(e.target.value)
+                          }
+                          placeholder="Master Chef Foods Price"
+                        />
+                        {errors_cnumber && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_cnumber}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        High Luxary Vechile Price
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="number"
+                          value={HighLuxaryVechilePrice}
+                          onChange={(e) =>
+                            setHighLuxaryVechilePrice(e.target.value)
+                          }
+                          placeholder="High Luxary Vechile Price"
+                        />
+                        {errors_cnumber && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_cnumber}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        PerExtraOneDayPrice
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="number"
+                          value={PerExtraOneDayPrice}
+                          onChange={(e) =>
+                            setPerExtraOneDayPrice(e.target.value)
+                          }
+                          placeholder="PerExtraOneDayPrice"
+                        />
+                        {errors_cnumber && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_cnumber}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        RentCameraPrice
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="number"
+                          value={RentCameraPrice}
+                          onChange={(e) => setRentCameraPrice(e.target.value)}
+                          placeholder="RentCameraPrice"
+                        />
+                        {errors_cnumber && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_cnumber}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        PerExtraBedPrice
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="number"
+                          value={PerExtraBedPrice}
+                          onChange={(e) => setPerExtraBedPrice(e.target.value)}
+                          placeholder="PerExtraBedPrice"
+                        />
+                        {errors_cnumber && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_cnumber}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Image
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="file"
+                          label="Image"
+                          name="myFile"
+                          accept=".jpeg, .png, .jpg"
+                          onChange={(e) => handleFileUpload(e)}
+                        />
+                        {errors_description && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_description}
                           </span>
                         )}
                       </Col>
