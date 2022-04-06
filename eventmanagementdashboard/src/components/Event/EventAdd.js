@@ -35,97 +35,80 @@ function EventAdd() {
   const [loading, setLoading] = useState(false);
   const [postImage, setPostImage] = useState({ myFile: "" });
 
-  let [errors_dname, seterrors_dname] = useState("");
-  let [errors_location, seterrors_location] = useState("");
-  let [errors_noe, seterrors_noe] = useState("");
-  let [errors_since, seterrors_since] = useState("");
-  let [errors_description, seterrors_description] = useState("");
-  let [errors_cnumber, seterrors_cnumber] = useState("");
+  let [errors_EventName, seterrors_EventName] = useState("");
+  let [errors_PerformanceName, seterrors_PerformanceName] = useState("");
+  let [errors_StartingTime, seterrors_StartingTime] = useState("");
+  let [errors_Description, seterrors_Description] = useState("");
+  let [errors_Destination, seterrors_Destination] = useState("");
+  let [errors_EventBookingPrice, seterrors_EventBookingPrice] = useState("");
 
   function CreateCleaningCompany() {
-    // setError(null);
-    // setLoading(true);
+    setError(null);
+    setLoading(true);
 
-    // let errors = {};
+    let errors = {};
 
-    // //Form Validation
-    // if (!name.trim()) {
-    //   errors.name = "Company Name field required";
-    //   seterrors_dname(errors.name);
-    // }
-    // if (!location.trim()) {
-    //   errors.location = "Location field required";
-    //   seterrors_location(errors.location);
-    // }
-    // if (!noe.trim()) {
-    //   errors.noe = "Number of Employee field required";
-    //   seterrors_noe(errors.noe);
-    // }
-    // if (!since.trim()) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (since.length < 4) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (!description.trim()) {
-    //   errors.description = "Description field required";
-    //   seterrors_description(errors.description);
-    // }
-    // if (!cnumber.trim()) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
-    // if (cnumber.length < 10) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
+    //Form Validation
+    if (!EventName.trim()) {
+      errors.EventName = "Event Name field required";
+      seterrors_EventName(errors.EventName);
+    }
+    if (!PerformanceName.trim()) {
+      errors.PerformanceName = "Performancer Name field required";
+      seterrors_PerformanceName(errors.PerformanceName);
+    }
+    if (!StartingTime.trim()) {
+      errors.StartingTime = "Starting Time field required";
+      seterrors_StartingTime(errors.StartingTime);
+    }
+    if (!Description.trim()) {
+      errors.Description = "Description field required";
+      seterrors_Description(errors.Description);
+    }
+    if (!EventBookingPrice.trim()) {
+      errors.EventBookingPrice = "Event Booking Price required";
+      seterrors_EventBookingPrice(errors.EventBookingPrice);
+    }
+    if (!Destination.trim()) {
+      errors.Destination = "Destination field required";
+      seterrors_Destination(errors.Destination);
+    }
 
-    // if (
-    //   name === "" ||
-    //   location === "" ||
-    //   noe === "" ||
-    //   since === "" ||
-    //   description === "" ||
-    //   errors_cnumber === "" ||
-    //   errors_since === ""
-    // ) {
-    //   setLoading(false);
-    // } else {
-    // console.log("EventName : ", EventName);
-    // console.log("PerformanceName : ", PerformanceName);
-    // console.log("StartingTime : ", StartingTime);
-    // console.log("Description : ", Description);
-    // console.log("Destination : ", Destination);
-    // console.log("Imge : ", postImage.myFile);
-    // console.log("ConverPhoto : ", postCoverImage.myFile);
-
-    axios
-      .post("http://localhost:3000/EventManagement", {
-        EventName: EventName,
-        PerformanceName: PerformanceName,
-        StartingTime: StartingTime,
-        Description: Description,
-        Destination: Destination,
-        EventBookingPrice: EventBookingPrice,
-        Imge: postImage.myFile,
-        ConverPhoto: postCoverImage.myFile,
-      })
-      .then((response) => {
-        setLoading(false);
-        swal(
-          "Good job!",
-          "Your data has been successfully added..!",
-          "success"
-        );
-        window.location.reload();
-      })
-      .catch((error) => {
-        setLoading(false);
-        swal("Sorry!", "Something Error!", "error");
-      });
-    // }
+    if (
+      EventName === "" ||
+      PerformanceName === "" ||
+      StartingTime === "" ||
+      Description === "" ||
+      Destination === "" ||
+      EventBookingPrice === ""
+    ) {
+      setLoading(false);
+    } else {
+      axios
+        .post("http://localhost:3000/EventManagement", {
+          EventName: EventName,
+          PerformanceName: PerformanceName,
+          StartingTime: StartingTime,
+          Description: Description,
+          Destination: Destination,
+          EventBookingPrice: EventBookingPrice,
+          Imge: postImage.myFile,
+          ConverPhoto: postCoverImage.myFile,
+        })
+        .then((response) => {
+          setLoading(false);
+          swal(
+            "Good job!",
+            "Your data has been successfully added..!",
+            "success"
+          );
+          window.location.reload();
+        })
+        .catch((error) => {
+          setLoading(false);
+          swal("Sorry!", "Something Error!", "error");
+        });
+    }
   }
 
   const convertToBase64 = (file) => {
@@ -625,9 +608,9 @@ function EventAdd() {
                           onChange={(e) => setEventName(e.target.value)}
                           placeholder="Event Name"
                         />
-                        {errors_dname && (
+                        {errors_EventName && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_dname}
+                            {errors_EventName}
                           </span>
                         )}
                       </Col>
@@ -643,9 +626,9 @@ function EventAdd() {
                           onChange={(e) => setPerformanceName(e.target.value)}
                           placeholder="Event Performancer Name"
                         />
-                        {errors_location && (
+                        {errors_PerformanceName && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_location}
+                            {errors_PerformanceName}
                           </span>
                         )}
                       </Col>
@@ -661,9 +644,9 @@ function EventAdd() {
                           onChange={(e) => setStartingTime(e.target.value)}
                           placeholder="StartingTime"
                         />
-                        {errors_noe && (
+                        {errors_StartingTime && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
+                            {errors_StartingTime}
                           </span>
                         )}
                       </Col>
@@ -679,9 +662,9 @@ function EventAdd() {
                           onChange={(e) => setDescription(e.target.value)}
                           placeholder="Description"
                         />
-                        {errors_noe && (
+                        {errors_Description && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
+                            {errors_Description}
                           </span>
                         )}
                       </Col>
@@ -697,9 +680,9 @@ function EventAdd() {
                           onChange={(e) => setDestination(e.target.value)}
                           placeholder="Destination"
                         />
-                        {errors_noe && (
+                        {errors_Destination && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
+                            {errors_Destination}
                           </span>
                         )}
                       </Col>
@@ -715,9 +698,9 @@ function EventAdd() {
                           onChange={(e) => setEventBookingPrice(e.target.value)}
                           placeholder="Event Booking Price"
                         />
-                        {errors_noe && (
+                        {errors_EventBookingPrice && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
+                            {errors_EventBookingPrice}
                           </span>
                         )}
                       </Col>
@@ -734,11 +717,11 @@ function EventAdd() {
                           accept=".jpeg, .png, .jpg"
                           onChange={(e) => handleFileUpload(e)}
                         />
-                        {errors_description && (
+                        {/* {errors_description && (
                           <span style={{ color: "red" }} className="errors">
                             {errors_description}
                           </span>
-                        )}
+                        )} */}
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
@@ -753,11 +736,11 @@ function EventAdd() {
                           accept=".jpeg, .png, .jpg"
                           onChange={(e) => handleFileUpload01(e)}
                         />
-                        {errors_description && (
+                        {/* {errors_description && (
                           <span style={{ color: "red" }} className="errors">
                             {errors_description}
                           </span>
-                        )}
+                        )} */}
                       </Col>
                     </Form.Group>
                     <center>

@@ -22,12 +22,13 @@ function AgentUpdate() {
   const [postImage, setPostImage] = useState({ myFile: "" });
   const [agent, setAgent] = useState([]);
 
-  let [errors_dname, seterrors_dname] = useState("");
-  let [errors_location, seterrors_location] = useState("");
-  let [errors_noe, seterrors_noe] = useState("");
-  let [errors_since, seterrors_since] = useState("");
-  let [errors_description, seterrors_description] = useState("");
-  let [errors_cnumber, seterrors_cnumber] = useState("");
+  let [errors_firstname, seterrors_firstname] = useState("");
+  let [errors_LastName, seterrors_LastName] = useState("");
+  let [errors_Email, seterrors_Email] = useState("");
+  let [errors_ContactNumber, seterrors_ContactNumber] = useState("");
+  let [errors_Language, seterrors_Language] = useState("");
+  let [errors_Description, seterrors_Description] = useState("");
+  let [errors_ProfileImage, seterrors_ProfileImage] = useState("");
 
   const id = window.sessionStorage.getItem("AgentID");
 
@@ -63,85 +64,77 @@ function AgentUpdate() {
   const history = useHistory();
 
   function UpdateCleaningCompany() {
-    // setError(null);
-    // setLoading(true);
+    setError(null);
+    setLoading(true);
 
-    // let errors = {};
+    let errors = {};
 
-    // //Form Validation
-    // if (!name.trim()) {
-    //   errors.name = "Company Name field required";
-    //   seterrors_dname(errors.name);
-    // }
-    // if (!location.trim()) {
-    //   errors.location = "Location field required";
-    //   seterrors_location(errors.location);
-    // }
-    // if (!noe.trim()) {
-    //   errors.noe = "Number of Employee field required";
-    //   seterrors_noe(errors.noe);
-    // }
-    // if (!since.trim()) {
-    //   errors.since = "Since field required";
-    //   seterrors_since(errors.since);
-    // }
-    // if (!description.trim()) {
-    //   errors.description = "Description field required";
-    //   seterrors_description(errors.description);
-    // }
-    // if (!cnumber.trim()) {
-    //   errors.cnumber = "Contact Number field required";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
+    //Form Validation
+    if (!FirstName.trim()) {
+      errors.name = "First Name field required";
+      seterrors_firstname(errors.name);
+    }
+    if (!LastName.trim()) {
+      errors.LastName = "Last Name field required";
+      seterrors_LastName(errors.LastName);
+    }
+    if (!email.trim()) {
+      errors.email = "E-Mail Address field required";
+      seterrors_Email(errors.email);
+    }
+    if (!ContactNumber.trim()) {
+      errors.ContactNumber = "Contact Number field required";
+      seterrors_ContactNumber(errors.ContactNumber);
+    }
+    if (ContactNumber.length != 10) {
+      errors.ContactNumber = "Please Enter a Valid Contact Number";
+      seterrors_ContactNumber(errors.ContactNumber);
+    }
+    if (!language.trim()) {
+      errors.language = "Language field required";
+      seterrors_Language(errors.language);
+    }
+    if (!Description.trim()) {
+      errors.Description = "Description field required";
+      seterrors_Description(errors.Description);
+    }
 
-    // if (
-    //   name === "" ||
-    //   location === "" ||
-    //   noe === "" ||
-    //   since === "" ||
-    //   description === ""
-    // ) {
-    //   setLoading(false);
-    // } else {
-    //   console.log({
-    //     CName: name,
-    //     Location: location,
-    //     NOE: noe,
-    //     CNumber: cnumber,
-    //     Since: since,
-    //     Image: postImage.myFile,
-    //     Description: description,
-    //   });
-    axios
-      .patch(`http://localhost:3000/AgentManagement/${id}`, {
-        // Name: name,
-        // Email: email,
-        // Language: language,
-
-        FirstName: FirstName,
-        LastName: LastName,
-        Email: email,
-        ContactNumber: ContactNumber,
-        Language: language,
-        Description: Description,
-        // ProfileImage: postImage.myFile,
-      })
-      .then((response) => {
-        setLoading(false);
-        swal(
-          "Good job!",
-          "Your data has been successfully Updated..!",
-          "success"
-        );
-        // window.location.reload();
-        history.push("/AgentView");
-      })
-      .catch((error) => {
-        setLoading(false);
-        alert("Sorry, Something Error...");
-        swal("Sorry!", "Something Error..!", "warning");
-      });
-    // }
+    if (
+      FirstName === "" ||
+      LastName === "" ||
+      email === "" ||
+      ContactNumber === "" ||
+      language === "" ||
+      Description === ""
+    ) {
+      setLoading(false);
+    } else {
+      axios
+        .patch(`http://localhost:3000/AgentManagement/${id}`, {
+          FirstName: FirstName,
+          LastName: LastName,
+          Email: email,
+          ContactNumber: ContactNumber,
+          Language: language,
+          Description: Description,
+          ProfileImage: postImage.myFile,
+        })
+        .then((response) => {
+          setLoading(false);
+          swal(
+            "Good job!",
+            "Your data has been successfully Updated..!",
+            "success"
+          );
+          // window.location.reload();
+          history.push("/AgentView");
+        })
+        .catch((error) => {
+          setLoading(false);
+          alert("Sorry, Something Error...");
+          swal("Sorry!", "Something Error..!", "warning");
+        });
+    }
   }
 
   const convertToBase64 = (file) => {
@@ -632,9 +625,9 @@ function AgentUpdate() {
                           onChange={(e) => setFirstName(e.target.value)}
                           placeholder="Agent First Name"
                         />
-                        {errors_dname && (
+                        {errors_firstname && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_dname}
+                            {errors_firstname}
                           </span>
                         )}
                       </Col>
@@ -650,9 +643,9 @@ function AgentUpdate() {
                           onChange={(e) => setLastName(e.target.value)}
                           placeholder="Agent Last Name"
                         />
-                        {errors_dname && (
+                        {errors_LastName && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_dname}
+                            {errors_LastName}
                           </span>
                         )}
                       </Col>
@@ -668,9 +661,9 @@ function AgentUpdate() {
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="Location"
                         />
-                        {errors_location && (
+                        {errors_Email && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_location}
+                            {errors_Email}
                           </span>
                         )}
                       </Col>
@@ -686,9 +679,9 @@ function AgentUpdate() {
                           onChange={(e) => setContactNumber(e.target.value)}
                           placeholder="Agent ContactNumber"
                         />
-                        {errors_location && (
+                        {errors_ContactNumber && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_location}
+                            {errors_ContactNumber}
                           </span>
                         )}
                       </Col>
@@ -704,9 +697,9 @@ function AgentUpdate() {
                           onChange={(e) => setLanguage(e.target.value)}
                           placeholder="Number of Employees"
                         />
-                        {errors_noe && (
+                        {errors_Language && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
+                            {errors_Language}
                           </span>
                         )}
                       </Col>
@@ -722,9 +715,28 @@ function AgentUpdate() {
                           onChange={(e) => setDescription(e.target.value)}
                           placeholder="Number of Employees"
                         />
-                        {errors_noe && (
+                        {errors_Description && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
+                            {errors_Description}
+                          </span>
+                        )}
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Agent Profile Image
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="file"
+                          label="Image"
+                          name="myFile"
+                          accept=".jpeg, .png, .jpg"
+                          onChange={(e) => handleFileUpload(e)}
+                        />
+                        {errors_ProfileImage && (
+                          <span style={{ color: "red" }} className="errors">
+                            {errors_ProfileImage}
                           </span>
                         )}
                       </Col>

@@ -69,83 +69,83 @@ function EventUpdate() {
   const classes = useStyles();
   const history = useHistory();
 
+  let [errors_EventName, seterrors_EventName] = useState("");
+  let [errors_PerformanceName, seterrors_PerformanceName] = useState("");
+  let [errors_StartingTime, seterrors_StartingTime] = useState("");
+  let [errors_Description, seterrors_Description] = useState("");
+  let [errors_Destination, seterrors_Destination] = useState("");
+  let [errors_EventBookingPrice, seterrors_EventBookingPrice] = useState("");
+
   function UpdateCleaningCompany() {
-    // setError(null);
-    // setLoading(true);
+    setError(null);
+    setLoading(true);
 
-    // let errors = {};
+    let errors = {};
 
-    // //Form Validation
-    // if (!name.trim()) {
-    //   errors.name = "Company Name field required";
-    //   seterrors_dname(errors.name);
+    //Form Validation
+    // if (!EventName.trim()) {
+    //   errors.EventName = "Event Name field required";
+    //   seterrors_EventName(errors.EventName);
     // }
-    // if (!location.trim()) {
-    //   errors.location = "Location field required";
-    //   seterrors_location(errors.location);
+    // if (!PerformanceName.trim()) {
+    //   errors.PerformanceName = "Performancer Name field required";
+    //   seterrors_PerformanceName(errors.PerformanceName);
     // }
-    // if (!noe.trim()) {
-    //   errors.noe = "Number of Employee field required";
-    //   seterrors_noe(errors.noe);
+    // if (!StartingTime.trim()) {
+    //   errors.StartingTime = "Starting Time field required";
+    //   seterrors_StartingTime(errors.StartingTime);
     // }
-    // if (!since.trim()) {
-    //   errors.since = "Since field required";
-    //   seterrors_since(errors.since);
+    // if (!Description.trim()) {
+    //   errors.Description = "Description field required";
+    //   seterrors_Description(errors.Description);
     // }
-    // if (!description.trim()) {
-    //   errors.description = "Description field required";
-    //   seterrors_description(errors.description);
+    // if (!EventBookingPrice.trim()) {
+    //   errors.EventBookingPrice = "Event Booking Price required";
+    //   seterrors_EventBookingPrice(errors.EventBookingPrice);
     // }
-    // if (!cnumber.trim()) {
-    //   errors.cnumber = "Contact Number field required";
-    //   seterrors_cnumber(errors.cnumber);
+    // if (!Destination.trim()) {
+    //   errors.Destination = "Destination field required";
+    //   seterrors_Destination(errors.Destination);
     // }
 
-    // if (
-    //   name === "" ||
-    //   location === "" ||
-    //   noe === "" ||
-    //   since === "" ||
-    //   description === ""
-    // ) {
-    //   setLoading(false);
-    // } else {
-    //   console.log({
-    //     CName: name,
-    //     Location: location,
-    //     NOE: noe,
-    //     CNumber: cnumber,
-    //     Since: since,
-    //     Image: postImage.myFile,
-    //     Description: description,
-    //   });
-    axios
-      .patch(`http://localhost:3000/EventManagement/${id}`, {
-        EventName: EventName,
-        PerformanceName: PerformanceName,
-        StartingTime: StartingTime,
-        Description: Description,
-        Destination: Destination,
-        EventBookingPrice: EventBookingPrice,
-        Imge: postImage.myFile,
-        ConverPhoto: postCoverImage.myFile,
-      })
-      .then((response) => {
-        setLoading(false);
-        swal(
-          "Good job!",
-          "Your data has been successfully Updated..!",
-          "success"
-        );
-        // window.location.reload();
-        history.push("/EventView");
-      })
-      .catch((error) => {
-        setLoading(false);
-        alert("Sorry, Something Error...");
-        swal("Sorry!", "Something Error..!", "warning");
-      });
-    // }
+    if (
+      EventName === "" ||
+      PerformanceName === "" ||
+      StartingTime === "" ||
+      Description === "" ||
+      Destination === "" ||
+      EventBookingPrice === ""
+    ) {
+      setLoading(false);
+      alert("Please Fill All required field...!");
+    } else {
+      axios
+        .patch(`http://localhost:3000/EventManagement/${id}`, {
+          EventName: EventName,
+          PerformanceName: PerformanceName,
+          StartingTime: StartingTime,
+          Description: Description,
+          Destination: Destination,
+          EventBookingPrice: EventBookingPrice,
+          Imge: postImage.myFile,
+          ConverPhoto: postCoverImage.myFile,
+        })
+        .then((response) => {
+          setLoading(false);
+          swal(
+            "Good job!",
+            "Your data has been successfully Updated..!",
+            "success"
+          );
+          // window.location.reload();
+          history.push("/EventView");
+        })
+        .catch((error) => {
+          setLoading(false);
+          alert("Sorry, Something Error...");
+          swal("Sorry!", "Something Error..!", "warning");
+        });
+    }
   }
 
   const convertToBase64 = (file) => {
@@ -645,9 +645,9 @@ function EventUpdate() {
                           onChange={(e) => setEventName(e.target.value)}
                           placeholder="Category"
                         />
-                        {errors_dname && (
+                        {errors_EventName && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_dname}
+                            {errors_EventName}
                           </span>
                         )}
                       </Col>
@@ -663,9 +663,9 @@ function EventUpdate() {
                           onChange={(e) => setPerformanceName(e.target.value)}
                           placeholder="Name"
                         />
-                        {errors_location && (
+                        {errors_PerformanceName && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_location}
+                            {errors_PerformanceName}
                           </span>
                         )}
                       </Col>
@@ -681,9 +681,9 @@ function EventUpdate() {
                           onChange={(e) => setStartingTime(e.target.value)}
                           placeholder="Starting Time"
                         />
-                        {errors_noe && (
+                        {errors_StartingTime && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
+                            {errors_StartingTime}
                           </span>
                         )}
                       </Col>
@@ -699,9 +699,9 @@ function EventUpdate() {
                           onChange={(e) => setDescription(e.target.value)}
                           placeholder="Description"
                         />
-                        {errors_noe && (
+                        {errors_Description && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
+                            {errors_Description}
                           </span>
                         )}
                       </Col>
@@ -717,9 +717,9 @@ function EventUpdate() {
                           onChange={(e) => setDestination(e.target.value)}
                           placeholder="Description"
                         />
-                        {errors_noe && (
+                        {errors_Destination && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
+                            {errors_Destination}
                           </span>
                         )}
                       </Col>
@@ -735,9 +735,9 @@ function EventUpdate() {
                           onChange={(e) => setEventBookingPrice(e.target.value)}
                           placeholder="Description"
                         />
-                        {errors_noe && (
+                        {errors_EventBookingPrice && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
+                            {errors_EventBookingPrice}
                           </span>
                         )}
                       </Col>
@@ -760,11 +760,11 @@ function EventUpdate() {
                           accept=".jpeg, .png, .jpg"
                           onChange={(e) => handleFileUpload(e)}
                         />
-                        {errors_description && (
+                        {/* {errors_description && (
                           <span style={{ color: "red" }} className="errors">
                             {errors_description}
                           </span>
-                        )}
+                        )} */}
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
@@ -785,11 +785,11 @@ function EventUpdate() {
                           accept=".jpeg, .png, .jpg"
                           onChange={(e) => handleFileUpload01(e)}
                         />
-                        {errors_description && (
+                        {/* {errors_description && (
                           <span style={{ color: "red" }} className="errors">
                             {errors_description}
                           </span>
-                        )}
+                        )} */}
                       </Col>
                     </Form.Group>
                     <center>

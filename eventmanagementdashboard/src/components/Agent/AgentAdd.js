@@ -36,88 +36,84 @@ function AgentAdd() {
   const [loading, setLoading] = useState(false);
   const [postImage, setPostImage] = useState({ myFile: "" });
 
-  let [errors_dname, seterrors_dname] = useState("");
-  let [errors_location, seterrors_location] = useState("");
-  let [errors_noe, seterrors_noe] = useState("");
-  let [errors_since, seterrors_since] = useState("");
-  let [errors_description, seterrors_description] = useState("");
-  let [errors_cnumber, seterrors_cnumber] = useState("");
+  let [errors_firstname, seterrors_firstname] = useState("");
+  let [errors_LastName, seterrors_LastName] = useState("");
+  let [errors_Email, seterrors_Email] = useState("");
+  let [errors_ContactNumber, seterrors_ContactNumber] = useState("");
+  let [errors_Language, seterrors_Language] = useState("");
+  let [errors_Description, seterrors_Description] = useState("");
+  let [errors_ProfileImage, seterrors_ProfileImage] = useState("");
 
   function CreateCleaningCompany() {
-    // setError(null);
-    // setLoading(true);
+    setError(null);
+    setLoading(true);
 
-    // let errors = {};
+    let errors = {};
 
-    // //Form Validation
-    // if (!name.trim()) {
-    //   errors.name = "Company Name field required";
-    //   seterrors_dname(errors.name);
-    // }
-    // if (!location.trim()) {
-    //   errors.location = "Location field required";
-    //   seterrors_location(errors.location);
-    // }
-    // if (!noe.trim()) {
-    //   errors.noe = "Number of Employee field required";
-    //   seterrors_noe(errors.noe);
-    // }
-    // if (!since.trim()) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (since.length < 4) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (!description.trim()) {
-    //   errors.description = "Description field required";
-    //   seterrors_description(errors.description);
-    // }
-    // if (!cnumber.trim()) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
-    // if (cnumber.length < 10) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
+    //Form Validation
+    if (!FirstName.trim()) {
+      errors.name = "First Name field required";
+      seterrors_firstname(errors.name);
+    }
+    if (!LastName.trim()) {
+      errors.LastName = "Last Name field required";
+      seterrors_LastName(errors.LastName);
+    }
+    if (!Email.trim()) {
+      errors.Email = "E-Mail Address field required";
+      seterrors_Email(errors.Email);
+    }
+    if (!ContactNumber.trim()) {
+      errors.ContactNumber = "Contact Number field required";
+      seterrors_ContactNumber(errors.ContactNumber);
+    }
+    if (ContactNumber.length != 10) {
+      errors.ContactNumber = "Please Enter a Valid Contact Number";
+      seterrors_ContactNumber(errors.ContactNumber);
+    }
+    if (!Language.trim()) {
+      errors.Language = "Language field required";
+      seterrors_Language(errors.Language);
+    }
+    if (!Description.trim()) {
+      errors.Description = "Description field required";
+      seterrors_Description(errors.Description);
+    }
 
-    // if (
-    //   name === "" ||
-    //   location === "" ||
-    //   noe === "" ||
-    //   since === "" ||
-    //   description === "" ||
-    //   errors_cnumber === "" ||
-    //   errors_since === ""
-    // ) {
-    //   setLoading(false);
-    // } else {
-    axios
-      .post("http://localhost:3000/AgentManagement", {
-        FirstName: FirstName,
-        LastName: LastName,
-        Email: Email,
-        ContactNumber: ContactNumber,
-        Language: Language,
-        Description: Description,
-        ProfileImage: postImage.myFile,
-      })
-      .then((response) => {
-        setLoading(false);
-        swal(
-          "Good job!",
-          "Your data has been successfully added..!",
-          "success"
-        );
-        window.location.reload();
-      })
-      .catch((error) => {
-        setLoading(false);
-        swal("Sorry!", "Something Error!", "error");
-      });
-    // }
+    if (
+      FirstName === "" ||
+      LastName === "" ||
+      Email === "" ||
+      ContactNumber === "" ||
+      Language === "" ||
+      Description === ""
+    ) {
+      setLoading(false);
+    } else {
+      axios
+        .post("http://localhost:3000/AgentManagement", {
+          FirstName: FirstName,
+          LastName: LastName,
+          Email: Email,
+          ContactNumber: ContactNumber,
+          Language: Language,
+          Description: Description,
+          ProfileImage: postImage.myFile,
+        })
+        .then((response) => {
+          setLoading(false);
+          swal(
+            "Good job!",
+            "Your data has been successfully added..!",
+            "success"
+          );
+          window.location.reload();
+        })
+        .catch((error) => {
+          setLoading(false);
+          swal("Sorry!", "Something Error!", "error");
+        });
+    }
   }
 
   const convertToBase64 = (file) => {
@@ -608,9 +604,9 @@ function AgentAdd() {
                           onChange={(e) => setFirstName(e.target.value)}
                           placeholder="Agent First Name"
                         />
-                        {errors_dname && (
+                        {errors_firstname && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_dname}
+                            {errors_firstname}
                           </span>
                         )}
                       </Col>
@@ -626,9 +622,9 @@ function AgentAdd() {
                           onChange={(e) => setLastName(e.target.value)}
                           placeholder="Agent Last Name"
                         />
-                        {errors_dname && (
+                        {errors_LastName && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_dname}
+                            {errors_LastName}
                           </span>
                         )}
                       </Col>
@@ -644,9 +640,9 @@ function AgentAdd() {
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="Agent Email"
                         />
-                        {errors_location && (
+                        {errors_Email && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_location}
+                            {errors_Email}
                           </span>
                         )}
                       </Col>
@@ -662,9 +658,9 @@ function AgentAdd() {
                           onChange={(e) => setContactNumber(e.target.value)}
                           placeholder="Agent Contact Number"
                         />
-                        {errors_location && (
+                        {errors_ContactNumber && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_location}
+                            {errors_ContactNumber}
                           </span>
                         )}
                       </Col>
@@ -680,9 +676,9 @@ function AgentAdd() {
                           onChange={(e) => setLanguage(e.target.value)}
                           placeholder="Agent Language"
                         />
-                        {errors_noe && (
+                        {errors_Language && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
+                            {errors_Language}
                           </span>
                         )}
                       </Col>
@@ -698,9 +694,9 @@ function AgentAdd() {
                           onChange={(e) => setDescription(e.target.value)}
                           placeholder="Agent Description"
                         />
-                        {errors_noe && (
+                        {errors_Description && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
+                            {errors_Description}
                           </span>
                         )}
                       </Col>
@@ -717,9 +713,9 @@ function AgentAdd() {
                           accept=".jpeg, .png, .jpg"
                           onChange={(e) => handleFileUpload(e)}
                         />
-                        {errors_description && (
+                        {errors_ProfileImage && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_description}
+                            {errors_ProfileImage}
                           </span>
                         )}
                       </Col>
