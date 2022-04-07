@@ -5,33 +5,28 @@ import NavBar from "../../Layout/NavBar";
 import { Button } from "@mui/material";
 
 function SingleHotel() {
+  let SingleHotel = JSON.parse(sessionStorage.getItem("SingleHotel"));
+  // console.log("SingleHotel : ", SingleHotel);
+
   return (
     <div>
       <div>
         <NavBar />
-        <img src="./Assets/Images/Package01.png" width={"100%"} />
+        <img src={SingleHotel.Image} width={"100%"} />
         <Container>
           <div
             className="row"
             style={{ display: "flex", justifyContent: "space-between" }}
           >
             <div>
-              <h1>Hotel Kandyan Reach</h1>
-              Kandy road,Kurunegala
+              <h1>{SingleHotel.Name}</h1>
+              Address -- {SingleHotel.Address} {SingleHotel.Street}{" "}
+              {SingleHotel.State} {SingleHotel.Province} {SingleHotel.Country}{" "}
               <br />
-              Hotel Kandyan Reach
+              Contact Number -- {SingleHotel.MobileNumber}
               <br />
-              4 Nights 5 Days
+              Per Night -- {SingleHotel.Price}
               <br />
-            </div>
-            <div>
-              <h1>Overview</h1>
-              <p>
-                Duration : 03 Nights / 05 Days
-                <br /> Destinations : Airport – Sigiriya
-                <br />
-                Language : English
-              </p>
             </div>
           </div>
           <center style={{ margin: 20 }}>

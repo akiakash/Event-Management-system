@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../../Layout/Footer";
 import NavBar from "../../Layout/NavBar";
 import { styled } from "@mui/material/styles";
@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Container } from "@mui/material";
 import { Button } from "@mui/material";
+import axios from "axios";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -24,115 +25,57 @@ const ExpandMore = styled((props) => {
 }));
 
 function Flight() {
-  const [expanded, setExpanded] = React.useState(false);
+  const [Flight, setFlight] = useState("");
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  axios
+    .get("http://localhost:3000/FlightManagement")
+    .then((response) => {
+      setFlight(response.data);
+      // console.log("inserted", response.data);
+    })
+    .catch((error) => {
+      console.log("error message", error.data);
+    });
+
+  const FlightBooking = (item) => {
+    console.log(item);
+    window.sessionStorage.setItem("flightDetails", JSON.stringify(item));
   };
+
   return (
     <div>
       <NavBar />
       <Container>
-        <div className="row">
-          <Card sx={{ maxWidth: 340 }} style={{ margin: 20 }}>
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                Colombo All airports (CMB) -- Mumbai Chhatrapati S. Maharaj
-                (BOM) <br />
-                9:30AM - 11:30AM
-              </Typography>
-            </CardContent>
-            <CardActions disableSpacing>
-              <ExpandMore
-                expand={expanded}
-                onClick={handleExpandClick}
-                aria-expanded={expanded}
-                aria-label="show more"
-              >
-                <ExpandMoreIcon />
-              </ExpandMore>
-            </CardActions>
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
-              <CardContent>
-                <Typography paragraph>Method:</Typography>
-                <Typography paragraph>
-                  Colombo - Mumbai Saturday 22 January 2022 <br />
-                  |<br />|
-                </Typography>
-                <Typography paragraph>
-                  Mumbai - Colombo Saturday 25 January 2022
-                  <br />
-                </Typography>
-              </CardContent>
-            </Collapse>
-          </Card>
-          <Card sx={{ maxWidth: 340 }} style={{ margin: 20 }}>
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                Colombo All airports (CMB) -- Mumbai Chhatrapati S. Maharaj
-                (BOM) <br />
-                9:30AM - 11:30AM
-              </Typography>
-            </CardContent>
-            <CardActions disableSpacing>
-              <ExpandMore
-                expand={expanded}
-                onClick={handleExpandClick}
-                aria-expanded={expanded}
-                aria-label="show more"
-              >
-                <ExpandMoreIcon />
-              </ExpandMore>
-            </CardActions>
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
-              <CardContent>
-                <Typography paragraph>Method:</Typography>
-                <Typography paragraph>
-                  Colombo - Mumbai Saturday 22 January 2022 <br />
-                  |<br />|
-                </Typography>
-                <Typography paragraph>
-                  Mumbai - Colombo Saturday 25 January 2022
-                  <br />
-                </Typography>
-              </CardContent>
-            </Collapse>
-          </Card>
-          <Card sx={{ maxWidth: 340 }} style={{ margin: 20 }}>
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                Colombo All airports (CMB) -- Mumbai Chhatrapati S. Maharaj
-                (BOM) <br />
-                9:30AM - 11:30AM
-              </Typography>
-            </CardContent>
-            <CardActions disableSpacing>
-              <ExpandMore
-                expand={expanded}
-                onClick={handleExpandClick}
-                aria-expanded={expanded}
-                aria-label="show more"
-              >
-                <ExpandMoreIcon />
-              </ExpandMore>
-            </CardActions>
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
-              <CardContent>
-                <Typography paragraph>Method:</Typography>
-                <Typography paragraph>
-                  Colombo - Mumbai Saturday 22 January 2022 <br />
-                  |<br />|
-                </Typography>
-                <Typography paragraph>
-                  Mumbai - Colombo Saturday 25 January 2022
-                  <br />
-                </Typography>
-              </CardContent>
-            </Collapse>
-            <center>
-              <Button href="/FlightBook">Book Now</Button>
-            </center>
-          </Card>
+        <div className="row" style={{ padding: 50 }}>
+          {Flight
+            ? Flight.map((item) => (
+                <Card sx={{ maxWidth: 340 }} style={{ margin: 20 }}>
+                  <CardContent>
+                    <Typography variant="body2" color="text.secondary">
+                      {item.AirlineName}
+                      <br />
+                      {item.FromLocation} - {item.ToLocation}
+                      <br />
+                      {item.DepartureTime} - {item.ArrivalTime}
+                      <br />
+                      {item.Duration}
+                      <br />
+                      Total Seats {item.TotalSeats}
+                      <br />
+                      Seats Price {item.SeatsPrice}
+                    </Typography>
+                  </CardContent>
+                  <center>
+                    <Button
+                      href="/FlightBook"
+                      onClick={() => FlightBooking(item)}
+                    >
+                      Book Now
+                    </Button>
+                  </center>
+                </Card>
+              ))
+            : "Loading..."}
         </div>
       </Container>
       <Footer />

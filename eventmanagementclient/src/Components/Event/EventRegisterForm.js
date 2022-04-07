@@ -1,76 +1,164 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../../Layout/Footer";
 import NavBar from "../../Layout/NavBar";
 import TextField from "@mui/material/TextField";
-import { Button } from "@mui/material";
+import { Button, Container } from "@mui/material";
+import Form from "react-bootstrap/Form";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+let eventdetails = "";
 
 function EventRegisterForm() {
+  eventdetails = JSON.parse(sessionStorage.getItem("eventdetails"));
+  console.log("eventdetails", eventdetails);
+
+  const [FirstName, setFirstName] = useState();
+  const [LastName, setLastName] = useState();
+  const [Email, setEmail] = useState();
+  const [Contactnumber, setContactnumber] = useState();
+
+  const CreateCleaningCompany = () => {
+    console.log("FirstName : ", FirstName);
+    console.log("LastName : ", LastName);
+    console.log("Email : ", Email);
+    console.log("Contactnumber : ", Contactnumber);
+
+    axios
+      .post(`http://localhost:3000/EventBooking`, {
+        EventName: eventdetails.EventName,
+        FirstName: FirstName,
+        LastName: LastName,
+        Email: Email,
+        Contactnumber: Contactnumber,
+        Status: "Processing",
+      })
+      .then((response) => {
+        console.log("response : ", response);
+        alert("Event Successfully Booked...!");
+        window.location.reload(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div>
       <NavBar />
       <center style={{ padding: 50 }}>
-        <TextField
-          id="standard-basic"
-          label="First Name"
-          variant="standard"
-          style={{ width: "400px" }}
-        />
-        <br />
-        <TextField
-          id="standard-basic"
-          label="Last Name"
-          variant="standard"
-          style={{ width: "400px" }}
-        />
-        <br />
-        <TextField
-          id="standard-basic"
-          label="Address"
-          variant="standard"
-          style={{ width: "400px" }}
-        />
-        <br />
-        <TextField
-          id="standard-basic"
-          label="Postal Code"
-          variant="standard"
-          style={{ width: "400px" }}
-        />
-        <br />
-        <TextField
-          id="standard-basic"
-          label="NIC"
-          variant="standard"
-          style={{ width: "400px" }}
-        />
-        <br />
-        <TextField
-          id="standard-basic"
-          label="Contact Number"
-          variant="standard"
-          style={{ width: "400px" }}
-        />
-        <br />
-        <TextField
-          id="standard-basic"
-          label="Email Address"
-          variant="standard"
-          style={{ width: "400px" }}
-        />
-        <br />
-        <div style={{ padding: 20 }}>
-          <Button variant="outlined" style={{ marginRight: 10 }}>
-            Cancel
-          </Button>
-          <Button variant="contained">
-            <a
-              href="/EventRegisterForm"
-              style={{ textDecoration: "none", color: "#fff" }}
-            >
-              Register
-            </a>
-          </Button>
-        </div>
+        <Container>
+          <Form>
+            <center>
+              <Form.Group as={Row} className="mb-3" controlId="">
+                <Form.Label column sm={2} />
+                <Form.Label column sm={3}>
+                  Event Name
+                </Form.Label>
+                <Col sm={4}>
+                  <Form.Control
+                    type="text"
+                    defaultValue={eventdetails.EventName}
+                    disabled
+                    placeholder="Event Name"
+                  />
+                </Col>
+              </Form.Group>
+              <Form.Group as={Row} className="mb-3" controlId="">
+                <Form.Label column sm={2} />
+                <Form.Label column sm={3}>
+                  Event Performancer Name
+                </Form.Label>
+                <Col sm={4}>
+                  <Form.Control
+                    type="text"
+                    defaultValue={eventdetails.PerformanceName}
+                    disabled
+                    placeholder="Event Performancer Name"
+                  />
+                </Col>
+              </Form.Group>
+              <Form.Group as={Row} className="mb-3" controlId="">
+                <Form.Label column sm={2} />
+                <Form.Label column sm={3}>
+                  Event Price
+                </Form.Label>
+                <Col sm={4}>
+                  <Form.Control
+                    type="text"
+                    defaultValue={eventdetails.EventBookingPrice}
+                    disabled
+                    placeholder="Event Price"
+                  />
+                </Col>
+              </Form.Group>
+              <Form.Group as={Row} className="mb-3" controlId="">
+                <Form.Label column sm={2} />
+                <Form.Label column sm={3}>
+                  First Name
+                </Form.Label>
+                <Col sm={4}>
+                  <Form.Control
+                    type="text"
+                    onChange={(e) => setFirstName(e.target.value)}
+                    placeholder="First Name"
+                  />
+                </Col>
+              </Form.Group>
+              <Form.Group as={Row} className="mb-3" controlId="">
+                <Form.Label column sm={2} />
+                <Form.Label column sm={3}>
+                  Last Name
+                </Form.Label>
+                <Col sm={4}>
+                  <Form.Control
+                    type="text"
+                    onChange={(e) => setLastName(e.target.value)}
+                    placeholder="Last Name"
+                  />
+                </Col>
+              </Form.Group>
+              <Form.Group as={Row} className="mb-3" controlId="">
+                <Form.Label column sm={2} />
+                <Form.Label column sm={3}>
+                  Email
+                </Form.Label>
+                <Col sm={4}>
+                  <Form.Control
+                    type="text"
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email"
+                  />
+                </Col>
+              </Form.Group>
+              <Form.Group as={Row} className="mb-3" controlId="">
+                <Form.Label column sm={2} />
+                <Form.Label column sm={3}>
+                  Contact Number
+                </Form.Label>
+                <Col sm={4}>
+                  <Form.Control
+                    type="number"
+                    onChange={(e) => setContactnumber(e.target.value)}
+                    placeholder="Contact Number"
+                  />
+                </Col>
+              </Form.Group>
+              <center>
+                <div className="button">
+                  <input
+                    type="button"
+                    onClick={CreateCleaningCompany}
+                    value={"SUBMIT"}
+                    className="btn btn-block app-sidebar__heading Login-Button"
+                  />
+                </div>
+              </center>
+            </center>
+          </Form>
+        </Container>
       </center>
       <Footer />
     </div>
