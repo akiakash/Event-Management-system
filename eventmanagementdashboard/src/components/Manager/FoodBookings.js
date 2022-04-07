@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,8 +9,21 @@ import Paper from "@mui/material/Paper";
 import Button from "@material-ui/core/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import axios from "axios";
 
 function FoodBookings() {
+  const [foodBookings, setFoodBookings] = useState("");
+
+  axios
+    .get("http://localhost:3000/FoodsBooking")
+    .then((response) => {
+      setFoodBookings(response.data);
+      console.log("displayed", response.data);
+    })
+    .catch((error) => {
+      console.log("error message", error.data);
+    });
+
   return (
     <div>
       <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
@@ -73,26 +86,6 @@ function FoodBookings() {
                 </div>
                 <button className="close" />
               </div>
-              {/* <ul class="header-menu nav">
-                      <li class="nav-item">
-                          <a href="javascript:void(0);" class="nav-link">
-                              <i class="nav-link-icon fa fa-database"> </i>
-                              Statistics
-                          </a>
-                      </li>
-                      <li class="btn-group nav-item">
-                          <a href="javascript:void(0);" class="nav-link">
-                              <i class="nav-link-icon fa fa-edit"></i>
-                              Projects
-                          </a>
-                      </li>
-                      <li class="dropdown nav-item">
-                          <a href="javascript:void(0);" class="nav-link">
-                              <i class="nav-link-icon fa fa-cog"></i>
-                              Settings
-                          </a>
-                      </li>
-                  </ul> */}
             </div>
             <div className="app-header-right">
               <div className="header-btn-lg pr-0">
@@ -492,33 +485,13 @@ function FoodBookings() {
                         </a>
                       </li>
                       <li>
-                        <a href="/EventBookings">
-                          <i className="metismenu-icon"></i> EVENT | BOOKINGS
-                        </a>
-                      </li>
-                      <li>
-                        <a href="/FlightBookings">
-                          <i className="metismenu-icon"></i> FLIGHT | BOOKINGS
-                        </a>
-                      </li>
-                      <li>
-                        <a href="/HotelBookings">
-                          <i className="metismenu-icon"></i> HOTEL | BOOKINGS
-                        </a>
-                      </li>
-                      <li>
-                        <a href="/VehicleBookings">
-                          <i className="metismenu-icon"></i> VEHICLE | BOOKINGS
-                        </a>
-                      </li>
-                      <li>
-                        <a href="/FoodBookings">
-                          <i className="metismenu-icon"></i> FOOD | BOOKINGS
-                        </a>
-                      </li>
-                      <li>
                         <a href="/PackageBookings">
                           <i className="metismenu-icon"></i> PACKAGE | BOOKINGS
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/AgentBookings">
+                          <i className="metismenu-icon"></i> AGENT | BOOKINGS
                         </a>
                       </li>
                     </ul>
@@ -552,19 +525,25 @@ function FoodBookings() {
                     <TableRow>
                       <TableCell>{""}</TableCell>
                       <TableCell style={{ fontWeight: "bold" }}>
-                        Event Name
+                        Food Name
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Quantity
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Price
                       </TableCell>
                       <TableCell align="right" style={{ fontWeight: "bold" }}>
                         First Name
                       </TableCell>
                       <TableCell align="right" style={{ fontWeight: "bold" }}>
-                        Last Nme
-                      </TableCell>
-                      <TableCell align="right" style={{ fontWeight: "bold" }}>
-                        Email
+                        Last Name
                       </TableCell>
                       <TableCell align="right" style={{ fontWeight: "bold" }}>
                         Contact Number
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Email
                       </TableCell>
                       <TableCell align="right" style={{ fontWeight: "bold" }}>
                         Status
@@ -572,6 +551,63 @@ function FoodBookings() {
                     </TableRow>
                   </TableHead>
                 </Table>
+
+                {foodBookings
+                  ? foodBookings.map((item) => (
+                      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                        <TableBody>
+                          <TableRow>
+                            <TableCell>{""}</TableCell>
+                            <TableCell style={{ fontWeight: "bold" }}>
+                              {item.FoodName}
+                            </TableCell>
+                            <TableCell
+                              align="right"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              {item.Quantity}
+                            </TableCell>
+                            <TableCell
+                              align="right"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              {item.Price}
+                            </TableCell>
+                            <TableCell
+                              align="right"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              {item.FirstName}
+                            </TableCell>
+                            <TableCell
+                              align="right"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              {item.LastName}
+                            </TableCell>
+                            <TableCell
+                              align="right"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              {item.ContactNumber}
+                            </TableCell>
+                            <TableCell
+                              align="right"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              {item.EMail}
+                            </TableCell>
+                            <TableCell
+                              align="right"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              {item.Status}
+                            </TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+                    ))
+                  : "null"}
               </TableContainer>
             </div>
             <div className="app-wrapper-footer">

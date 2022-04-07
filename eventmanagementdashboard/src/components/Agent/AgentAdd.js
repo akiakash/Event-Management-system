@@ -589,6 +589,16 @@ function AgentAdd() {
                           <i className="metismenu-icon"></i> FOOD | BOOKINGS
                         </a>
                       </li>
+                      <li>
+                        <a href="/PackageBookings">
+                          <i className="metismenu-icon"></i> PACKAGE | BOOKINGS
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/AgentBookings">
+                          <i className="metismenu-icon"></i> AGENT | BOOKINGS
+                        </a>
+                      </li>
                     </ul>
                   </li>
                 </ul>

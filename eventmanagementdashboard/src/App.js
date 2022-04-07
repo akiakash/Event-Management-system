@@ -41,7 +41,7 @@ import FoodBookings from "./components/Manager/FoodBookings";
 import HotelBookings from "./components/Manager/HotelBookings";
 import PackageBookings from "./components/Manager/PackageBookings";
 import VehicleBookings from "./components/Manager/VehicleBookings";
-
+import AgentBookings from "./components/Manager/AgentBookings";
 // All routing routes ddefined here
 const Routing = () => {
   return (
@@ -85,6 +85,7 @@ const Routing = () => {
       <Route exact path="/HotelBookings" component={HotelBookings} />
       <Route exact path="/PackageBookings" component={PackageBookings} />
       <Route exact path="/VehicleBookings" component={VehicleBookings} />
+      <Route exact path="/AgentBookings" component={AgentBookings} />
     </Switch>
   );
 };
