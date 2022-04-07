@@ -32,93 +32,96 @@ function FlightAdd() {
   const [TotalSeats, setTotalSeats] = useState("");
   const [SeatsPrice, setSeatsPrice] = useState("");
   const [Duration, setDuration] = useState("");
-  const [error, setError] = useState(null);
+  const [errors, setErrors] = useState(null);
   const [loading, setLoading] = useState(false);
   const [postImage, setPostImage] = useState({ myFile: "" });
 
-  let [errors_dname, seterrors_dname] = useState("");
-  let [errors_location, seterrors_location] = useState("");
-  let [errors_noe, seterrors_noe] = useState("");
-  let [errors_since, seterrors_since] = useState("");
-  let [errors_description, seterrors_description] = useState("");
-  let [errors_cnumber, seterrors_cnumber] = useState("");
+  let [errors_AirlineName, seterrors_AirlineName] = useState("");
+  let [errors_FromLocation, seterrors_FromLocation] = useState("");
+  let [errors_ToLocation, seterrors_ToLocation] = useState("");
+  let [errors_DepartureTime, seterrors_DepartureTime] = useState("");
+  let [errors_ArrivalTime, seterrors_ArrivalTime] = useState("");
+  let [errors_SeatsPrice, seterrors_SeatsPrice] = useState("");
+  let [errors_Duration, seterrors_Duration] = useState("");
+  let [errors_TotalSeats, seterrors_TotalSeats] = useState("");
 
   function CreateCleaningCompany() {
-    // setError(null);
-    // setLoading(true);
+    setErrors(null);
+    setLoading(true);
 
-    // let errors = {};
+    let errors = {};
 
     // //Form Validation
-    // if (!name.trim()) {
-    //   errors.name = "Company Name field required";
-    //   seterrors_dname(errors.name);
-    // }
-    // if (!location.trim()) {
-    //   errors.location = "Location field required";
-    //   seterrors_location(errors.location);
-    // }
-    // if (!noe.trim()) {
-    //   errors.noe = "Number of Employee field required";
-    //   seterrors_noe(errors.noe);
-    // }
-    // if (!since.trim()) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (since.length < 4) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (!description.trim()) {
-    //   errors.description = "Description field required";
-    //   seterrors_description(errors.description);
-    // }
-    // if (!cnumber.trim()) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
-    // if (cnumber.length < 10) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
+    if (!AirlineName.trim()) {
+      errors.AirlineName = "Airline Name field required";
+      seterrors_AirlineName(errors.AirlineName);
+    }
+    if (!FromLocation.trim()) {
+      errors.FromLocation = "Location field required";
+      seterrors_FromLocation(errors.FromLocation);
+    }
+    if (!ToLocation.trim()) {
+      errors.ToLocation = "Location field required";
+      seterrors_ToLocation(errors.ToLocation);
+    }
+    if (!DepartureTime.trim()) {
+      errors.DepartureTime = "Please Enter the Departure Time";
+      seterrors_DepartureTime(errors.DepartureTime);
+    }
+    if (ArrivalTime.length < 4) {
+      errors.ArrivalTime = "Please Enter the Arrival Time";
+      seterrors_ArrivalTime(errors.ArrivalTime);
+    }
+    if (!TotalSeats.trim()) {
+      errors.TotalSeats = "Enter the Total Seats";
+      seterrors_TotalSeats(errors.TotalSeats);
+    }
+    if (!SeatsPrice.trim()) {
+      errors.SeatsPrice = "Enter the Seat Price";
+      seterrors_SeatsPrice(errors.SeatsPrice);
+    }
+    if (Duration.length < 10) {
+      errors.Duration = "Please Enter the Duration";
+      seterrors_Duration(errors.Duration);
+    }
 
-    // if (
-    //   name === "" ||
-    //   location === "" ||
-    //   noe === "" ||
-    //   since === "" ||
-    //   description === "" ||
-    //   errors_cnumber === "" ||
-    //   errors_since === ""
-    // ) {
-    //   setLoading(false);
-    // } else {
-    axios
-      .post("http://localhost:3000/FlightManagement", {
-        AirlineName: AirlineName,
-        FromLocation: FromLocation,
-        ToLocation: ToLocation,
-        DepartureTime: DepartureTime,
-        ArrivalTime: ArrivalTime,
-        Duration: Duration,
-        TotalSeats: TotalSeats,
-        SeatsPrice: SeatsPrice,
-      })
-      .then((response) => {
-        setLoading(false);
-        swal(
-          "Good job!",
-          "Your data has been successfully added..!",
-          "success"
-        );
-        window.location.reload();
-      })
-      .catch((error) => {
-        setLoading(false);
-        swal("Sorry!", "Something Error!", "error");
-      });
-    // }
+    if (
+      AirlineName === "" ||
+      FromLocation === "" ||
+      ToLocation === "" ||
+      DepartureTime === "" ||
+      ArrivalTime === "" ||
+      TotalSeats === "" ||
+      SeatsPrice === "" ||
+      Duration === ""
+    ) {
+      setLoading(false);
+    } else {
+      axios
+        .post("http://localhost:3000/FlightManagement", {
+          AirlineName: AirlineName,
+          FromLocation: FromLocation,
+          ToLocation: ToLocation,
+          DepartureTime: DepartureTime,
+          ArrivalTime: ArrivalTime,
+          Duration: Duration,
+          TotalSeats: TotalSeats,
+          SeatsPrice: SeatsPrice,
+        })
+        .then((response) => {
+          setLoading(false);
+          swal(
+            "Good job!",
+            "Your data has been successfully added..!",
+            "success"
+          );
+          window.location.reload();
+        })
+        .catch((error) => {
+          setLoading(false);
+          swal("Sorry!", "Something Error!", "error");
+        });
+    }
   }
 
   const convertToBase64 = (file) => {
@@ -644,9 +647,9 @@ function FlightAdd() {
                           onChange={(e) => setAirlineName(e.target.value)}
                           placeholder="Airline Name"
                         />
-                        {errors_dname && (
+                        {errors_AirlineName && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_dname}
+                            {errors_AirlineName}
                           </span>
                         )}
                       </Col>
@@ -662,9 +665,9 @@ function FlightAdd() {
                           onChange={(e) => setFromLocation(e.target.value)}
                           placeholder="FromLocation"
                         />
-                        {errors_location && (
+                        {errors_FromLocation && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_location}
+                            {errors_FromLocation}
                           </span>
                         )}
                       </Col>
@@ -680,9 +683,9 @@ function FlightAdd() {
                           onChange={(e) => setToLocation(e.target.value)}
                           placeholder="ToLocation"
                         />
-                        {errors_noe && (
+                        {errors_ToLocation && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
+                            {errors_ToLocation}
                           </span>
                         )}
                       </Col>
@@ -698,9 +701,9 @@ function FlightAdd() {
                           onChange={(e) => setDepartureTime(e.target.value)}
                           placeholder="DepartureTime"
                         />
-                        {errors_cnumber && (
+                        {errors_DepartureTime && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_cnumber}
+                            {errors_DepartureTime}
                           </span>
                         )}
                       </Col>
@@ -716,9 +719,9 @@ function FlightAdd() {
                           onChange={(e) => setArrivalTime(e.target.value)}
                           placeholder="ArrivalTime"
                         />
-                        {errors_since && (
+                        {errors_ArrivalTime && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_since}
+                            {errors_ArrivalTime}
                           </span>
                         )}
                       </Col>
@@ -734,9 +737,9 @@ function FlightAdd() {
                           onChange={(e) => setDuration(e.target.value)}
                           placeholder="Duration"
                         />
-                        {errors_description && (
+                        {errors_Duration && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_description}
+                            {errors_Duration}
                           </span>
                         )}
                       </Col>
@@ -752,9 +755,9 @@ function FlightAdd() {
                           onChange={(e) => setTotalSeats(e.target.value)}
                           placeholder="TotalSeats"
                         />
-                        {errors_description && (
+                        {errors_TotalSeats && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_description}
+                            {errors_TotalSeats}
                           </span>
                         )}
                       </Col>
@@ -770,9 +773,9 @@ function FlightAdd() {
                           onChange={(e) => setSeatsPrice(e.target.value)}
                           placeholder="SeatsPrice"
                         />
-                        {errors_description && (
+                        {errors_SeatsPrice && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_description}
+                            {errors_SeatsPrice}
                           </span>
                         )}
                       </Col>
