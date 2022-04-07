@@ -18,6 +18,17 @@ function AgentRegisterForm() {
   const [ContactNumber, setContactNumber] = useState();
   const [Email, setEmail] = useState();
 
+  const [error, setError] = useState(null);
+  // const [loading, setLoading] = useState(false);
+  // const [postImage, setPostImage] = useState({ myFile: "" });
+
+  let [errors_AgentFirstName, seterrors_AgentFirstName] = useState("");
+  let [errors_AgentLastName, seterrors_AgentLastName] = useState("");
+  let [errors_FirstName, seterrors_FirstName] = useState("");
+  let [errors_LastName, seterrors_LastName] = useState("");
+  let [errors_ContactNumber, seterrors_ContactNumber] = useState("");
+  let [errors_EMail, seterrors_EMail] = useState("");
+
   const BookAgent = () => {
     console.log("Agent First Name : ", SingleAgent.FirstName);
     console.log("Agent Last Name : ", SingleAgent.LastName);
