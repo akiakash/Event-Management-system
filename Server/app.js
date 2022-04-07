@@ -28,6 +28,7 @@ const HotelBooking = require("./User/routes/HotelBooking");
 const PaymentDetails = require("./User/routes/PaymentDetails");
 const VehicleBooking = require("./user/routes/VehicleBooking");
 const AddressDetail = require("./User/routes/AddressDetail");
+const AgentBooking = require("./User/routes/AgentBooking");
 
 //API Paths
 app.use("/AgentManagement", AgentManagementRoute);
@@ -45,6 +46,7 @@ app.use("/HotelBooking", HotelBooking);
 app.use("/PaymentDetails", PaymentDetails);
 app.use("/VehicleBooking", VehicleBooking);
 app.use("/AddressDetail", AddressDetail);
+app.use("/AgentBooking", AgentBooking);
 
 app.get("/", (req, res) => {
   res.send("We are on Home");
