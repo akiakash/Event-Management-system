@@ -16,14 +16,14 @@ function FlightBook() {
   flightDetails = JSON.parse(sessionStorage.getItem("flightDetails"));
   console.log(flightDetails);
 
-  const [NoOfSeats, setNoOfSeats] = useState();
-  const [FirstName, setFirstName] = useState();
-  const [LastName, setLastName] = useState();
-  const [Email, setEmail] = useState();
-  const [Contactnumber, setContactnumber] = useState();
-  const [PassportNumber, setPassportNumber] = useState();
-  const [NicNumber, setNicNumber] = useState();
-  const [Address, setAddress] = useState();
+  const [NoOfSeats, setNoOfSeats] = useState("");
+  const [FirstName, setFirstName] = useState("");
+  const [LastName, setLastName] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Contactnumber, setContactnumber] = useState("");
+  const [PassportNumber, setPassportNumber] = useState("");
+  const [NicNumber, setNicNumber] = useState("");
+  const [Address, setAddress] = useState("");
 
   const FlightBooking = () => {
     console.log("NoOfSeats", NoOfSeats);
@@ -38,29 +38,44 @@ function FlightBook() {
     if (check == 0) {
       alert("Please Select a Seats..");
     } else {
-      axios
-        .post(`http://localhost:3000/FlightBooking`, {
-          AirlineName: flightDetails.AirlineName,
-          FromLocation: flightDetails.FromLocation,
-          ToLocation: flightDetails.ToLocation,
-          NoOfSeats: NoOfSeats,
-          FirstName: FirstName,
-          LastName: LastName,
-          Email: Email,
-          Contactnumber: Contactnumber,
-          PassportNumber: PassportNumber,
-          NicNumber: NicNumber,
-          Address: Address,
-          Price: check,
-        })
-        .then((res) => {
-          console.log(res);
-          alert("Flight Tickets have been Successfully Booked...!");
-          window.location.reload(true);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      if (
+        NoOfSeats == "" ||
+        FirstName == "" ||
+        LastName == "" ||
+        PassportNumber == "" ||
+        NicNumber == "" ||
+        Address == "" ||
+        check == "" ||
+        Contactnumber == "" ||
+        Email == ""
+      ) {
+        console.log("error01");
+        alert("Please fill all required Fields");
+      } else {
+        axios
+          .post(`http://localhost:3000/FlightBooking`, {
+            AirlineName: flightDetails.AirlineName,
+            FromLocation: flightDetails.FromLocation,
+            ToLocation: flightDetails.ToLocation,
+            NoOfSeats: NoOfSeats,
+            FirstName: FirstName,
+            LastName: LastName,
+            Email: Email,
+            Contactnumber: Contactnumber,
+            PassportNumber: PassportNumber,
+            NicNumber: NicNumber,
+            Address: Address,
+            Price: check,
+          })
+          .then((res) => {
+            console.log(res);
+            alert("Flight Tickets have been Successfully Booked...!");
+            window.location.reload(true);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     }
   };
 

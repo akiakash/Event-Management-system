@@ -13,21 +13,14 @@ function AgentRegisterForm() {
   let SingleAgent = JSON.parse(sessionStorage.getItem("SingleAgent"));
   // console.log("SingleAgent : ", SingleAgent);
 
-  const [FirstName, setFirstName] = useState();
-  const [LastName, setLastName] = useState();
-  const [ContactNumber, setContactNumber] = useState();
-  const [Email, setEmail] = useState();
+  const [FirstName, setFirstName] = useState("");
+  const [LastName, setLastName] = useState("");
+  const [ContactNumber, setContactNumber] = useState("");
+  const [Email, setEmail] = useState("");
 
   const [error, setError] = useState(null);
   // const [loading, setLoading] = useState(false);
   // const [postImage, setPostImage] = useState({ myFile: "" });
-
-  let [errors_AgentFirstName, seterrors_AgentFirstName] = useState("");
-  let [errors_AgentLastName, seterrors_AgentLastName] = useState("");
-  let [errors_FirstName, seterrors_FirstName] = useState("");
-  let [errors_LastName, seterrors_LastName] = useState("");
-  let [errors_ContactNumber, seterrors_ContactNumber] = useState("");
-  let [errors_EMail, seterrors_EMail] = useState("");
 
   const BookAgent = () => {
     console.log("Agent First Name : ", SingleAgent.FirstName);
@@ -37,23 +30,33 @@ function AgentRegisterForm() {
     console.log("ContactNumber : ", ContactNumber);
     console.log("Email : ", Email);
 
-    axios
-      .post(`http://localhost:3000/AgentBooking`, {
-        AgentFirstName: SingleAgent.FirstName,
-        AgentLastName: SingleAgent.LastName,
-        FirstName: FirstName,
-        LastName: LastName,
-        ContactNumber: ContactNumber,
-        EMail: Email,
-      })
-      .then((res) => {
-        console.log(res.data);
-        alert("Agent has been Successfully Booked..!");
-        window.location.reload(true);
-      })
-      .catch((error) => {
-        console.log(error.data);
-      });
+    if (
+      FirstName == "" ||
+      LastName == "" ||
+      ContactNumber == "" ||
+      Email == ""
+    ) {
+      console.log("error01");
+      alert("Please fill all required Fields");
+    } else {
+      axios
+        .post(`http://localhost:3000/AgentBooking`, {
+          AgentFirstName: SingleAgent.FirstName,
+          AgentLastName: SingleAgent.LastName,
+          FirstName: FirstName,
+          LastName: LastName,
+          ContactNumber: ContactNumber,
+          EMail: Email,
+        })
+        .then((res) => {
+          console.log(res.data);
+          alert("Agent has been Successfully Booked..!");
+          window.location.reload(true);
+        })
+        .catch((error) => {
+          console.log(error.data);
+        });
+    }
   };
 
   return (

@@ -11,15 +11,70 @@ function SinglePackage() {
   let PackageDetails = JSON.parse(sessionStorage.getItem("PackageDetails"));
   console.log("PackageDetails", PackageDetails);
 
-  let a = false;
-  let b = false;
-  let c = false;
-  let d = false;
-  let e = false;
+  const [MCFPon, setMCFPon] = useState(false);
+  const [HLVP, setHLVP] = useState(false);
+  const [PEODP, setPEODP] = useState(false);
+  const [RCP, setRCP] = useState(false);
+  const [PEBP, setPEBP] = useState(false);
+
+  let totalPrice = parseInt(PackageDetails.price);
+  const [newprice, setnewprice] = useState();
 
   const MasterChefFoodsPricefun = () => {
-    a = true;
-    console.log("a : ", a);
+    setMCFPon(!MCFPon);
+    console.log(MCFPon);
+    if (MCFPon == false) {
+      totalPrice = totalPrice + PackageDetails.MasterChefFoodsPrice;
+    } else {
+      totalPrice = totalPrice;
+    }
+    // console.log(totalPrice);
+    setnewprice(totalPrice);
+  };
+
+  const HighLuxaryVechilePriceFun = () => {
+    setHLVP(!HLVP);
+    if (MCFPon == false) {
+      totalPrice = totalPrice + PackageDetails.HighLuxaryVechilePrice;
+    } else {
+      totalPrice = totalPrice;
+    }
+    console.log(totalPrice);
+    setnewprice(totalPrice);
+  };
+
+  const PerExtraOneDayPriceFun = () => {
+    setPEODP(!PEODP);
+    if (PEODP == false) {
+      totalPrice = totalPrice + PackageDetails.PerExtraOneDayPrice;
+    } else {
+      totalPrice = totalPrice;
+    }
+    setnewprice(totalPrice);
+  };
+
+  const RentCameraPriceFun = () => {
+    setRCP(!RCP);
+    if (RCP == false) {
+      totalPrice = totalPrice + PackageDetails.RentCameraPrice;
+    } else {
+      totalPrice = totalPrice;
+    }
+    setnewprice(totalPrice);
+  };
+
+  const PerExtraBedPriceFun = () => {
+    setPEBP(!PEBP);
+    if (PEBP == false) {
+      totalPrice = totalPrice + PackageDetails.PerExtraBedPrice;
+    } else {
+      totalPrice = totalPrice;
+    }
+    setnewprice(totalPrice);
+  };
+
+  const bookpackage = (newprice) => {
+    window.sessionStorage.setItem("packagePrice", newprice);
   };
 
   return (
@@ -48,8 +103,9 @@ function SinglePackage() {
         </div>
         <div>
           <h2>Add Extra features</h2>
+          <h5>(Only Your can select only one extra features)</h5>
           <div className="row">
-            {a == "true" ? (
+            {MCFPon == true ? (
               <div
                 onClick={() => MasterChefFoodsPricefun()}
                 style={{
@@ -58,7 +114,7 @@ function SinglePackage() {
                   height: "140px",
                   borderRadius: 10,
                   marginRight: 15,
-                  background: "#c4ffc7",
+                  backgroundColor: "#b2b2b2",
                 }}
                 className="crd"
               >
@@ -85,69 +141,153 @@ function SinglePackage() {
                 </center>
               </div>
             )}
-            <div
-              style={{
-                border: "1px solid #000",
-                width: "200px",
-                height: "140px",
-                borderRadius: 10,
-                marginRight: 15,
-              }}
-              className="crd"
-            >
-              <center>
-                <h4>High Luxary Vechile Price</h4>
-                <h4>Rs {PackageDetails.HighLuxaryVechilePrice}</h4>
-              </center>
-            </div>
-            <div
-              style={{
-                border: "1px solid #000",
-                width: "200px",
-                height: "140px",
-                borderRadius: 10,
-                marginRight: 15,
-              }}
-              className="crd"
-            >
-              <center>
-                <h4>Per Extra One Day Price</h4>
-                <h4>Rs {PackageDetails.PerExtraOneDayPrice}</h4>
-              </center>
-            </div>
-            <div
-              style={{
-                border: "1px solid #000",
-                width: "200px",
-                height: "140px",
-                borderRadius: 10,
-                marginRight: 15,
-              }}
-              className="crd"
-            >
-              <center>
-                <h4>Per Extra Bed Price</h4>
-                <h4>Rs {PackageDetails.PerExtraBedPrice}</h4>
-              </center>
-            </div>
-            <div
-              style={{
-                border: "1px solid #000",
-                width: "200px",
-                height: "140px",
-                borderRadius: 10,
-                marginRight: 15,
-              }}
-              className="crd"
-            >
-              <center>
-                <h4>Rent Camera Price</h4>
-                <h4>Rs {PackageDetails.RentCameraPrice}</h4>
-              </center>
-            </div>
+            {HLVP ? (
+              <div
+                onClick={() => HighLuxaryVechilePriceFun()}
+                style={{
+                  border: "1px solid #000",
+                  width: "200px",
+                  height: "140px",
+                  borderRadius: 10,
+                  marginRight: 15,
+                  backgroundColor: "#b2b2b2",
+                }}
+                className="crd"
+              >
+                <center>
+                  <h4>High Luxary Vechile Price</h4>
+                  <h4>Rs {PackageDetails.HighLuxaryVechilePrice}</h4>
+                </center>
+              </div>
+            ) : (
+              <div
+                onClick={() => HighLuxaryVechilePriceFun()}
+                style={{
+                  border: "1px solid #000",
+                  width: "200px",
+                  height: "140px",
+                  borderRadius: 10,
+                  marginRight: 15,
+                }}
+                className="crd"
+              >
+                <center>
+                  <h4>High Luxary Vechile Price</h4>
+                  <h4>Rs {PackageDetails.HighLuxaryVechilePrice}</h4>
+                </center>
+              </div>
+            )}
+            {PEODP == true ? (
+              <div
+                onClick={() => PerExtraOneDayPriceFun()}
+                style={{
+                  border: "1px solid #000",
+                  width: "200px",
+                  height: "140px",
+                  borderRadius: 10,
+                  marginRight: 15,
+                  backgroundColor: "#b2b2b2",
+                }}
+                className="crd"
+              >
+                <center>
+                  <h4>Per Extra One Day Price</h4>
+                  <h4>Rs {PackageDetails.PerExtraOneDayPrice}</h4>
+                </center>
+              </div>
+            ) : (
+              <div
+                onClick={() => PerExtraOneDayPriceFun()}
+                style={{
+                  border: "1px solid #000",
+                  width: "200px",
+                  height: "140px",
+                  borderRadius: 10,
+                  marginRight: 15,
+                }}
+                className="crd"
+              >
+                <center>
+                  <h4>Per Extra One Day Price</h4>
+                  <h4>Rs {PackageDetails.PerExtraOneDayPrice}</h4>
+                </center>
+              </div>
+            )}
+            {RCP == true ? (
+              <div
+                onClick={() => RentCameraPriceFun()}
+                style={{
+                  border: "1px solid #000",
+                  width: "200px",
+                  height: "140px",
+                  borderRadius: 10,
+                  marginRight: 15,
+                  backgroundColor: "#b2b2b2",
+                }}
+                className="crd"
+              >
+                <center>
+                  <h4>Per Extra Bed Price</h4>
+                  <h4>Rs {PackageDetails.PerExtraBedPrice}</h4>
+                </center>
+              </div>
+            ) : (
+              <div
+                onClick={() => RentCameraPriceFun()}
+                style={{
+                  border: "1px solid #000",
+                  width: "200px",
+                  height: "140px",
+                  borderRadius: 10,
+                  marginRight: 15,
+                }}
+                className="crd"
+              >
+                <center>
+                  <h4>Per Extra Bed Price</h4>
+                  <h4>Rs {PackageDetails.PerExtraBedPrice}</h4>
+                </center>
+              </div>
+            )}
+            {PEBP == true ? (
+              <div
+                onClick={() => PerExtraBedPriceFun()}
+                style={{
+                  border: "1px solid #000",
+                  width: "200px",
+                  height: "140px",
+                  borderRadius: 10,
+                  marginRight: 15,
+                  backgroundColor: "#b2b2b2",
+                }}
+                className="crd"
+              >
+                <center>
+                  <h4>Rent Camera Price</h4>
+                  <h4>Rs {PackageDetails.RentCameraPrice}</h4>
+                </center>
+              </div>
+            ) : (
+              <div
+                onClick={() => PerExtraBedPriceFun()}
+                style={{
+                  border: "1px solid #000",
+                  width: "200px",
+                  height: "140px",
+                  borderRadius: 10,
+                  marginRight: 15,
+                }}
+                className="crd"
+              >
+                <center>
+                  <h4>Rent Camera Price</h4>
+                  <h4>Rs {PackageDetails.RentCameraPrice}</h4>
+                </center>
+              </div>
+            )}
           </div>
         </div>
-        <div>
+        {/* <div>
           <input type="date" className="input"></input>
           <input type="text" placeholder="Location" className="input" />
           <select name="Adult " id="Adult " className="select">
@@ -168,10 +308,10 @@ function SinglePackage() {
             <option value="opel">Opel</option>
             <option value="audi">Audi</option>
           </select>
-        </div>
+        </div> */}
         <div>
           <h2 style={{ paddingTop: "30px", fontSize: "35px" }}>
-            Total Bill - Rs 30,0000
+            Total Bill - Rs {newprice}
           </h2>
         </div>
         <center style={{ margin: 20 }}>
@@ -180,7 +320,8 @@ function SinglePackage() {
           </Button>
           <Button variant="contained">
             <a
-              href="/BookPackage"
+              href="/PackageBook"
+              onClick={() => bookpackage(newprice)}
               style={{ textDecoration: "none", color: "#fff" }}
             >
               Reserve !

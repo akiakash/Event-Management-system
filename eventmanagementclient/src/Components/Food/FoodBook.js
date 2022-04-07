@@ -13,10 +13,10 @@ function FoodBook() {
   let FoodDetail = JSON.parse(sessionStorage.getItem("FoodDetail"));
   console.log(FoodDetail);
 
-  const [FirstName, setFirstName] = useState();
-  const [LastName, setLastName] = useState();
-  const [ContactNumber, setContactNumber] = useState();
-  const [EMail, setEMail] = useState();
+  const [FirstName, setFirstName] = useState("");
+  const [LastName, setLastName] = useState("");
+  const [ContactNumber, setContactNumber] = useState("");
+  const [EMail, setEMail] = useState("");
 
   const FoodBooking = () => {
     console.log("FoodName : ", FoodDetail.Name);
@@ -27,24 +27,34 @@ function FoodBook() {
     console.log("ContactNumber : ", ContactNumber);
     console.log("EMail : ", EMail);
 
-    axios
-      .post(`http://localhost:3000/FoodsBooking`, {
-        FoodName: FoodDetail.Name,
-        Quantity: newqty,
-        Price: newPrice,
-        FirstName: FirstName,
-        LastName: LastName,
-        ContactNumber: ContactNumber,
-        EMail: EMail,
-      })
-      .then((res) => {
-        console.log(res.data);
-        alert("Flight Tickets have been Successfully Booked...!");
-        window.location.reload(true);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (
+      FirstName == "" ||
+      LastName == "" ||
+      ContactNumber == "" ||
+      EMail == ""
+    ) {
+      console.log("error01");
+      alert("Please fill all required Fields");
+    } else {
+      axios
+        .post(`http://localhost:3000/FoodsBooking`, {
+          FoodName: FoodDetail.Name,
+          Quantity: newqty,
+          Price: newPrice,
+          FirstName: FirstName,
+          LastName: LastName,
+          ContactNumber: ContactNumber,
+          EMail: EMail,
+        })
+        .then((res) => {
+          console.log(res.data);
+          alert("Flight Tickets have been Successfully Booked...!");
+          window.location.reload(true);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   let newprice = 0;

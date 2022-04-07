@@ -15,10 +15,10 @@ function EventRegisterForm() {
   eventdetails = JSON.parse(sessionStorage.getItem("eventdetails"));
   console.log("eventdetails", eventdetails);
 
-  const [FirstName, setFirstName] = useState();
-  const [LastName, setLastName] = useState();
-  const [Email, setEmail] = useState();
-  const [Contactnumber, setContactnumber] = useState();
+  const [FirstName, setFirstName] = useState("");
+  const [LastName, setLastName] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Contactnumber, setContactnumber] = useState("");
 
   const CreateCleaningCompany = () => {
     console.log("FirstName : ", FirstName);
@@ -26,23 +26,33 @@ function EventRegisterForm() {
     console.log("Email : ", Email);
     console.log("Contactnumber : ", Contactnumber);
 
-    axios
-      .post(`http://localhost:3000/EventBooking`, {
-        EventName: eventdetails.EventName,
-        FirstName: FirstName,
-        LastName: LastName,
-        Email: Email,
-        Contactnumber: Contactnumber,
-        Status: "Processing",
-      })
-      .then((response) => {
-        console.log("response : ", response);
-        alert("Event Successfully Booked...!");
-        window.location.reload(true);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (
+      FirstName == "" ||
+      LastName == "" ||
+      Contactnumber == "" ||
+      Email == ""
+    ) {
+      console.log("error01");
+      alert("Please fill all required Fields");
+    } else {
+      axios
+        .post(`http://localhost:3000/EventBooking`, {
+          EventName: eventdetails.EventName,
+          FirstName: FirstName,
+          LastName: LastName,
+          Email: Email,
+          Contactnumber: Contactnumber,
+          Status: "Processing",
+        })
+        .then((response) => {
+          console.log("response : ", response);
+          alert("Event Successfully Booked...!");
+          window.location.reload(true);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   return (

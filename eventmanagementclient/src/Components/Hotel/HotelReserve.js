@@ -21,11 +21,11 @@ function HotelReserve() {
   const [NoOfChild, setNoOfChild] = useState(0);
   const [NoOfBed, setNoOfBed] = useState(0);
   const [AC, setAC] = useState("flase");
-  const [FirstName, setFirstName] = useState();
-  const [LastName, setLastName] = useState();
-  const [Contactnumber, setContactnumber] = useState();
+  const [FirstName, setFirstName] = useState("");
+  const [LastName, setLastName] = useState("");
+  const [Contactnumber, setContactnumber] = useState("");
   const [Price, setPrice] = useState();
-  const [Email, setEmail] = useState();
+  const [Email, setEmail] = useState("");
 
   const HotelBooking = () => {
     console.log("SingleHotel.Name : ", SingleHotel.Name);
@@ -39,27 +39,37 @@ function HotelReserve() {
     console.log("totalpricenew : ", totalpricenew);
     console.log("Email : ", Email);
 
-    axios
-      .post(`http://localhost:3000/HotelBooking`, {
-        HotelName: SingleHotel.Name,
-        TotalMembers: Fromfromnom,
-        NoOfChild: FromfromNOC,
-        NoOfBed: FromfromNOB,
-        AC: FromfromACV,
-        FirstName: FirstName,
-        LastName: LastName,
-        Email: Email,
-        Contactnumber: Contactnumber,
-        Price: totalpricenew,
-      })
-      .then((res) => {
-        console.log(res.data);
-        alert("Flight Tickets have been Successfully Booked...!");
-        window.location.reload(true);
-      })
-      .catch((error) => {
-        console.log(error.data);
-      });
+    if (
+      FirstName == "" ||
+      LastName == "" ||
+      Contactnumber == "" ||
+      Email == ""
+    ) {
+      console.log("error01");
+      alert("Please fill all required Fields");
+    } else {
+      axios
+        .post(`http://localhost:3000/HotelBooking`, {
+          HotelName: SingleHotel.Name,
+          TotalMembers: Fromfromnom,
+          NoOfChild: FromfromNOC,
+          NoOfBed: FromfromNOB,
+          AC: FromfromACV,
+          FirstName: FirstName,
+          LastName: LastName,
+          Email: Email,
+          Contactnumber: Contactnumber,
+          Price: totalpricenew,
+        })
+        .then((res) => {
+          console.log(res.data);
+          alert("Flight Tickets have been Successfully Booked...!");
+          window.location.reload(true);
+        })
+        .catch((error) => {
+          console.log(error.data);
+        });
+    }
   };
 
   let basicPrice = SingleHotel.Price;

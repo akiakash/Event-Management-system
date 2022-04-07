@@ -13,11 +13,11 @@ function BookVehicle() {
   let VehicleDetails = JSON.parse(sessionStorage.getItem("VehicleDetails"));
   console.log(VehicleDetails);
 
-  const [NoOfDays, setNoOfDays] = useState();
-  const [FirstName, setFirstName] = useState();
-  const [LastName, setLastName] = useState();
-  const [Email, setEmail] = useState();
-  const [Contactnumber, setContactnumber] = useState();
+  const [NoOfDays, setNoOfDays] = useState("");
+  const [FirstName, setFirstName] = useState("");
+  const [LastName, setLastName] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Contactnumber, setContactnumber] = useState("");
   const [Price, setPrice] = useState();
 
   const VehicleBooking = () => {
@@ -30,25 +30,36 @@ function BookVehicle() {
     console.log("Contactnumber : ", Contactnumber);
     console.log("Price : ", newprice);
 
-    axios
-      .post(`http://localhost:3000/VehicleBooking`, {
-        VegicleCategory: VehicleDetails.category,
-        VehicleModel: VehicleDetails.Model,
-        NoOfDays: NoOfDays,
-        FirstName: FirstName,
-        LastName: LastName,
-        Email: Email,
-        Contactnumber: Contactnumber,
-        Price: newprice,
-      })
-      .then((res) => {
-        console.log(res.data);
-        alert("Flight Tickets have been Successfully Booked...!");
-        window.location.reload(true);
-      })
-      .catch((error) => {
-        console.log(error.data);
-      });
+    if (
+      NoOfDays == "" ||
+      FirstName == "" ||
+      LastName == "" ||
+      Contactnumber == "" ||
+      Email == ""
+    ) {
+      console.log("error01");
+      alert("Please fill all required Fields");
+    } else {
+      axios
+        .post(`http://localhost:3000/VehicleBooking`, {
+          VegicleCategory: VehicleDetails.category,
+          VehicleModel: VehicleDetails.Model,
+          NoOfDays: NoOfDays,
+          FirstName: FirstName,
+          LastName: LastName,
+          Email: Email,
+          Contactnumber: Contactnumber,
+          Price: newprice,
+        })
+        .then((res) => {
+          console.log(res.data);
+          alert("Flight Tickets have been Successfully Booked...!");
+          window.location.reload(true);
+        })
+        .catch((error) => {
+          console.log(error.data);
+        });
+    }
   };
 
   let pricenew = 0;
