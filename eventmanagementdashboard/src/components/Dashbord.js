@@ -459,6 +459,41 @@ function Dashbord() {
                           <i className="metismenu-icon"></i> MANAGER | REPORT
                         </a>
                       </li>
+                      <li>
+                        <a href="/EventBookings">
+                          <i className="metismenu-icon"></i> EVENT | BOOKINGS
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightBookings">
+                          <i className="metismenu-icon"></i> FLIGHT | BOOKINGS
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/HotelBookings">
+                          <i className="metismenu-icon"></i> HOTEL | BOOKINGS
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/VehicleBookings">
+                          <i className="metismenu-icon"></i> VEHICLE | BOOKINGS
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FoodBookings">
+                          <i className="metismenu-icon"></i> FOOD | BOOKINGS
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/PackageBookings">
+                          <i className="metismenu-icon"></i> PACKAGE | BOOKINGS
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/AgentBookings">
+                          <i className="metismenu-icon"></i> AGENT | BOOKINGS
+                        </a>
+                      </li>
                     </ul>
                   </li>
                 </ul>

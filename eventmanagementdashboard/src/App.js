@@ -35,7 +35,13 @@ import ManagerAdd from "./components/Manager/ManagerAdd";
 import ManagerView from "./components/Manager/ManagerView";
 import ManagerUpdate from "./components/Manager/ManagerUpdate";
 import ManagerReport from "./components/Manager/ManagerReport";
-
+import EventBookings from "./components/Manager/EventBookings";
+import FlightBookings from "./components/Manager/FlightBookings";
+import FoodBookings from "./components/Manager/FoodBookings";
+import HotelBookings from "./components/Manager/HotelBookings";
+import PackageBookings from "./components/Manager/PackageBookings";
+import VehicleBookings from "./components/Manager/VehicleBookings";
+import AgentBookings from "./components/Manager/AgentBookings";
 // All routing routes ddefined here
 const Routing = () => {
   return (
@@ -73,6 +79,13 @@ const Routing = () => {
       <Route exact path="/ManagerReport" component={ManagerReport} />
       <Route exact path="/ManagerUpdate" component={ManagerUpdate} />
       <Route exact path="/ManagerView" component={ManagerView} />
+      <Route exact path="/EventBookings" component={EventBookings} />
+      <Route exact path="/FlightBookings" component={FlightBookings} />
+      <Route exact path="/FoodBookings" component={FoodBookings} />
+      <Route exact path="/HotelBookings" component={HotelBookings} />
+      <Route exact path="/PackageBookings" component={PackageBookings} />
+      <Route exact path="/VehicleBookings" component={VehicleBookings} />
+      <Route exact path="/AgentBookings" component={AgentBookings} />
     </Switch>
   );
 };

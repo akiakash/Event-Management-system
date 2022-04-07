@@ -1,15 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Button from "@material-ui/core/Button";
-import axios from "axios";
-import swal from "sweetalert";
-import { useHistory } from "react-router-dom";
-
+import React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -17,72 +6,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Button from "@material-ui/core/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const use_style = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular,
-  },
-}));
-
-function FoodView() {
-  const classes = use_style();
-
-  const [foods, setFoods] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const getRequest = () => {
-    axios.get("http://localhost:3000/FoodManagement").then((response) => {
-      setFoods(response.data);
-    });
-  };
-
-  useEffect(() => {
-    getRequest();
-  }, [foods]);
-
-  function deleteCleaning(_id) {
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this data!",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
-        swal("Poof! Your data has been successfully Deleted!", {
-          icon: "success",
-        });
-        fetch(`http://localhost:3000/FoodManagement/${_id}`, {
-          method: "DELETE",
-        })
-          .then((response) => {
-            response.json();
-            swal(
-              "Good job!",
-              "Your data has been successfully Deleted",
-              "success"
-            );
-          })
-          .catch((error) => {
-            swal("Sorry!", "Something Error...", "error");
-          });
-      }
-    });
-  }
-
-  const history = useHistory();
-  function editCleaningCompany(_id) {
-    console.log("Cleaning Company" + _id);
-    window.sessionStorage.setItem("FoodsID", _id); //CleaningID
-    history.push("/FoodUpdate");
-  }
-
+function VehicleBookings() {
   return (
     <div>
       <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
@@ -138,9 +66,6 @@ function FoodView() {
                     type="text"
                     className="search-input"
                     placeholder="Type to search"
-                    onChange={(e) => {
-                      setSearchTerm(e.target.value);
-                    }}
                   />
                   <button className="search-icon">
                     <span />
@@ -148,6 +73,26 @@ function FoodView() {
                 </div>
                 <button className="close" />
               </div>
+              {/* <ul class="header-menu nav">
+                      <li class="nav-item">
+                          <a href="javascript:void(0);" class="nav-link">
+                              <i class="nav-link-icon fa fa-database"> </i>
+                              Statistics
+                          </a>
+                      </li>
+                      <li class="btn-group nav-item">
+                          <a href="javascript:void(0);" class="nav-link">
+                              <i class="nav-link-icon fa fa-edit"></i>
+                              Projects
+                          </a>
+                      </li>
+                      <li class="dropdown nav-item">
+                          <a href="javascript:void(0);" class="nav-link">
+                              <i class="nav-link-icon fa fa-cog"></i>
+                              Settings
+                          </a>
+                      </li>
+                  </ul> */}
             </div>
             <div className="app-header-right">
               <div className="header-btn-lg pr-0">
@@ -161,6 +106,12 @@ function FoodView() {
                           aria-expanded="false"
                           className="p-0 btn"
                         >
+                          {/* <img
+                                                        width={42}
+                                                        className="rounded-circle"
+                                                        src="assets/images/avatars/1.jpg"
+                                                        alt
+                                                    /> */}
                           <i className="fa fa-angle-down ml-2 opacity-8" />
                         </a>
                         <div
@@ -205,7 +156,7 @@ function FoodView() {
                       </div>
                     </div>
                     <div className="widget-content-left  ml-3 header-user-info">
-                      <div className="widget-heading">SLIIT </div>
+                      <div className="widget-heading">SLIIT</div>
                       <div className="widget-subheading">
                         Full-Stack Developer
                       </div>
@@ -525,6 +476,17 @@ function FoodView() {
                           <i className="metismenu-icon"></i> FLIGHT | BOOKINGS
                         </a>
                       </li>
+
+                      <li>
+                        <a href="/EventBookings">
+                          <i className="metismenu-icon"></i> EVENT | BOOKINGS
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightBookings">
+                          <i className="metismenu-icon"></i> FLIGHT | BOOKINGS
+                        </a>
+                      </li>
                       <li>
                         <a href="/HotelBookings">
                           <i className="metismenu-icon"></i> HOTEL | BOOKINGS
@@ -565,40 +527,42 @@ function FoodView() {
                       <i className="pe-7s-car icon-gradient bg-mean-fruit"></i>
                     </div>
                     <div>
-                      Update Cleaning Company Details.
+                      Analytics Dashboard
                       <div className="page-title-subheading">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Duis risus massa, tempor a imperdiet vel, faucibus sit
-                        amet arcu.
+                        This is an example dashboard created using build-in
+                        elements and components.
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              {/* Add Form Here */}
+              {/* add from here */}
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                   <TableHead>
                     <TableRow>
                       <TableCell>{""}</TableCell>
                       <TableCell style={{ fontWeight: "bold" }}>
-                        Food Name
+                        Event Name
                       </TableCell>
                       <TableCell align="right" style={{ fontWeight: "bold" }}>
-                        Description
+                        First Name
                       </TableCell>
                       <TableCell align="right" style={{ fontWeight: "bold" }}>
-                        Quantity
+                        Last Nme
                       </TableCell>
                       <TableCell align="right" style={{ fontWeight: "bold" }}>
-                        Price
+                        Email
                       </TableCell>
                       <TableCell align="right" style={{ fontWeight: "bold" }}>
-                        Actions
+                        Contact Number
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Status
                       </TableCell>
                     </TableRow>
                   </TableHead>
-                  {foods
+                  {/* {agent
                     .filter((val) => {
                       if (searchTerm == "") {
                         return val;
@@ -620,20 +584,24 @@ function FoodView() {
                         >
                           <TableCell component="th" scope="row">
                             <img
-                              src={item.FoodImage}
+                              src={item.ProfileImage}
                               alt="image"
                               width={"40px"}
-                              style={{ borderRadius: 1000 }}
+                              style={{ borderRadius: 100 }}
                             />
                           </TableCell>
                           <TableCell component="th" scope="row">
-                            {item.Name}
+                            {item.FirstName}
                           </TableCell>
+                          <TableCell align="right">{item.LastName}</TableCell>
+                          <TableCell align="right">{item.Email}</TableCell>
+                          <TableCell align="right">
+                            {item.ContactNumber}
+                          </TableCell>
+                          <TableCell align="right">{item.Language}</TableCell>
                           <TableCell align="right">
                             {item.Description}
                           </TableCell>
-                          <TableCell align="right">{item.Quantity}</TableCell>
-                          <TableCell align="right">{item.Price}</TableCell>
                           <TableCell align="right">
                             <div>
                               <div style={{ display: "inline-block" }}>
@@ -658,9 +626,245 @@ function FoodView() {
                           </TableCell>
                         </TableRow>
                       </TableBody>
-                    ))}
+                    ))} */}
                 </Table>
               </TableContainer>
+              {/* <div className="row">
+                <div className="col-md-6 col-xl-4">
+                  <div className="card mb-3 widget-content">
+                    <div className="widget-content-outer">
+                      <div className="widget-content-wrapper">
+                        <div className="widget-content-left">
+                          <div className="widget-heading">Total Doctors</div>
+                          <div className="widget-subheading">
+                            Last year expenses
+                          </div>
+                        </div>
+                        <div className="widget-content-right">
+                          <div className="widget-numbers text-success">
+                            1896
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-6 col-xl-4">
+                  <div className="card mb-3 widget-content">
+                    <div className="widget-content-outer">
+                      <div className="widget-content-wrapper">
+                        <div className="widget-content-left">
+                          <div className="widget-heading">Total Hospital</div>
+                          <div className="widget-subheading">
+                            Revenue streams
+                          </div>
+                        </div>
+                        <div className="widget-content-right">
+                          <div className="widget-numbers text-warning">156</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-6 col-xl-4">
+                  <div className="card mb-3 widget-content">
+                    <div className="widget-content-outer">
+                      <div className="widget-content-wrapper">
+                        <div className="widget-content-left">
+                          <div className="widget-heading">Total Blood Bank</div>
+                          <div className="widget-subheading">
+                            People Interested
+                          </div>
+                        </div>
+                        <div className="widget-content-right">
+                          <div className="widget-numbers text-danger">451</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> */}
+              {/* <div className="row">
+                <div className="col-md-6 col-xl-4">
+                  <div className="card mb-3 widget-content">
+                    <div className="widget-content-outer">
+                      <div className="widget-content-wrapper">
+                        <div className="widget-content-left">
+                          <div className="widget-heading">
+                            Total Cleaning Service
+                          </div>
+                          <div className="widget-subheading">
+                            Last year expenses
+                          </div>
+                        </div>
+                        <div className="widget-content-right">
+                          <div className="widget-numbers text-success">
+                            1896
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-6 col-xl-4">
+                  <div className="card mb-3 widget-content">
+                    <div className="widget-content-outer">
+                      <div className="widget-content-wrapper">
+                        <div className="widget-content-left">
+                          <div className="widget-heading">
+                            Total Ambulance Details
+                          </div>
+                          <div className="widget-subheading">
+                            Revenue streams
+                          </div>
+                        </div>
+                        <div className="widget-content-right">
+                          <div className="widget-numbers text-warning">156</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-6 col-xl-4">
+                  <div className="card mb-3 widget-content">
+                    <div className="widget-content-outer">
+                      <div className="widget-content-wrapper">
+                        <div className="widget-content-left">
+                          <div className="widget-heading">
+                            Total Camping Details
+                          </div>
+                          <div className="widget-subheading">
+                            People Interested
+                          </div>
+                        </div>
+                        <div className="widget-content-right">
+                          <div className="widget-numbers text-danger">451</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> */}
+              {/* <div className="row">
+                <div className="col-md-6 col-xl-4">
+                  <div className="card mb-3 widget-content">
+                    <div className="widget-content-outer">
+                      <div className="widget-content-wrapper">
+                        <div className="widget-content-left">
+                          <div className="widget-heading">
+                            Total Technology Details
+                          </div>
+                          <div className="widget-subheading">
+                            Last year expenses
+                          </div>
+                        </div>
+                        <div className="widget-content-right">
+                          <div className="widget-numbers text-success">
+                            1896
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-6 col-xl-4">
+                  <div className="card mb-3 widget-content">
+                    <div className="widget-content-outer">
+                      <div className="widget-content-wrapper">
+                        <div className="widget-content-left">
+                          <div className="widget-heading">
+                            Total Facility Details
+                          </div>
+                          <div className="widget-subheading">
+                            Revenue streams
+                          </div>
+                        </div>
+                        <div className="widget-content-right">
+                          <div className="widget-numbers text-warning">156</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-6 col-xl-4">
+                  <div className="card mb-3 widget-content">
+                    <div className="widget-content-outer">
+                      <div className="widget-content-wrapper">
+                        <div className="widget-content-left">
+                          <div className="widget-heading">
+                            Total Laboratory Details
+                          </div>
+                          <div className="widget-subheading">
+                            People Interested
+                          </div>
+                        </div>
+                        <div className="widget-content-right">
+                          <div className="widget-numbers text-danger">451</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> */}
+              {/* <div className="row">
+                <div className="col-md-6 col-xl-4">
+                  <div className="card mb-3 widget-content">
+                    <div className="widget-content-outer">
+                      <div className="widget-content-wrapper">
+                        <div className="widget-content-left">
+                          <div className="widget-heading">Total Disease</div>
+                          <div className="widget-subheading">
+                            Last year expenses
+                          </div>
+                        </div>
+                        <div className="widget-content-right">
+                          <div className="widget-numbers text-success">
+                            1896
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-6 col-xl-4">
+                  <div className="card mb-3 widget-content">
+                    <div className="widget-content-outer">
+                      <div className="widget-content-wrapper">
+                        <div className="widget-content-left">
+                          <div className="widget-heading">
+                            Total Pharmacy Details
+                          </div>
+                          <div className="widget-subheading">
+                            Revenue streams
+                          </div>
+                        </div>
+                        <div className="widget-content-right">
+                          <div className="widget-numbers text-warning">156</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-6 col-xl-4">
+                  <div className="card mb-3 widget-content">
+                    <div className="widget-content-outer">
+                      <div className="widget-content-wrapper">
+                        <div className="widget-content-left">
+                          <div className="widget-heading">
+                            Total Equipments Details
+                          </div>
+                          <div className="widget-subheading">
+                            People Interested
+                          </div>
+                        </div>
+                        <div className="widget-content-right">
+                          <div className="widget-numbers text-danger">451</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> */}
             </div>
             <div className="app-wrapper-footer">
               <div className="app-footer">
@@ -693,4 +897,4 @@ function FoodView() {
   );
 }
 
-export default FoodView;
+export default VehicleBookings;
