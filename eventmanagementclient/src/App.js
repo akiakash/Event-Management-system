@@ -22,6 +22,7 @@ import BookPackage from "./Components/Package/BookPackage";
 import HotelReserve from "./Components/Hotel/HotelReserve";
 import SingleHotel from "./Components/Hotel/SingleHotel";
 import FlightBook from "./Components/Flight/FlightBook";
+import SingleFood from "./Components/Food/SingleFood";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
           <Route path="/HotelReserve" element={<HotelReserve />} />
           <Route path="/SingleHotel" element={<SingleHotel />} />
           <Route path="/FlightBook" element={<FlightBook />} />
+          <Route path="/SingleFood" element={<SingleFood />} />
         </Routes>
       </BrowserRouter>
     </>

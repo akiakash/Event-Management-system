@@ -22,7 +22,9 @@ function Package() {
       console.log(error.data);
     });
 
-  const PackageBooking = (item) => {};
+  const PackageBooking = (item) => {
+    window.sessionStorage.setItem("PackageDetails", JSON.stringify(item));
+  };
 
   return (
     <div>
