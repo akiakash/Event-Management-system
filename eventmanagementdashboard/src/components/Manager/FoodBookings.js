@@ -1,150 +1,25 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import Form from "react-bootstrap/Form";
-import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Col from "react-bootstrap/esm/Col";
-import Row from "react-bootstrap/esm/Row";
-import swal from "sweetalert";
+import React from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Button from "@material-ui/core/Button";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-function ManagerAdd() {
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-      margin: 50,
-    },
-    paper: {
-      padding: theme.spacing(5),
-      margin: "auto",
-      maxWidth: 1000,
-    },
-  }));
-
-  const classes = useStyles();
-  const [FirstName, setFirstName] = useState("");
-  const [LastName, setLastName] = useState("");
-  const [Email, setEmail] = useState("");
-  const [MobileNumber, setMobileNumber] = useState("");
-  const [Qualifications, setQualifications] = useState("");
-  const [Language, setLanguage] = useState("");
-  const [ProfileImage, setProfileImage] = useState("");
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [postImage, setPostImage] = useState({ myFile: "" });
-
-  let [errors_dname, seterrors_dname] = useState("");
-  let [errors_location, seterrors_location] = useState("");
-  let [errors_noe, seterrors_noe] = useState("");
-  let [errors_since, seterrors_since] = useState("");
-  let [errors_description, seterrors_description] = useState("");
-  let [errors_cnumber, seterrors_cnumber] = useState("");
-
-  function CreateCleaningCompany() {
-    // setError(null);
-    // setLoading(true);
-
-    // let errors = {};
-
-    // //Form Validation
-    // if (!name.trim()) {
-    //   errors.name = "Company Name field required";
-    //   seterrors_dname(errors.name);
-    // }
-    // if (!location.trim()) {
-    //   errors.location = "Location field required";
-    //   seterrors_location(errors.location);
-    // }
-    // if (!noe.trim()) {
-    //   errors.noe = "Number of Employee field required";
-    //   seterrors_noe(errors.noe);
-    // }
-    // if (!since.trim()) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (since.length < 4) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (!description.trim()) {
-    //   errors.description = "Description field required";
-    //   seterrors_description(errors.description);
-    // }
-    // if (!cnumber.trim()) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
-    // if (cnumber.length < 10) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
-
-    // if (
-    //   name === "" ||
-    //   location === "" ||
-    //   noe === "" ||
-    //   since === "" ||
-    //   description === "" ||
-    //   errors_cnumber === "" ||
-    //   errors_since === ""
-    // ) {
-    //   setLoading(false);
-    // } else {
-    axios
-      .post("http://localhost:3000/ManagerManagement", {
-        FirstName: FirstName,
-        LastName: LastName,
-        Email: Email,
-        MobileNumber: MobileNumber,
-        Qualifications: Qualifications,
-        Language: Language,
-        ProfileImage: postImage.myFile,
-      })
-      .then((response) => {
-        setLoading(false);
-        swal(
-          "Good job!",
-          "Your data has been successfully added..!",
-          "success"
-        );
-        window.location.reload();
-      })
-      .catch((error) => {
-        setLoading(false);
-        swal("Sorry!", "Something Error!", "error");
-      });
-    // }
-  }
-
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
-
-  const handleFileUpload = async (e) => {
-    const file = e.target.files[0];
-    const base64 = await convertToBase64(file);
-    // setPostImage({ ...postImage, myFile: base64 });
-    setPostImage({ myFile: base64 });
-    console.log(base64);
-  };
-
+function FoodBookings() {
   return (
     <div>
       <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <div className="app-header header-shadow">
           <div className="app-header__logo">
+            {/* <div className="logo-src" /> */}
             {/* <img src={logo} style={{ width: 110 }} /> */}
             <div>LOGO</div>
+            {/* <div style={{ fontFamily: "lyncer", fontSize: "10" }}>SLIIT</div> */}
             <div className="header__pane ml-auto">
               <div>
                 <button
@@ -198,6 +73,26 @@ function ManagerAdd() {
                 </div>
                 <button className="close" />
               </div>
+              {/* <ul class="header-menu nav">
+                      <li class="nav-item">
+                          <a href="javascript:void(0);" class="nav-link">
+                              <i class="nav-link-icon fa fa-database"> </i>
+                              Statistics
+                          </a>
+                      </li>
+                      <li class="btn-group nav-item">
+                          <a href="javascript:void(0);" class="nav-link">
+                              <i class="nav-link-icon fa fa-edit"></i>
+                              Projects
+                          </a>
+                      </li>
+                      <li class="dropdown nav-item">
+                          <a href="javascript:void(0);" class="nav-link">
+                              <i class="nav-link-icon fa fa-cog"></i>
+                              Settings
+                          </a>
+                      </li>
+                  </ul> */}
             </div>
             <div className="app-header-right">
               <div className="header-btn-lg pr-0">
@@ -211,6 +106,12 @@ function ManagerAdd() {
                           aria-expanded="false"
                           className="p-0 btn"
                         >
+                          {/* <img
+                                                        width={42}
+                                                        className="rounded-circle"
+                                                        src="assets/images/avatars/1.jpg"
+                                                        alt
+                                                    /> */}
                           <i className="fa fa-angle-down ml-2 opacity-8" />
                         </a>
                         <div
@@ -255,7 +156,7 @@ function ManagerAdd() {
                       </div>
                     </div>
                     <div className="widget-content-left  ml-3 header-user-info">
-                      <div className="widget-heading">SLIIT </div>
+                      <div className="widget-heading">SLIIT</div>
                       <div className="widget-subheading">
                         Full-Stack Developer
                       </div>
@@ -590,6 +491,36 @@ function ManagerAdd() {
                           <i className="metismenu-icon"></i> FOOD | BOOKINGS
                         </a>
                       </li>
+                      <li>
+                        <a href="/EventBookings">
+                          <i className="metismenu-icon"></i> EVENT | BOOKINGS
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FlightBookings">
+                          <i className="metismenu-icon"></i> FLIGHT | BOOKINGS
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/HotelBookings">
+                          <i className="metismenu-icon"></i> HOTEL | BOOKINGS
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/VehicleBookings">
+                          <i className="metismenu-icon"></i> VEHICLE | BOOKINGS
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/FoodBookings">
+                          <i className="metismenu-icon"></i> FOOD | BOOKINGS
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/PackageBookings">
+                          <i className="metismenu-icon"></i> PACKAGE | BOOKINGS
+                        </a>
+                      </li>
                     </ul>
                   </li>
                 </ul>
@@ -605,165 +536,56 @@ function ManagerAdd() {
                       <i className="pe-7s-car icon-gradient bg-mean-fruit"></i>
                     </div>
                     <div>
-                      Add Cleaning Company Details
+                      Analytics Dashboard
                       <div className="page-title-subheading">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Duis risus massa, tempor a imperdiet vel, faucibus sit
-                        amet arcu.
+                        This is an example dashboard created using build-in
+                        elements and components.
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              {/* Add Form Here */}
-              <div className={classes.root}>
-                <Paper className={classes.paper}>
-                  <Form>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
+              {/* add from here */}
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>{""}</TableCell>
+                      <TableCell style={{ fontWeight: "bold" }}>
+                        Event Name
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
                         First Name
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={FirstName}
-                          onChange={(e) => setFirstName(e.target.value)}
-                          placeholder="First Name"
-                        />
-                        {errors_dname && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_dname}
-                          </span>
-                        )}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        LastName
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={LastName}
-                          onChange={(e) => setLastName(e.target.value)}
-                          placeholder="LastName"
-                        />
-                        {errors_location && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_location}
-                          </span>
-                        )}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Last Nme
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
                         Email
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="email"
-                          value={Email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="Email"
-                        />
-                        {errors_noe && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
-                          </span>
-                        )}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        MobileNumber
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="number"
-                          value={MobileNumber}
-                          onChange={(e) => setMobileNumber(e.target.value)}
-                          placeholder="MobileNumber"
-                        />
-                        {errors_noe && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
-                          </span>
-                        )}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        Qualifications
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          value={Qualifications}
-                          onChange={(e) => setQualifications(e.target.value)}
-                          placeholder="Qualifications"
-                        />
-                        {errors_noe && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
-                          </span>
-                        )}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        Language
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="number"
-                          value={Language}
-                          onChange={(e) => setLanguage(e.target.value)}
-                          placeholder="Language"
-                        />
-                        {errors_noe && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
-                          </span>
-                        )}
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        Image
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="file"
-                          label="Image"
-                          name="myFile"
-                          accept=".jpeg, .png, .jpg"
-                          onChange={(e) => handleFileUpload(e)}
-                        />
-                        {errors_description && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_description}
-                          </span>
-                        )}
-                      </Col>
-                    </Form.Group>
-                    <center>
-                      <div className="button">
-                        <input
-                          type="button"
-                          onClick={CreateCleaningCompany}
-                          value={loading ? "Loading... Please Wait!" : "SUBMIT"}
-                          className="btn btn-block app-sidebar__heading Login-Button"
-                        />
-                      </div>
-                    </center>
-                  </Form>
-                </Paper>
-              </div>
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Contact Number
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Status
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                </Table>
+              </TableContainer>
             </div>
             <div className="app-wrapper-footer">
               <div className="app-footer">
                 <div className="app-footer__inner">
-                  <div className="app-footer-left"></div>
+                  <div className="app-footer-left">
+                    {/* <ul className="nav">
+                      <li className="nav-item">
+                        <a href="javascript:void(0);" className="nav-link">
+                          Copyright 2019-2021 SLIIT.io. All rights reserved
+                        </a>
+                      </li>
+                    </ul> */}
+                  </div>
                   <div className="app-footer-right">
                     <ul className="nav">
                       <li className="nav-item">
@@ -782,4 +604,5 @@ function ManagerAdd() {
     </div>
   );
 }
-export default ManagerAdd;
+
+export default FoodBookings;
