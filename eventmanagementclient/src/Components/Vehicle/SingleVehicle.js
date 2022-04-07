@@ -5,6 +5,8 @@ import NavBar from "../../Layout/NavBar";
 import { Button } from "@mui/material";
 
 function SingleVehicle() {
+  let VehicleDetails = JSON.parse(sessionStorage.getItem("VehicleDetails"));
+
   return (
     <div>
       <NavBar />
@@ -13,45 +15,38 @@ function SingleVehicle() {
           <div className="row">
             <div>
               <img
-                src="./Assets/Images/Vehicle.png"
+                src={VehicleDetails.Image}
                 alt="SingleVehicle"
                 width={"600px"}
               />
             </div>
             <div>
-              <h2>Maserati</h2>
+              <h2>
+                {VehicleDetails.category} {VehicleDetails.Model}
+              </h2>
               <div className="row" style={{ margin: 10 }}>
-                <div>Seats - </div>
-                <div> 5 Seats</div>
+                <div>Car Number - {VehicleDetails.CarNumber}</div>
               </div>
               <div className="row" style={{ margin: 10 }}>
-                <div>Cooling - </div>
-                <div>Air Conditioning</div>
+                <div>Price Per Day - {VehicleDetails.Price}</div>
               </div>
               <div className="row" style={{ margin: 10 }}>
-                <div>Gear</div>
-                <div>Manual gearbox</div>
+                <div>Car Color - {VehicleDetails.colour}</div>
               </div>
               <div className="row" style={{ margin: 10 }}>
-                <div>Air Bags - </div>
-                <div>3 Large bags</div>
+                <div>No of Seat - {VehicleDetails.Seat}</div>
               </div>
               <div className="row" style={{ margin: 10 }}>
-                <div>Fuel - </div>
-                <div>Full to Full</div>
-              </div>
-              <div className="row" style={{ margin: 10 }}>
-                <div>Mileage - </div>
-                <div>Unlimited mileage</div>
+                <div>Description - {VehicleDetails.Description}</div>
               </div>
             </div>
           </div>
           <div>
             <h2>Additional</h2>
             <div className="row">
-              <div>Driver - Available</div>
-              <div>Children Sheat - 2</div>
-              <div>GPS - True</div>
+              <div>Driver - {VehicleDetails.Driver}</div>
+              <div>Children Sheat - {VehicleDetails.ChildSeat}</div>
+              <div>GPS - {VehicleDetails.Gps}</div>
             </div>
           </div>
         </div>

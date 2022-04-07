@@ -92,7 +92,7 @@ function Event() {
                       </div>
                     </div>
                   ))
-                : "Null"}
+                : "Loading..."}
 
               {/* <div class="column">
                 <div class="card">

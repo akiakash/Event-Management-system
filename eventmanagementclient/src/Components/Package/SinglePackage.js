@@ -1,12 +1,27 @@
 import { Container } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import Footer from "../../Layout/Footer";
 import NavBar from "../../Layout/NavBar";
 import { Button } from "@mui/material";
-import './package.css'
-import { IoFastFoodSharp } from 'react-icons/io5';
+import "./package.css";
+import { IoFastFoodSharp, IoTelescope } from "react-icons/io5";
+import { compose } from "@mui/system";
 
 function SinglePackage() {
+  let PackageDetails = JSON.parse(sessionStorage.getItem("PackageDetails"));
+  console.log("PackageDetails", PackageDetails);
+
+  let a = false;
+  let b = false;
+  let c = false;
+  let d = false;
+  let e = false;
+
+  const MasterChefFoodsPricefun = () => {
+    a = true;
+    console.log("a : ", a);
+  };
+
   return (
     <div>
       <NavBar />
@@ -17,15 +32,15 @@ function SinglePackage() {
           style={{ display: "flex", justifyContent: "space-between" }}
         >
           <div>
-            <h1>Sigiriya family</h1>
-            <h3>950, Sigiriya, Srilanka</h3>
-            <h3>Rs 6800/night</h3>
+            <h1>{PackageDetails.name}</h1>
+            <h3>{PackageDetails.includes}</h3>
+            <h3>Rs {PackageDetails.price}/night</h3>
           </div>
           <div>
             <h1>Overview</h1>
             <p>
               Duration : 03 Nights / 05 Days
-              <br /> Destinations : Airport – Sigiriya
+              <br /> description : {PackageDetails.description}
               <br />
               Language : English
             </p>
@@ -33,55 +48,43 @@ function SinglePackage() {
         </div>
         <div>
           <h2>Add Extra features</h2>
-          <div className="row" >
-            <div
-              style={{
-                border: "1px solid #000",
-                width: "200px",
-                height: "140px",
-                borderRadius: 10,
-                marginRight: 15,
-              }}
-
-              className="crd"
-            >
-              <center>
-                <h3>Master chef foods</h3>
-                <h4>RS 10000</h4>
-              </center>
-            </div>
-            <div
-              style={{
-                border: "1px solid #000",
-                width: "200px",
-                height: "140px",
-                borderRadius: 10,
-                marginRight: 15,
-              }}
-              className="crd"
-            >
-              <center >
-              <IoFastFoodSharp  size={45}/>
-                <h4 > MASTER CHEF FOODS</h4>
-                <h4 >10 $</h4>
-               
-              </center>
-            </div>
-            <div
-              style={{
-                border: "1px solid #000",
-                width: "200px",
-                height: "140px",
-                borderRadius: 10,
-                marginRight: 15,
-              }}
-              className="crd"
-            >
-              <center>
-                <h3>Per Extra one day</h3>
-                <h4>RS 10000</h4>
-              </center>
-            </div>
+          <div className="row">
+            {a == "true" ? (
+              <div
+                onClick={() => MasterChefFoodsPricefun()}
+                style={{
+                  border: "1px solid #000",
+                  width: "200px",
+                  height: "140px",
+                  borderRadius: 10,
+                  marginRight: 15,
+                  background: "#c4ffc7",
+                }}
+                className="crd"
+              >
+                <center>
+                  <h3>Master chef foods</h3>
+                  <h4>RS {PackageDetails.MasterChefFoodsPrice}</h4>
+                </center>
+              </div>
+            ) : (
+              <div
+                onClick={() => MasterChefFoodsPricefun()}
+                style={{
+                  border: "1px solid #000",
+                  width: "200px",
+                  height: "140px",
+                  borderRadius: 10,
+                  marginRight: 15,
+                }}
+                className="crd"
+              >
+                <center>
+                  <h3>Master chef foods</h3>
+                  <h4>RS {PackageDetails.MasterChefFoodsPrice}</h4>
+                </center>
+              </div>
+            )}
             <div
               style={{
                 border: "1px solid #000",
@@ -93,8 +96,8 @@ function SinglePackage() {
               className="crd"
             >
               <center>
-                <h3>Rent Camera</h3>
-                <h4>RS 10000</h4>
+                <h4>High Luxary Vechile Price</h4>
+                <h4>Rs {PackageDetails.HighLuxaryVechilePrice}</h4>
               </center>
             </div>
             <div
@@ -108,15 +111,45 @@ function SinglePackage() {
               className="crd"
             >
               <center>
-                <h3>Per Extra bed </h3>
-                <h4>RS 10000</h4>
+                <h4>Per Extra One Day Price</h4>
+                <h4>Rs {PackageDetails.PerExtraOneDayPrice}</h4>
+              </center>
+            </div>
+            <div
+              style={{
+                border: "1px solid #000",
+                width: "200px",
+                height: "140px",
+                borderRadius: 10,
+                marginRight: 15,
+              }}
+              className="crd"
+            >
+              <center>
+                <h4>Per Extra Bed Price</h4>
+                <h4>Rs {PackageDetails.PerExtraBedPrice}</h4>
+              </center>
+            </div>
+            <div
+              style={{
+                border: "1px solid #000",
+                width: "200px",
+                height: "140px",
+                borderRadius: 10,
+                marginRight: 15,
+              }}
+              className="crd"
+            >
+              <center>
+                <h4>Rent Camera Price</h4>
+                <h4>Rs {PackageDetails.RentCameraPrice}</h4>
               </center>
             </div>
           </div>
         </div>
         <div>
           <input type="date" className="input"></input>
-          <input type="text" placeholder="Location"  className="input"/>
+          <input type="text" placeholder="Location" className="input" />
           <select name="Adult " id="Adult " className="select">
             <option value="volvo">Volvo</option>
             <option value="saab">Saab</option>
@@ -137,7 +170,9 @@ function SinglePackage() {
           </select>
         </div>
         <div>
-          <h2 style={{paddingTop:"30px",fontSize:"35px"}}>Total Bill - Rs 30,0000</h2>
+          <h2 style={{ paddingTop: "30px", fontSize: "35px" }}>
+            Total Bill - Rs 30,0000
+          </h2>
         </div>
         <center style={{ margin: 20 }}>
           <Button variant="outlined" style={{ marginRight: 10 }}>

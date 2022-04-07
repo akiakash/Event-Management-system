@@ -5,6 +5,9 @@ import NavBar from "../../Layout/NavBar";
 import Button from "@mui/material/Button";
 
 function AgentSingleProfile() {
+  let SingleAgent = JSON.parse(sessionStorage.getItem("SingleAgent"));
+  // console.log("SingleAgent :", SingleAgent);
+
   return (
     <div>
       <NavBar />
@@ -14,31 +17,23 @@ function AgentSingleProfile() {
           <div>
             <img
               className="image02"
-              src="https://picsum.photos/id/1005/5760/3840"
+              src={SingleAgent.ProfileImage}
               alt="profileImage"
             />
           </div>
           <div>
             <p>
               {" "}
-              ID - 001TG <br />
-              Age - 20 <br />
-              Contact - 0775656560 <br />
-              Language - English , Tamil
+              <h3>
+                {SingleAgent.FirstName} {SingleAgent.LastName}
+              </h3>{" "}
               <br />
-              Email - Vandu001@gmail.com
-              <br /> Description - I was born in Ampara and grew up in Texas,
-              with Cuban and Basque roots. A trip to Spain to visit family the
-              summer before my senior year of high school planted a seed of
-              insatiable wanderlust, leading to a career in luxury travel. I
-              focus on unique and custom travel itineraries and advise clients
-              on luxury travel and off the beaten path experiences. As a luxury
-              travel advisor, I'm able to leverage relationships with the best
-              global luxury hotels, boutique hotels, villas, reputable &
-              award-winning tour guides, private transportation, cruise lines
-              and yacht/plane charters to ensure your experience is
-              unforgettable. Let me VIP you with complimentary upgrades, resort
-              credits, and other services that are hard to get on one's own.Less
+              Email - {SingleAgent.Email} <br />
+              ContactNumber - {SingleAgent.ContactNumber}
+              <br />
+              Language - {SingleAgent.Language}
+              <br />
+              Description - {SingleAgent.Description}
             </p>
           </div>
         </div>
@@ -50,6 +45,7 @@ function AgentSingleProfile() {
           <Button variant="contained">
             <a
               href="/AgentRegisterForm"
+              // onClick={() => AgentBook(SingleAgent)}
               style={{ color: "#fff", textDecoration: "none" }}
             >
               Register
