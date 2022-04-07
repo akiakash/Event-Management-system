@@ -15,7 +15,7 @@ function PackageBookings() {
   const [packageBookings, setPackageBookings] = useState("");
 
   axios
-    .get("http://localhost:3000/EventBooking")
+    .get("http://localhost:3000/PackageBooking")
     .then((response) => {
       setPackageBookings(response.data);
     })
@@ -477,16 +477,7 @@ function PackageBookings() {
                           <i className="metismenu-icon"></i> MANAGER | REPORT
                         </a>
                       </li>
-                      <li>
-                        <a href="/EventBookings">
-                          <i className="metismenu-icon"></i> EVENT | BOOKINGS
-                        </a>
-                      </li>
-                      <li>
-                        <a href="/FlightBookings">
-                          <i className="metismenu-icon"></i> FLIGHT | BOOKINGS
-                        </a>
-                      </li>
+
                       <li>
                         <a href="/EventBookings">
                           <i className="metismenu-icon"></i> EVENT | BOOKINGS
@@ -553,13 +544,16 @@ function PackageBookings() {
                     <TableRow>
                       <TableCell>{""}</TableCell>
                       <TableCell style={{ fontWeight: "bold" }}>
-                        Event Name
+                        Package Name
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Package Price
                       </TableCell>
                       <TableCell align="right" style={{ fontWeight: "bold" }}>
                         First Name
                       </TableCell>
                       <TableCell align="right" style={{ fontWeight: "bold" }}>
-                        Last Nme
+                        Last Name
                       </TableCell>
                       <TableCell align="right" style={{ fontWeight: "bold" }}>
                         Email
@@ -580,37 +574,43 @@ function PackageBookings() {
                           <TableRow>
                             <TableCell>{""}</TableCell>
                             <TableCell style={{ fontWeight: "bold" }}>
-                              Event Name
+                              {item.PackageName}
                             </TableCell>
                             <TableCell
                               align="right"
                               style={{ fontWeight: "bold" }}
                             >
-                              First Name
+                              {item.PackagePrice}
                             </TableCell>
                             <TableCell
                               align="right"
                               style={{ fontWeight: "bold" }}
                             >
-                              Last Nme
+                              {item.FirstName}
                             </TableCell>
                             <TableCell
                               align="right"
                               style={{ fontWeight: "bold" }}
                             >
-                              Email
+                              {item.LastName}
                             </TableCell>
                             <TableCell
                               align="right"
                               style={{ fontWeight: "bold" }}
                             >
-                              Contact Number
+                              {item.Email}
                             </TableCell>
                             <TableCell
                               align="right"
                               style={{ fontWeight: "bold" }}
                             >
-                              Status
+                              {item.Contactnumber}
+                            </TableCell>
+                            <TableCell
+                              align="right"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              {item.Status}
                             </TableCell>
                           </TableRow>
                         </TableHead>

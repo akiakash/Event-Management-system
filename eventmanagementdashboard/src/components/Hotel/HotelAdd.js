@@ -32,11 +32,11 @@ function HotelAdd() {
   const [Province, setProvince] = useState("");
   const [Country, setCountry] = useState("");
   const [Price, setPrice] = useState("");
-  const [image, setImage] = useState("");
+  // const [Image, setImage] = useState("");
+  const [postImage, setPostImage] = useState({ myFile: "" });
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [postImage, setPostImage] = useState({ myFile: "" });
 
   let [errors_dname, seterrors_dname] = useState("");
   let [errors_location, seterrors_location] = useState("");

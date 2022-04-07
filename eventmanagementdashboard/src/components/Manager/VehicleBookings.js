@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,8 +9,20 @@ import Paper from "@mui/material/Paper";
 import Button from "@material-ui/core/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import axios from "axios";
 
 function VehicleBookings() {
+  const [vehicleBookings, setVehicleBookings] = useState("");
+
+  axios
+    .get("http://localhost:3000/VehicleBooking")
+    .then((response) => {
+      setVehicleBookings(response.data);
+    })
+    .catch((error) => {
+      console.log("error message", error.data);
+    });
+
   return (
     <div>
       <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
@@ -466,16 +478,6 @@ function VehicleBookings() {
                           <i className="metismenu-icon"></i> MANAGER | REPORT
                         </a>
                       </li>
-                      <li>
-                        <a href="/EventBookings">
-                          <i className="metismenu-icon"></i> EVENT | BOOKINGS
-                        </a>
-                      </li>
-                      <li>
-                        <a href="/FlightBookings">
-                          <i className="metismenu-icon"></i> FLIGHT | BOOKINGS
-                        </a>
-                      </li>
 
                       <li>
                         <a href="/EventBookings">
@@ -543,13 +545,19 @@ function VehicleBookings() {
                     <TableRow>
                       <TableCell>{""}</TableCell>
                       <TableCell style={{ fontWeight: "bold" }}>
-                        Event Name
+                        Vehicle category
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Vehicle Model
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        No of Days
                       </TableCell>
                       <TableCell align="right" style={{ fontWeight: "bold" }}>
                         First Name
                       </TableCell>
                       <TableCell align="right" style={{ fontWeight: "bold" }}>
-                        Last Nme
+                        Last Name
                       </TableCell>
                       <TableCell align="right" style={{ fontWeight: "bold" }}>
                         Email
@@ -558,313 +566,77 @@ function VehicleBookings() {
                         Contact Number
                       </TableCell>
                       <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Price
+                      </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
                         Status
                       </TableCell>
                     </TableRow>
                   </TableHead>
-                  {/* {agent
-                    .filter((val) => {
-                      if (searchTerm == "") {
-                        return val;
-                      } else if (
-                        val.Name.toLocaleLowerCase().includes(
-                          searchTerm.toLocaleLowerCase()
-                        )
-                      ) {
-                        return val;
-                      }
-                    })
-                    .map((item) => (
-                      <TableBody>
-                        <TableRow
-                          key="Name"
-                          sx={{
-                            "&:last-child td, &:last-child th": { border: 0 },
-                          }}
-                        >
-                          <TableCell component="th" scope="row">
-                            <img
-                              src={item.ProfileImage}
-                              alt="image"
-                              width={"40px"}
-                              style={{ borderRadius: 100 }}
-                            />
-                          </TableCell>
-                          <TableCell component="th" scope="row">
-                            {item.FirstName}
-                          </TableCell>
-                          <TableCell align="right">{item.LastName}</TableCell>
-                          <TableCell align="right">{item.Email}</TableCell>
-                          <TableCell align="right">
-                            {item.ContactNumber}
-                          </TableCell>
-                          <TableCell align="right">{item.Language}</TableCell>
-                          <TableCell align="right">
-                            {item.Description}
-                          </TableCell>
-                          <TableCell align="right">
-                            <div>
-                              <div style={{ display: "inline-block" }}>
-                                <Button
-                                  // variant="outlined"
-                                  onClick={() => editCleaningCompany(item._id)}
-                                  color="primary"
-                                >
-                                  <EditIcon />
-                                </Button>
-                              </div>
-                              <div style={{ display: "inline-block" }}>
-                                <Button
-                                  // variant="outlined"
-                                  onClick={() => deleteCleaning(item._id)}
-                                  color="secondary"
-                                >
-                                  <DeleteIcon />
-                                </Button>
-                              </div>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      </TableBody>
-                    ))} */}
                 </Table>
+                {vehicleBookings
+                  ? vehicleBookings.map((item) => (
+                      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                        <TableHead>
+                          <TableRow>
+                            <TableCell>{""}</TableCell>
+                            <TableCell style={{ fontWeight: "bold" }}>
+                              {item.VegicleCategory}
+                            </TableCell>
+                            <TableCell
+                              align="right"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              {item.VehicleModel}
+                            </TableCell>
+                            <TableCell
+                              align="right"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              {item.NoOfDays}
+                            </TableCell>
+                            <TableCell
+                              align="right"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              {item.FirstName}
+                            </TableCell>
+                            <TableCell
+                              align="right"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              {item.LastName}
+                            </TableCell>
+                            <TableCell
+                              align="right"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              {item.Email}
+                            </TableCell>
+                            <TableCell
+                              align="right"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              {item.Contactnumber}
+                            </TableCell>
+                            <TableCell
+                              align="right"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              {item.Price}
+                            </TableCell>
+                            <TableCell
+                              align="right"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              {item.Status}
+                            </TableCell>
+                          </TableRow>
+                        </TableHead>
+                      </Table>
+                    ))
+                  : "Null"}
               </TableContainer>
-              {/* <div className="row">
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">Total Doctors</div>
-                          <div className="widget-subheading">
-                            Last year expenses
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-success">
-                            1896
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">Total Hospital</div>
-                          <div className="widget-subheading">
-                            Revenue streams
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-warning">156</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">Total Blood Bank</div>
-                          <div className="widget-subheading">
-                            People Interested
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-danger">451</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-              {/* <div className="row">
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">
-                            Total Cleaning Service
-                          </div>
-                          <div className="widget-subheading">
-                            Last year expenses
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-success">
-                            1896
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">
-                            Total Ambulance Details
-                          </div>
-                          <div className="widget-subheading">
-                            Revenue streams
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-warning">156</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">
-                            Total Camping Details
-                          </div>
-                          <div className="widget-subheading">
-                            People Interested
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-danger">451</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-              {/* <div className="row">
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">
-                            Total Technology Details
-                          </div>
-                          <div className="widget-subheading">
-                            Last year expenses
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-success">
-                            1896
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">
-                            Total Facility Details
-                          </div>
-                          <div className="widget-subheading">
-                            Revenue streams
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-warning">156</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">
-                            Total Laboratory Details
-                          </div>
-                          <div className="widget-subheading">
-                            People Interested
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-danger">451</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-              {/* <div className="row">
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">Total Disease</div>
-                          <div className="widget-subheading">
-                            Last year expenses
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-success">
-                            1896
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">
-                            Total Pharmacy Details
-                          </div>
-                          <div className="widget-subheading">
-                            Revenue streams
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-warning">156</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">
-                            Total Equipments Details
-                          </div>
-                          <div className="widget-subheading">
-                            People Interested
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-danger">451</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
             </div>
             <div className="app-wrapper-footer">
               <div className="app-footer">

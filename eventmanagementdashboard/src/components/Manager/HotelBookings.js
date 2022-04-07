@@ -15,7 +15,7 @@ function HotelBookings() {
   const [hotelBookings, setHotelBookings] = useState("");
 
   axios
-    .get("http://localhost:3000/EventBooking")
+    .get("http://localhost:3000/HotelBookings")
     .then((response) => {
       setHotelBookings(response.data);
       console.log("displayed", response.data);
