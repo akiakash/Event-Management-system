@@ -35,104 +35,96 @@ function HotelAdd() {
   // const [Image, setImage] = useState("");
   const [postImage, setPostImage] = useState({ myFile: "" });
 
-  const [error, setError] = useState(null);
+  const [errors, setErrors] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  let [errors_dname, seterrors_dname] = useState("");
-  let [errors_location, seterrors_location] = useState("");
-  let [errors_noe, seterrors_noe] = useState("");
-  let [errors_since, seterrors_since] = useState("");
-  let [errors_description, seterrors_description] = useState("");
-  let [errors_cnumber, seterrors_cnumber] = useState("");
+  let [errors_Name, seterrors_Name] = useState("");
+  let [errors_MobileNumber, seterrors_MobileNumber] = useState("");
+  let [errors_Address, seterrors_Address] = useState("");
+  let [errors_Street, seterrors_Street] = useState("");
+  let [errors_State, seterrors_State] = useState("");
+  let [errors_Province, seterrors_Province] = useState("");
+  let [errors_Country, seterrors_Country] = useState("");
+  let [errors_Price, seterrors_Price] = useState("");
 
   function CreateCleaningCompany() {
-    // setError(null);
-    // setLoading(true);
+    setErrors(null);
+    setLoading(true);
 
-    // let errors = {};
+    let errors = {};
 
-    // //Form Validation
-    // if (!name.trim()) {
-    //   errors.name = "Company Name field required";
-    //   seterrors_dname(errors.name);
-    // }
-    // if (!location.trim()) {
-    //   errors.location = "Location field required";
-    //   seterrors_location(errors.location);
-    // }
-    // if (!noe.trim()) {
-    //   errors.noe = "Number of Employee field required";
-    //   seterrors_noe(errors.noe);
-    // }
-    // if (!since.trim()) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (since.length < 4) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (!description.trim()) {
-    //   errors.description = "Description field required";
-    //   seterrors_description(errors.description);
-    // }
-    // if (!cnumber.trim()) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
-    // if (cnumber.length < 10) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
+    //Form Validation
+    if (!Name.trim()) {
+      errors.Name = " Name field required";
+      seterrors_Name(errors.Name);
+    }
+    if (!MobileNumber.trim()) {
+      errors.MobileNumber = "Mobile Number field required";
+      seterrors_MobileNumber(errors.MobileNumber);
+    }
+    if (!Address.trim()) {
+      errors.Address = "Address field required";
+      seterrors_Address(errors.Address);
+    }
+    if (!Street.trim()) {
+      errors.Street = "Street name required";
+      seterrors_Street(errors.Street);
+    }
+    if (State.length < 4) {
+      errors.State = "State field required";
+      seterrors_State(errors.State);
+    }
+    if (!Province.trim()) {
+      errors.Province = "Province field required";
+      seterrors_Province(errors.Province);
+    }
+    if (!Country.trim()) {
+      errors.Country = "Country Field Required";
+      seterrors_Country(errors.Country);
+    }
+    if (Price.length < 10) {
+      errors.Price = "Price Field Required";
+      seterrors_Price(errors.Price);
+    }
 
-    // if (
-    //   name === "" ||
-    //   location === "" ||
-    //   noe === "" ||
-    //   since === "" ||
-    //   description === "" ||
-    //   errors_cnumber === "" ||
-    //   errors_since === ""
-    // ) {
-    //   setLoading(false);
-    // } else {
-
-    // console.log("Name : ", Name);
-    // console.log("MobileNumber : ", MobileNumber);
-    // console.log("Address : ", Address);
-    // console.log("Street : ", Street);
-    // console.log("State : ", State);
-    // console.log("Province : ", Province);
-    // console.log("Country : ", Country);
-    // console.log("Price : ", Price);
-    // console.log("postImage.myFile : ", postImage.myFile);
-
-    axios
-      .post("http://localhost:3000/HotelManagement", {
-        Name: Name,
-        MobileNumber: MobileNumber,
-        Address: Address,
-        Street: Street,
-        State: State,
-        Province: Province,
-        Country: Country,
-        Price: Price,
-        Image: postImage.myFile,
-      })
-      .then((response) => {
-        setLoading(false);
-        swal(
-          "Good job!",
-          "Your data has been successfully added..!",
-          "success"
-        );
-        window.location.reload();
-      })
-      .catch((error) => {
-        setLoading(false);
-        swal("Sorry!", "Something Error!", "error");
-      });
-    // }
+    if (
+      Name === "" ||
+      MobileNumber === "" ||
+      Address === "" ||
+      Street === "" ||
+      State === "" ||
+      Province === "" ||
+      Country === "" ||
+      Price === ""
+    ) {
+      setLoading(false);
+    } else {
+      axios
+        .post("http://localhost:3000/HotelManagement", {
+          Name: Name,
+          MobileNumber: MobileNumber,
+          Address: Address,
+          Street: Street,
+          State: State,
+          Province: Province,
+          Country: Country,
+          Price: Price,
+          Image: postImage.myFile,
+        })
+        .then((response) => {
+          setLoading(false);
+          swal(
+            "Good job!",
+            "Your data has been successfully added..!",
+            "success"
+          );
+          window.location.reload();
+        })
+        .catch((error) => {
+          setLoading(false);
+          swal("Sorry!", "Something Error!", "error");
+        });
+    }
   }
 
   const convertToBase64 = (file) => {
@@ -657,9 +649,9 @@ function HotelAdd() {
                           onChange={(e) => setName(e.target.value)}
                           placeholder="Hotel Name"
                         />
-                        {errors_dname && (
+                        {errors_Name && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_dname}
+                            {errors_Name}
                           </span>
                         )}
                       </Col>
@@ -675,9 +667,9 @@ function HotelAdd() {
                           onChange={(e) => setMobileNumber(e.target.value)}
                           placeholder="Mobile Number"
                         />
-                        {errors_location && (
+                        {errors_MobileNumber && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_location}
+                            {errors_MobileNumber}
                           </span>
                         )}
                       </Col>
@@ -693,9 +685,9 @@ function HotelAdd() {
                           onChange={(e) => setAddress(e.target.value)}
                           placeholder="Address"
                         />
-                        {errors_noe && (
+                        {errors_Address && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
+                            {errors_Address}
                           </span>
                         )}
                       </Col>
@@ -711,9 +703,9 @@ function HotelAdd() {
                           onChange={(e) => setStreet(e.target.value)}
                           placeholder="Street"
                         />
-                        {errors_cnumber && (
+                        {errors_Street && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_cnumber}
+                            {errors_Street}
                           </span>
                         )}
                       </Col>
@@ -729,9 +721,9 @@ function HotelAdd() {
                           onChange={(e) => setState(e.target.value)}
                           placeholder="State"
                         />
-                        {errors_since && (
+                        {errors_State && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_since}
+                            {errors_State}
                           </span>
                         )}
                       </Col>
@@ -747,9 +739,9 @@ function HotelAdd() {
                           onChange={(e) => setProvince(e.target.value)}
                           placeholder="Province"
                         />
-                        {errors_description && (
+                        {errors_Province && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_description}
+                            {errors_Province}
                           </span>
                         )}
                       </Col>
@@ -765,9 +757,9 @@ function HotelAdd() {
                           onChange={(e) => setCountry(e.target.value)}
                           placeholder="Country"
                         />
-                        {errors_description && (
+                        {errors_Country && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_description}
+                            {errors_Country}
                           </span>
                         )}
                       </Col>
@@ -783,9 +775,9 @@ function HotelAdd() {
                           onChange={(e) => setPrice(e.target.value)}
                           placeholder="Price"
                         />
-                        {errors_description && (
+                        {errors_Price && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_description}
+                            {errors_Price}
                           </span>
                         )}
                       </Col>
@@ -802,11 +794,11 @@ function HotelAdd() {
                           accept=".jpeg, .png, .jpg"
                           onChange={(e) => handleFileUpload(e)}
                         />
-                        {errors_description && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_description}
-                          </span>
-                        )}
+
+                        <span
+                          style={{ color: "red" }}
+                          className="errors"
+                        ></span>
                       </Col>
                     </Form.Group>
                     <center>

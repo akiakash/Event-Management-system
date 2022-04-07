@@ -35,90 +35,64 @@ function FoodAdd() {
   const [Description, setDescription] = useState("");
   const [Quantity, setQuantity] = useState("");
   const [Price, setPrice] = useState("");
-  const [error, setError] = useState(null);
+  const [errors, setErrors] = useState(null);
   const [loading, setLoading] = useState(false);
   const [postImage, setPostImage] = useState({ myFile: "" });
 
-  let [errors_dname, seterrors_dname] = useState("");
-  let [errors_location, seterrors_location] = useState("");
-  let [errors_noe, seterrors_noe] = useState("");
-  let [errors_since, seterrors_since] = useState("");
-  let [errors_description, seterrors_description] = useState("");
-  let [errors_cnumber, seterrors_cnumber] = useState("");
+  let [errors_name, seterrors_name] = useState("");
+  let [errors_Description, seterrors_Description] = useState("");
+  let [errors_Quantity, seterrors_Quantity] = useState("");
+  let [errors_Price, seterrors_Price] = useState("");
 
   function CreateCleaningCompany() {
-    // setError(null);
-    // setLoading(true);
+    setErrors(null);
+    setLoading(true);
 
-    // let errors = {};
+    let errors = {};
 
     // //Form Validation
-    // if (!name.trim()) {
-    //   errors.name = "Company Name field required";
-    //   seterrors_dname(errors.name);
-    // }
-    // if (!location.trim()) {
-    //   errors.location = "Location field required";
-    //   seterrors_location(errors.location);
-    // }
-    // if (!noe.trim()) {
-    //   errors.noe = "Number of Employee field required";
-    //   seterrors_noe(errors.noe);
-    // }
-    // if (!since.trim()) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (since.length < 4) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (!description.trim()) {
-    //   errors.description = "Description field required";
-    //   seterrors_description(errors.description);
-    // }
-    // if (!cnumber.trim()) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
-    // if (cnumber.length < 10) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
+    if (!name.trim()) {
+      errors.name = " Name field required";
+      seterrors_name(errors.name);
+    }
+    if (!Description.trim()) {
+      errors.Description = "Descriotion field required";
+      seterrors_Description(errors.Description);
+    }
+    if (!Quantity.trim()) {
+      errors.Quantity = "Quantity field required";
+      seterrors_Quantity(errors.Quantity);
+    }
+    if (!Price.trim()) {
+      errors.Price = "Price Required";
+      seterrors_Price(errors.Price);
+    }
 
-    // if (
-    //   name === "" ||
-    //   location === "" ||
-    //   noe === "" ||
-    //   since === "" ||
-    //   description === "" ||
-    //   errors_cnumber === "" ||
-    //   errors_since === ""
-    // ) {
-    //   setLoading(false);
-    // } else {
-    axios
-      .post("http://localhost:3000/FoodManagement", {
-        Name: name,
-        Description: Description,
-        Quantity: Quantity,
-        Price: Price,
-        FoodImage: postImage.myFile,
-      })
-      .then((response) => {
-        setLoading(false);
-        swal(
-          "Good job!",
-          "Your data has been successfully added..!",
-          "success"
-        );
-        window.location.reload();
-      })
-      .catch((error) => {
-        setLoading(false);
-        swal("Sorry!", "Something Error!", "error");
-      });
-    // }
+    if (name === "" || Description === "" || Quantity === "" || Price === "") {
+      setLoading(false);
+    } else {
+      axios
+        .post("http://localhost:3000/FoodManagement", {
+          Name: name,
+          Description: Description,
+          Quantity: Quantity,
+          Price: Price,
+          FoodImage: postImage.myFile,
+        })
+        .then((response) => {
+          setLoading(false);
+          swal(
+            "Good job!",
+            "Your data has been successfully added..!",
+            "success"
+          );
+          window.location.reload();
+        })
+        .catch((error) => {
+          setLoading(false);
+          swal("Sorry!", "Something Error!", "error");
+        });
+    }
   }
 
   const convertToBase64 = (file) => {
@@ -644,9 +618,9 @@ function FoodAdd() {
                           onChange={(e) => setName(e.target.value)}
                           placeholder="Food Name"
                         />
-                        {errors_dname && (
+                        {errors_name && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_dname}
+                            {errors_name}
                           </span>
                         )}
                       </Col>
@@ -662,9 +636,9 @@ function FoodAdd() {
                           onChange={(e) => setDescription(e.target.value)}
                           placeholder="Description"
                         />
-                        {errors_location && (
+                        {errors_Description && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_location}
+                            {errors_Description}
                           </span>
                         )}
                       </Col>
@@ -680,9 +654,9 @@ function FoodAdd() {
                           onChange={(e) => setQuantity(e.target.value)}
                           placeholder="Quantity"
                         />
-                        {errors_noe && (
+                        {errors_Quantity && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
+                            {errors_Quantity}
                           </span>
                         )}
                       </Col>
@@ -698,9 +672,9 @@ function FoodAdd() {
                           onChange={(e) => setPrice(e.target.value)}
                           placeholder="Price"
                         />
-                        {errors_noe && (
+                        {errors_Price && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
+                            {errors_Price}
                           </span>
                         )}
                       </Col>
@@ -717,11 +691,11 @@ function FoodAdd() {
                           accept=".jpeg, .png, .jpg"
                           onChange={(e) => handleFileUpload(e)}
                         />
-                        {errors_description && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_description}
-                          </span>
-                        )}
+
+                        <span
+                          style={{ color: "red" }}
+                          className="errors"
+                        ></span>
                       </Col>
                     </Form.Group>
                     <center>

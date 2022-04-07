@@ -33,88 +33,79 @@ function ManagerAdd() {
   const [loading, setLoading] = useState(false);
   const [postImage, setPostImage] = useState({ myFile: "" });
 
-  let [errors_dname, seterrors_dname] = useState("");
-  let [errors_location, seterrors_location] = useState("");
-  let [errors_noe, seterrors_noe] = useState("");
-  let [errors_since, seterrors_since] = useState("");
-  let [errors_description, seterrors_description] = useState("");
-  let [errors_cnumber, seterrors_cnumber] = useState("");
+  let [errors_FirstName, seterrors_FirstName] = useState("");
+  let [errors_LastName, seterrors_LastName] = useState("");
+  let [errors_Email, seterrors_Email] = useState("");
+  let [errors_MobileNumber, seterrors_MobileNumber] = useState("");
+  let [errors_Qualifications, seterrors_Qualifications] = useState("");
+  let [errors_Language, seterrors_Language] = useState("");
 
   function CreateCleaningCompany() {
-    // setError(null);
-    // setLoading(true);
+    setError(null);
+    setLoading(true);
 
-    // let errors = {};
+    let errors = {};
 
     // //Form Validation
-    // if (!name.trim()) {
-    //   errors.name = "Company Name field required";
-    //   seterrors_dname(errors.name);
-    // }
-    // if (!location.trim()) {
-    //   errors.location = "Location field required";
-    //   seterrors_location(errors.location);
-    // }
-    // if (!noe.trim()) {
-    //   errors.noe = "Number of Employee field required";
-    //   seterrors_noe(errors.noe);
-    // }
-    // if (!since.trim()) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (since.length < 4) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (!description.trim()) {
-    //   errors.description = "Description field required";
-    //   seterrors_description(errors.description);
-    // }
-    // if (!cnumber.trim()) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
-    // if (cnumber.length < 10) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
+    if (!FirstName.trim()) {
+      errors.FirstName = "First Name required";
+      seterrors_FirstName(errors.FirstName);
+    }
+    if (!LastName.trim()) {
+      errors.LastName = "LastName required";
+      seterrors_LastName(errors.LastName);
+    }
+    if (!Email.trim()) {
+      errors.Email = "Email required";
+      seterrors_Email(errors.Email);
+    }
+    if (!MobileNumber.trim()) {
+      errors.MobileNumber = "Mobile Number";
+      seterrors_MobileNumber(errors.MobileNumber);
+    }
+    if (Qualifications.length < 4) {
+      errors.Qualifications = "Qualification Details Required";
+      seterrors_Qualifications(errors.Qualifications);
+    }
+    if (!Language.trim()) {
+      errors.Language = "Language required";
+      seterrors_Language(errors.Language);
+    }
 
-    // if (
-    //   name === "" ||
-    //   location === "" ||
-    //   noe === "" ||
-    //   since === "" ||
-    //   description === "" ||
-    //   errors_cnumber === "" ||
-    //   errors_since === ""
-    // ) {
-    //   setLoading(false);
-    // } else {
-    axios
-      .post("http://localhost:3000/ManagerManagement", {
-        FirstName: FirstName,
-        LastName: LastName,
-        Email: Email,
-        MobileNumber: MobileNumber,
-        Qualifications: Qualifications,
-        Language: Language,
-        ProfileImage: postImage.myFile,
-      })
-      .then((response) => {
-        setLoading(false);
-        swal(
-          "Good job!",
-          "Your data has been successfully added..!",
-          "success"
-        );
-        window.location.reload();
-      })
-      .catch((error) => {
-        setLoading(false);
-        swal("Sorry!", "Something Error!", "error");
-      });
-    // }
+    if (
+      FirstName === "" ||
+      LastName === "" ||
+      Email === "" ||
+      MobileNumber === "" ||
+      Qualifications === "" ||
+      Language === ""
+    ) {
+      setLoading(false);
+    } else {
+      axios
+        .post("http://localhost:3000/ManagerManagement", {
+          FirstName: FirstName,
+          LastName: LastName,
+          Email: Email,
+          MobileNumber: MobileNumber,
+          Qualifications: Qualifications,
+          Language: Language,
+          ProfileImage: postImage.myFile,
+        })
+        .then((response) => {
+          setLoading(false);
+          swal(
+            "Good job!",
+            "Your data has been successfully added..!",
+            "success"
+          );
+          window.location.reload();
+        })
+        .catch((error) => {
+          setLoading(false);
+          swal("Sorry!", "Something Error!", "error");
+        });
+    }
   }
 
   const convertToBase64 = (file) => {
@@ -640,9 +631,9 @@ function ManagerAdd() {
                           onChange={(e) => setFirstName(e.target.value)}
                           placeholder="First Name"
                         />
-                        {errors_dname && (
+                        {errors_FirstName && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_dname}
+                            {errors_FirstName}
                           </span>
                         )}
                       </Col>
@@ -658,9 +649,9 @@ function ManagerAdd() {
                           onChange={(e) => setLastName(e.target.value)}
                           placeholder="LastName"
                         />
-                        {errors_location && (
+                        {errors_LastName && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_location}
+                            {errors_LastName}
                           </span>
                         )}
                       </Col>
@@ -676,9 +667,9 @@ function ManagerAdd() {
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="Email"
                         />
-                        {errors_noe && (
+                        {errors_Email && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
+                            {errors_Email}
                           </span>
                         )}
                       </Col>
@@ -694,9 +685,9 @@ function ManagerAdd() {
                           onChange={(e) => setMobileNumber(e.target.value)}
                           placeholder="MobileNumber"
                         />
-                        {errors_noe && (
+                        {errors_MobileNumber && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
+                            {errors_MobileNumber}
                           </span>
                         )}
                       </Col>
@@ -712,9 +703,9 @@ function ManagerAdd() {
                           onChange={(e) => setQualifications(e.target.value)}
                           placeholder="Qualifications"
                         />
-                        {errors_noe && (
+                        {errors_Qualifications && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
+                            {errors_Qualifications}
                           </span>
                         )}
                       </Col>
@@ -730,9 +721,9 @@ function ManagerAdd() {
                           onChange={(e) => setLanguage(e.target.value)}
                           placeholder="Language"
                         />
-                        {errors_noe && (
+                        {errors_Language && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
+                            {errors_Language}
                           </span>
                         )}
                       </Col>
@@ -749,11 +740,11 @@ function ManagerAdd() {
                           accept=".jpeg, .png, .jpg"
                           onChange={(e) => handleFileUpload(e)}
                         />
-                        {errors_description && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_description}
-                          </span>
-                        )}
+
+                        <span
+                          style={{ color: "red" }}
+                          className="errors"
+                        ></span>
                       </Col>
                     </Form.Group>
                     <center>

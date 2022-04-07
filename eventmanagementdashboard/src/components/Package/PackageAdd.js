@@ -43,95 +43,107 @@ function PackageAdd() {
   const [PerExtraBedPrice, setPerExtraBedPrice] = useState("");
   const [Image, setImage] = useState("");
 
-  const [error, setError] = useState(null);
+  const [errors, setErrors] = useState(null);
   const [loading, setLoading] = useState(false);
   const [postImage, setPostImage] = useState({ myFile: "" });
 
-  let [errors_dname, seterrors_dname] = useState("");
-  let [errors_location, seterrors_location] = useState("");
-  let [errors_noe, seterrors_noe] = useState("");
-  let [errors_since, seterrors_since] = useState("");
+  let [errors_name, seterrors_name] = useState("");
+  let [errors_price, seterrors_price] = useState("");
+  let [errors_includes, seterrors_includes] = useState("");
   let [errors_description, seterrors_description] = useState("");
-  let [errors_cnumber, seterrors_cnumber] = useState("");
+  let [errors_MasterChefFoodsPrice, seterrors_MasterChefFoodsPrice] =
+    useState("");
+  let [errors_HighLuxaryVechilePrice, seterrors_HighLuxaryVechilePrice] =
+    useState("");
+  let [errors_PerExtraOneDayPrice, seterrors_PerExtraOneDayPrice] =
+    useState("");
+  let [errors_RentCameraPrice, seterrors_RentCameraPrice] = useState("");
+  let [errors_PerExtraBedPrice, seterrors_PerExtraBedPrice] = useState("");
 
   function CreateCleaningCompany() {
-    // setError(null);
-    // setLoading(true);
+    setErrors(null);
+    setLoading(true);
 
-    // let errors = {};
+    let errors = {};
 
     // //Form Validation
-    // if (!name.trim()) {
-    //   errors.name = "Company Name field required";
-    //   seterrors_dname(errors.name);
-    // }
-    // if (!location.trim()) {
-    //   errors.location = "Location field required";
-    //   seterrors_location(errors.location);
-    // }
-    // if (!noe.trim()) {
-    //   errors.noe = "Number of Employee field required";
-    //   seterrors_noe(errors.noe);
-    // }
-    // if (!since.trim()) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (since.length < 4) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (!description.trim()) {
-    //   errors.description = "Description field required";
-    //   seterrors_description(errors.description);
-    // }
-    // if (!cnumber.trim()) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
-    // if (cnumber.length < 10) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
+    if (!name.trim()) {
+      errors.name = " Name field required";
+      seterrors_name(errors.name);
+    }
+    if (!price.trim()) {
+      errors.price = "Price field required";
+      seterrors_price(errors.price);
+    }
+    if (!includes.trim()) {
+      errors.includes = "Includes field required";
+      seterrors_includes(errors.includes);
+    }
+    if (!description.trim()) {
+      errors.description = "Description Field Required";
+      seterrors_description(errors.description);
+    }
+    if (MasterChefFoodsPrice.length < 4) {
+      errors.MasterChefFoodsPrice = "this Field required";
+      seterrors_MasterChefFoodsPrice(errors.MasterChefFoodsPrice);
+    }
+    if (!HighLuxaryVechilePrice.trim()) {
+      errors.HighLuxaryVechilePrice = "this field required";
+      seterrors_HighLuxaryVechilePrice(errors.HighLuxaryVechilePrice);
+    }
+    if (!PerExtraOneDayPrice.trim()) {
+      errors.PerExtraOneDayPrice = "this field required";
+      seterrors_PerExtraOneDayPrice(errors.PerExtraOneDayPrice);
+    }
+    if (RentCameraPrice.length < 10) {
+      errors.RentCameraPrice = "this field required";
+      seterrors_RentCameraPrice(errors.RentCameraPrice);
+    }
+    if (PerExtraBedPrice.length < 10) {
+      errors.PerExtraBedPrice = "this field required";
+      seterrors_PerExtraBedPrice(errors.PerExtraBedPrice);
+    }
 
-    // if (
-    //   name === "" ||
-    //   location === "" ||
-    //   noe === "" ||
-    //   since === "" ||
-    //   description === "" ||
-    //   errors_cnumber === "" ||
-    //   errors_since === ""
-    // ) {
-    //   setLoading(false);
-    // } else {
-    axios
-      .post("http://localhost:3000/PackageManagement", {
-        name: name,
-        price: price,
-        includes: includes,
-        description: description,
-        MasterChefFoodsPrice: MasterChefFoodsPrice,
-        HighLuxaryVechilePrice: HighLuxaryVechilePrice,
-        PerExtraOneDayPrice: PerExtraOneDayPrice,
-        RentCameraPrice: RentCameraPrice,
-        PerExtraBedPrice: PerExtraBedPrice,
-        Image: postImage.myFile,
-      })
-      .then((response) => {
-        setLoading(false);
-        swal(
-          "Good job!",
-          "Your data has been successfully added..!",
-          "success"
-        );
-        window.location.reload();
-      })
-      .catch((error) => {
-        setLoading(false);
-        swal("Sorry!", "Something Error!", "error");
-      });
-    // }
+    if (
+      name === "" ||
+      price === "" ||
+      includes === "" ||
+      description === "" ||
+      MasterChefFoodsPrice === "" ||
+      HighLuxaryVechilePrice === "" ||
+      PerExtraOneDayPrice === "" ||
+      RentCameraPrice === "" ||
+      PerExtraBedPrice === ""
+    ) {
+      setLoading(false);
+    } else {
+      axios
+        .post("http://localhost:3000/PackageManagement", {
+          name: name,
+          price: price,
+          includes: includes,
+          description: description,
+          MasterChefFoodsPrice: MasterChefFoodsPrice,
+          HighLuxaryVechilePrice: HighLuxaryVechilePrice,
+          PerExtraOneDayPrice: PerExtraOneDayPrice,
+          RentCameraPrice: RentCameraPrice,
+          PerExtraBedPrice: PerExtraBedPrice,
+          Image: postImage.myFile,
+        })
+        .then((response) => {
+          setLoading(false);
+          swal(
+            "Good job!",
+            "Your data has been successfully added..!",
+            "success"
+          );
+          window.location.reload();
+        })
+        .catch((error) => {
+          setLoading(false);
+          swal("Sorry!", "Something Error!", "error");
+        });
+    }
   }
 
   const convertToBase64 = (file) => {
@@ -657,9 +669,9 @@ function PackageAdd() {
                           onChange={(e) => setName(e.target.value)}
                           placeholder="Package Name"
                         />
-                        {errors_dname && (
+                        {errors_name && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_dname}
+                            {errors_name}
                           </span>
                         )}
                       </Col>
@@ -675,9 +687,9 @@ function PackageAdd() {
                           onChange={(e) => setprice(e.target.value)}
                           placeholder="price"
                         />
-                        {errors_location && (
+                        {errors_price && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_location}
+                            {errors_price}
                           </span>
                         )}
                       </Col>
@@ -693,9 +705,9 @@ function PackageAdd() {
                           onChange={(e) => setincludes(e.target.value)}
                           placeholder="Includes"
                         />
-                        {errors_noe && (
+                        {errors_includes && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
+                            {errors_includes}
                           </span>
                         )}
                       </Col>
@@ -711,9 +723,9 @@ function PackageAdd() {
                           onChange={(e) => setdescription(e.target.value)}
                           placeholder="Description"
                         />
-                        {errors_cnumber && (
+                        {errors_description && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_cnumber}
+                            {errors_description}
                           </span>
                         )}
                       </Col>
@@ -731,9 +743,9 @@ function PackageAdd() {
                           }
                           placeholder="Master Chef Foods Price"
                         />
-                        {errors_cnumber && (
+                        {errors_MasterChefFoodsPrice && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_cnumber}
+                            {errors_MasterChefFoodsPrice}
                           </span>
                         )}
                       </Col>
@@ -751,9 +763,9 @@ function PackageAdd() {
                           }
                           placeholder="High Luxary Vechile Price"
                         />
-                        {errors_cnumber && (
+                        {errors_HighLuxaryVechilePrice && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_cnumber}
+                            {errors_HighLuxaryVechilePrice}
                           </span>
                         )}
                       </Col>
@@ -771,9 +783,9 @@ function PackageAdd() {
                           }
                           placeholder="PerExtraOneDayPrice"
                         />
-                        {errors_cnumber && (
+                        {errors_PerExtraOneDayPrice && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_cnumber}
+                            {errors_PerExtraOneDayPrice}
                           </span>
                         )}
                       </Col>
@@ -789,9 +801,9 @@ function PackageAdd() {
                           onChange={(e) => setRentCameraPrice(e.target.value)}
                           placeholder="RentCameraPrice"
                         />
-                        {errors_cnumber && (
+                        {errors_RentCameraPrice && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_cnumber}
+                            {errors_RentCameraPrice}
                           </span>
                         )}
                       </Col>
@@ -807,9 +819,9 @@ function PackageAdd() {
                           onChange={(e) => setPerExtraBedPrice(e.target.value)}
                           placeholder="PerExtraBedPrice"
                         />
-                        {errors_cnumber && (
+                        {errors_PerExtraBedPrice && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_cnumber}
+                            {errors_PerExtraBedPrice}
                           </span>
                         )}
                       </Col>
@@ -826,11 +838,10 @@ function PackageAdd() {
                           accept=".jpeg, .png, .jpg"
                           onChange={(e) => handleFileUpload(e)}
                         />
-                        {errors_description && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_description}
-                          </span>
-                        )}
+
+                        <span style={{ color: "red" }} className="errors">
+                          {errors_description}
+                        </span>
                       </Col>
                     </Form.Group>
                     <center>

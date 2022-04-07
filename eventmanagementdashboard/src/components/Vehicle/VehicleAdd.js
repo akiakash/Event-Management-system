@@ -46,135 +46,114 @@ function VehicleAdd() {
   const [gps, setGps] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [error, setError] = useState(null);
+  const [errors, setErrors] = useState(null);
   const [loading, setLoading] = useState(false);
   const [postImage, setPostImage] = useState({ myFile: "" });
 
-  let [errors_dname, seterrors_dname] = useState("");
-  let [errors_location, seterrors_location] = useState("");
-  let [errors_noe, seterrors_noe] = useState("");
-  let [errors_since, seterrors_since] = useState("");
+  let [errors_category, seterrors_category] = useState("");
+  let [errors_model, seterrors_model] = useState("");
+  let [errors_carNumber, seterrors_carNumber] = useState("");
+  let [errors_colour, seterrors_colour] = useState("");
+  let [errors_driver, seterrors_driver] = useState("");
+  let [errors_seat, seterrors_seat] = useState("");
+  let [errors_childSeat, seterrors_childSeat] = useState("");
+  let [errors_gps, seterrors_gps] = useState("");
+  let [errors_price, seterrors_price] = useState("");
   let [errors_description, seterrors_description] = useState("");
-  let [errors_cnumber, seterrors_cnumber] = useState("");
 
   function CreateCleaningCompany() {
-    console.log("category : ", category);
-    console.log("model : ", model);
-    console.log("carNumber : ", carNumber);
-    console.log("colour : ", colour);
-    console.log("driver : ", driver);
-    console.log("seat : ", seat);
-    console.log("childSeat : ", childSeat);
-    console.log("gps : ", gps);
-    console.log("price : ", typeof parseInt(price));
-    console.log("description : ", description);
+    setErrors(null);
+    setLoading(true);
 
-    axios
-      .post("http://localhost:3000/VehicleManagement", {
-        category: category,
-        Model: model,
-        CarNumber: carNumber,
-        colour: colour,
-        Driver: driver,
-        Seat: seat,
-        ChildSeat: childSeat,
-        Gps: gps,
-        Price: parseInt(price),
-        Description: description,
-        Image: postImage.myFile,
-      })
-      .then((response) => {
-        //   setLoading(false);
-        console.log(response);
-        swal(
-          "Good job!",
-          "Your data has been successfully added..!",
-          "success"
-        );
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.log(error);
-        setLoading(false);
-        swal("Sorry!", "Something Error!", "error");
-      });
-
-    // setError(null);
-    // setLoading(true);
-
-    // let errors = {};
+    let errors = {};
 
     // //Form Validation
-    // if (!name.trim()) {
-    //   errors.name = "Company Name field required";
-    //   seterrors_dname(errors.name);
-    // }
-    // if (!location.trim()) {
-    //   errors.location = "Location field required";
-    //   seterrors_location(errors.location);
-    // }
-    // if (!noe.trim()) {
-    //   errors.noe = "Number of Employee field required";
-    //   seterrors_noe(errors.noe);
-    // }
-    // if (!since.trim()) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (since.length < 4) {
-    //   errors.since = "Please Enter a Valid Since year";
-    //   seterrors_since(errors.since);
-    // }
-    // if (!description.trim()) {
-    //   errors.description = "Description field required";
-    //   seterrors_description(errors.description);
-    // }
-    // if (!cnumber.trim()) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
-    // if (cnumber.length < 10) {
-    //   errors.cnumber = "Please Enter a Valid Contact Number";
-    //   seterrors_cnumber(errors.cnumber);
-    // }
+    if (!category.trim()) {
+      errors.category = "Category field required";
+      seterrors_category(errors.category);
+    }
+    if (!model.trim()) {
+      errors.model = "Vehicle Model required";
+      seterrors_model(errors.model);
+    }
+    if (!carNumber.trim()) {
+      errors.carNumber = "Vehicle Number required";
+      seterrors_carNumber(errors.carNumber);
+    }
+    if (!colour.trim()) {
+      errors.colour = "Colour required";
+      seterrors_colour(errors.colour);
+    }
+    if (driver.length < 4) {
+      errors.driver = "Driver Name Required";
+      seterrors_driver(errors.driver);
+    }
+    if (!seat.trim()) {
+      errors.seat = "Seat Number Required";
+      seterrors_description(errors.seat);
+    }
+    if (!childSeat.trim()) {
+      errors.childSeat = "Child Seat Number Required";
+      seterrors_childSeat(errors.childSeat);
+    }
+    if (gps.length < 10) {
+      errors.gps = "Gps Link Required";
+      seterrors_gps(errors.gps);
+    }
+    if (price.length < 10) {
+      errors.price = "Price Required";
+      seterrors_price(errors.price);
+    }
+    if (description.length < 10) {
+      errors.description = "Description Required";
+      seterrors_description(errors.description);
+    }
 
-    // if (
-    //   name === "" ||
-    //   location === "" ||
-    //   noe === "" ||
-    //   since === "" ||
-    //   description === "" ||
-    //   errors_cnumber === "" ||
-    //   errors_since === ""
-    // ) {
-    //   setLoading(false);
-    // } else {
-    //   axios
-    //     .post("http://localhost:5000/cleaning", {
-    //       CName: name,
-    //       Location: location,
-    //       NOE: noe,
-    //       CNumber: cnumber,
-    //       Since: since,
-    //       Image: postImage.myFile,
-    //       Description: description,
-    //     })
-    //     .then((response) => {
-    //       setLoading(false);
-    //       swal(
-    //         "Good job!",
-    //         "Your data has been successfully added..!",
-    //         "success"
-    //       );
-    //       window.location.reload();
-    //     })
-    //     .catch((error) => {
-    //       setLoading(false);
-    //       swal("Sorry!", "Something Error!", "error");
-    //     });
-    // }
+    if (
+      category === "" ||
+      model === "" ||
+      carNumber === "" ||
+      colour === "" ||
+      driver === "" ||
+      seat === "" ||
+      childSeat === "" ||
+      gps === "" ||
+      price === "" ||
+      description === ""
+    ) {
+      setLoading(false);
+    } else {
+      axios
+        .post("http://localhost:3000/VehicleManagement", {
+          category: category,
+          Model: model,
+          CarNumber: carNumber,
+          colour: colour,
+          Driver: driver,
+          Seat: seat,
+          ChildSeat: childSeat,
+          Gps: gps,
+          Price: parseInt(price),
+          Description: description,
+          Image: postImage.myFile,
+        })
+        .then((response) => {
+          //   setLoading(false);
+          console.log(response);
+          swal(
+            "Good job!",
+            "Your data has been successfully added..!",
+            "success"
+          );
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.log(error);
+          setLoading(false);
+          swal("Sorry!", "Something Error!", "error");
+        });
+    }
   }
-
   const convertToBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -698,11 +677,11 @@ function VehicleAdd() {
                           onChange={(e) => setCategory(e.target.value)}
                           placeholder="Category"
                         />
-                        {/* {errors_dname && (
+                        {errors_category && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_dname}
+                            {errors_category}
                           </span>
-                        )} */}
+                        )}
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
@@ -716,11 +695,11 @@ function VehicleAdd() {
                           onChange={(e) => setModel(e.target.value)}
                           placeholder="Module"
                         />
-                        {/* {errors_location && (
+                        {errors_model && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_location}
+                            {errors_model}
                           </span>
-                        )} */}
+                        )}
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
@@ -734,11 +713,11 @@ function VehicleAdd() {
                           onChange={(e) => setCarNumber(e.target.value)}
                           placeholder="Car Number"
                         />
-                        {/* {errors_noe && (
+                        {errors_carNumber && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_noe}
+                            {errors_carNumber}
                           </span>
-                        )} */}
+                        )}
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
@@ -752,11 +731,11 @@ function VehicleAdd() {
                           onChange={(e) => setColour(e.target.value)}
                           placeholder="Colour"
                         />
-                        {/* {errors_cnumber && (
+                        {errors_colour && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_cnumber}
+                            {errors_colour}
                           </span>
-                        )} */}
+                        )}
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
@@ -770,11 +749,11 @@ function VehicleAdd() {
                           onChange={(e) => setDriver(e.target.value)}
                           placeholder="Driver"
                         />
-                        {/* {errors_since && (
+                        {errors_driver && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_since}
+                            {errors_driver}
                           </span>
-                        )} */}
+                        )}
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
@@ -788,11 +767,11 @@ function VehicleAdd() {
                           onChange={(e) => setSeat(e.target.value)}
                           placeholder="No of Seat"
                         />
-                        {/* {errors_description && (
+                        {errors_seat && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_description}
+                            {errors_seat}
                           </span>
-                        )} */}
+                        )}
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
@@ -806,11 +785,11 @@ function VehicleAdd() {
                           onChange={(e) => setChildSeat(e.target.value)}
                           placeholder="Child Seat"
                         />
-                        {/* {errors_description && (
+                        {errors_childSeat && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_description}
+                            {errors_childSeat}
                           </span>
-                        )} */}
+                        )}
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
@@ -824,11 +803,11 @@ function VehicleAdd() {
                           onChange={(e) => setGps(e.target.value)}
                           placeholder="GPS"
                         />
-                        {/* {errors_description && (
+                        {errors_gps && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_description}
+                            {errors_gps}
                           </span>
-                        )} */}
+                        )}
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
@@ -842,11 +821,11 @@ function VehicleAdd() {
                           onChange={(e) => setPrice(e.target.value)}
                           placeholder="Price"
                         />
-                        {/* {errors_description && (
+                        {errors_price && (
                           <span style={{ color: "red" }} className="errors">
-                            {errors_description}
+                            {errors_price}
                           </span>
-                        )} */}
+                        )}
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
@@ -879,11 +858,11 @@ function VehicleAdd() {
                           accept=".jpeg, .png, .jpg"
                           onChange={(e) => handleFileUpload(e)}
                         />
-                        {errors_description && (
-                          <span style={{ color: "red" }} className="errors">
-                            {errors_description}
-                          </span>
-                        )}
+
+                        <span
+                          style={{ color: "red" }}
+                          className="errors"
+                        ></span>
                       </Col>
                     </Form.Group>
                     <center>
