@@ -1,196 +1,178 @@
-// import { Container } from "@mui/material";
-// import React, { useState } from "react";
-// import Footer from "../../Layout/Footer";
-// import NavBar from "../../Layout/NavBar";
-// import { TextField } from "@mui/material";
-// import { Button } from "@mui/material";
-// import Form from "react-bootstrap/Form";
-// import Col from "react-bootstrap/Col";
-// import Row from "react-bootstrap/Row";
-// import axios from "axios";
+import { Container } from "@mui/material";
+import React, { useState } from "react";
+import Footer from "../../Layout/Footer";
+import NavBar from "../../Layout/NavBar";
+import { TextField } from "@mui/material";
+import { Button } from "@mui/material";
+import Form from "react-bootstrap/Form";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import axios from "axios";
 
-// function FoodBook() {
-//   let FoodDetail = JSON.parse(sessionStorage.getItem("FoodDetail"));
-//   console.log(FoodDetail);
+function FoodBook() {
+  let FoodDetail = JSON.parse(sessionStorage.getItem("FoodDetail"));
+  console.log(FoodDetail);
 
-//   return (
-//     <div>
-//       <NavBar />
-//       <Container>
-//         <center style={{ padding: 50 }}>
-//           <h2>Regisatation Form</h2>
-//           <Form>
-//             <Form.Group as={Row} className="mb-3" controlId="">
-//               <Form.Label column sm={2} />
-//               <Form.Label column sm={3}>
-//                 Airline Name
-//               </Form.Label>
-//               <Col sm={4}>
-//                 <Form.Control
-//                   type="text"
-//                   defaultValue={flightDetails.AirlineName}
-//                   disabled
-//                   placeholder="Event Name"
-//                 />
-//               </Col>
-//             </Form.Group>
-//             <Form.Group as={Row} className="mb-3" controlId="">
-//               <Form.Label column sm={2} />
-//               <Form.Label column sm={3}>
-//                 From Location
-//               </Form.Label>
-//               <Col sm={4}>
-//                 <Form.Control
-//                   type="text"
-//                   defaultValue={flightDetails.FromLocation}
-//                   disabled
-//                   placeholder="Event Name"
-//                 />
-//               </Col>
-//             </Form.Group>
-//             <Form.Group as={Row} className="mb-3" controlId="">
-//               <Form.Label column sm={2} />
-//               <Form.Label column sm={3}>
-//                 To Location
-//               </Form.Label>
-//               <Col sm={4}>
-//                 <Form.Control
-//                   type="text"
-//                   defaultValue={flightDetails.ToLocation}
-//                   disabled
-//                   placeholder="Event Name"
-//                 />
-//               </Col>
-//             </Form.Group>
-//             <Form.Group as={Row} className="mb-3" controlId="">
-//               <Form.Label column sm={2} />
-//               <Form.Label column sm={3}>
-//                 NoOfSeats
-//               </Form.Label>
-//               <Col sm={4}>
-//                 <Form.Control
-//                   type="number"
-//                   onChange={(e) => PriceCaculation(e.target.value)}
-//                   placeholder="NoOfSeats"
-//                 />
-//               </Col>
-//             </Form.Group>
-//             <Form.Group as={Row} className="mb-3" controlId="">
-//               <Form.Label column sm={2} />
-//               <Form.Label column sm={3}>
-//                 First Name
-//               </Form.Label>
-//               <Col sm={4}>
-//                 <Form.Control
-//                   type="text"
-//                   onChange={(e) => setFirstName(e.target.value)}
-//                   placeholder="First Name"
-//                 />
-//               </Col>
-//             </Form.Group>
-//             <Form.Group as={Row} className="mb-3" controlId="">
-//               <Form.Label column sm={2} />
-//               <Form.Label column sm={3}>
-//                 Last Name
-//               </Form.Label>
-//               <Col sm={4}>
-//                 <Form.Control
-//                   type="text"
-//                   onChange={(e) => setLastName(e.target.value)}
-//                   placeholder="Last Name"
-//                 />
-//               </Col>
-//             </Form.Group>
-//             <Form.Group as={Row} className="mb-3" controlId="">
-//               <Form.Label column sm={2} />
-//               <Form.Label column sm={3}>
-//                 Email
-//               </Form.Label>
-//               <Col sm={4}>
-//                 <Form.Control
-//                   type="email"
-//                   onChange={(e) => setEmail(e.target.value)}
-//                   placeholder="Last Name"
-//                 />
-//               </Col>
-//             </Form.Group>
-//             <Form.Group as={Row} className="mb-3" controlId="">
-//               <Form.Label column sm={2} />
-//               <Form.Label column sm={3}>
-//                 Contact Number
-//               </Form.Label>
-//               <Col sm={4}>
-//                 <Form.Control
-//                   type="number"
-//                   onChange={(e) => setContactnumber(e.target.value)}
-//                   placeholder="Contact Number"
-//                 />
-//               </Col>
-//             </Form.Group>
-//             <Form.Group as={Row} className="mb-3" controlId="">
-//               <Form.Label column sm={2} />
-//               <Form.Label column sm={3}>
-//                 Passport Number
-//               </Form.Label>
-//               <Col sm={4}>
-//                 <Form.Control
-//                   type="text"
-//                   onChange={(e) => setPassportNumber(e.target.value)}
-//                   placeholder="Passport Number"
-//                 />
-//               </Col>
-//             </Form.Group>
-//             <Form.Group as={Row} className="mb-3" controlId="">
-//               <Form.Label column sm={2} />
-//               <Form.Label column sm={3}>
-//                 Nic Number
-//               </Form.Label>
-//               <Col sm={4}>
-//                 <Form.Control
-//                   type="text"
-//                   onChange={(e) => setNicNumber(e.target.value)}
-//                   placeholder="Nic Number"
-//                 />
-//               </Col>
-//             </Form.Group>
-//             <Form.Group as={Row} className="mb-3" controlId="">
-//               <Form.Label column sm={2} />
-//               <Form.Label column sm={3}>
-//                 Address
-//               </Form.Label>
-//               <Col sm={4}>
-//                 <Form.Control
-//                   type="text"
-//                   onChange={(e) => setAddress(e.target.value)}
-//                   placeholder="Address"
-//                 />
-//               </Col>
-//             </Form.Group>
-//             <Form.Group as={Row} className="mb-3" controlId="">
-//               <Form.Label column sm={2} />
-//               <Form.Label column sm={3}>
-//                 Price
-//               </Form.Label>
-//               <Col sm={4}>
-//                 <Form.Control type="text" value={check} placeholder="Price" />
-//               </Col>
-//             </Form.Group>
-//             <center>
-//               <div className="button">
-//                 <input
-//                   type="button"
-//                   onClick={FlightBooking}
-//                   value={"SUBMIT"}
-//                   className="btn btn-block app-sidebar__heading Login-Button"
-//                 />
-//               </div>
-//             </center>
-//           </Form>
-//         </center>
-//       </Container>
-//       <Footer />
-//     </div>
-//   );
-// }
+  const [FirstName, setFirstName] = useState();
+  const [LastName, setLastName] = useState();
+  const [ContactNumber, setContactNumber] = useState();
+  const [EMail, setEMail] = useState();
 
-// export default FoodBook;
+  const FoodBooking = () => {
+    console.log("FoodName : ", FoodDetail.Name);
+    console.log("Quantity : ", newqty);
+    console.log("Price : ", newPrice);
+    console.log("FirstName : ", FirstName);
+    console.log("LastName : ", LastName);
+    console.log("ContactNumber : ", ContactNumber);
+    console.log("EMail : ", EMail);
+
+    axios
+      .post(`http://localhost:3000/FoodsBooking`, {
+        FoodName: FoodDetail.Name,
+        Quantity: newqty,
+        Price: newPrice,
+        FirstName: FirstName,
+        LastName: LastName,
+        ContactNumber: ContactNumber,
+        EMail: EMail,
+      })
+      .then((res) => {
+        console.log(res.data);
+        alert("Flight Tickets have been Successfully Booked...!");
+        window.location.reload(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  let newprice = 0;
+  const [newPrice, setnewPrice] = useState();
+  const [newqty, setqty] = useState();
+  const priceCal = (qty) => {
+    setqty(qty);
+    newprice = qty * FoodDetail.Price;
+    console.log(newprice);
+    setnewPrice(newprice);
+  };
+
+  return (
+    <div>
+      <NavBar />
+      <Container>
+        <center style={{ padding: 50 }}>
+          <h2>Regisatation Form</h2>
+          <Form>
+            <Form.Group as={Row} className="mb-3" controlId="">
+              <Form.Label column sm={2} />
+              <Form.Label column sm={3}>
+                Food Name
+              </Form.Label>
+              <Col sm={4}>
+                <Form.Control
+                  type="text"
+                  defaultValue={FoodDetail.Name}
+                  disabled
+                  placeholder="FoodName"
+                />
+              </Col>
+            </Form.Group>
+            <Form.Group as={Row} className="mb-3" controlId="">
+              <Form.Label column sm={2} />
+              <Form.Label column sm={3}>
+                Quantity
+              </Form.Label>
+              <Col sm={4}>
+                <Form.Control
+                  type="text"
+                  onChange={(e) => priceCal(e.target.value)}
+                  placeholder="Quantity"
+                />
+              </Col>
+            </Form.Group>
+            <Form.Group as={Row} className="mb-3" controlId="">
+              <Form.Label column sm={2} />
+              <Form.Label column sm={3}>
+                Price
+              </Form.Label>
+              <Col sm={4}>
+                <Form.Control
+                  type="text"
+                  defaultValue={newPrice}
+                  disabled
+                  placeholder="Price"
+                />
+              </Col>
+            </Form.Group>
+            <Form.Group as={Row} className="mb-3" controlId="">
+              <Form.Label column sm={2} />
+              <Form.Label column sm={3}>
+                First Name
+              </Form.Label>
+              <Col sm={4}>
+                <Form.Control
+                  type="text"
+                  onChange={(e) => setFirstName(e.target.value)}
+                  placeholder="First Name"
+                />
+              </Col>
+            </Form.Group>
+            <Form.Group as={Row} className="mb-3" controlId="">
+              <Form.Label column sm={2} />
+              <Form.Label column sm={3}>
+                Last Name
+              </Form.Label>
+              <Col sm={4}>
+                <Form.Control
+                  type="text"
+                  onChange={(e) => setLastName(e.target.value)}
+                  placeholder="Last Name"
+                />
+              </Col>
+            </Form.Group>
+            <Form.Group as={Row} className="mb-3" controlId="">
+              <Form.Label column sm={2} />
+              <Form.Label column sm={3}>
+                ContactNumber
+              </Form.Label>
+              <Col sm={4}>
+                <Form.Control
+                  type="number"
+                  onChange={(e) => setContactNumber(e.target.value)}
+                  placeholder="ContactNumber"
+                />
+              </Col>
+            </Form.Group>
+            <Form.Group as={Row} className="mb-3" controlId="">
+              <Form.Label column sm={2} />
+              <Form.Label column sm={3}>
+                Email
+              </Form.Label>
+              <Col sm={4}>
+                <Form.Control
+                  type="email"
+                  onChange={(e) => setEMail(e.target.value)}
+                  placeholder="Email"
+                />
+              </Col>
+            </Form.Group>
+            <center>
+              <div className="button">
+                <input
+                  type="button"
+                  onClick={FoodBooking}
+                  value={"SUBMIT"}
+                  className="btn btn-block app-sidebar__heading Login-Button"
+                />
+              </div>
+            </center>
+          </Form>
+        </center>
+      </Container>
+      <Footer />
+    </div>
+  );
+}
+
+export default FoodBook;
