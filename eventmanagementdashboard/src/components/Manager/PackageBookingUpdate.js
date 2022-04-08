@@ -66,7 +66,9 @@ function PackageBookingUpdate() {
         <div className="app-header header-shadow">
           <div className="app-header__logo">
             {/* <img src={logo} style={{ width: 110 }} /> */}
-            <div>LOGO</div>
+            <div>
+              <h3>Travel Aspire</h3>
+            </div>
             <div className="header__pane ml-auto">
               <div>
                 <button

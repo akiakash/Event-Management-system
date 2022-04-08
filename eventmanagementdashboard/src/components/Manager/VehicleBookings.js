@@ -37,7 +37,9 @@ function VehicleBookings() {
           <div className="app-header__logo">
             {/* <div className="logo-src" /> */}
             {/* <img src={logo} style={{ width: 110 }} /> */}
-            <div>LOGO</div>
+            <div>
+              <h3>Travel Aspire</h3>
+            </div>
             {/* <div style={{ fontFamily: "lyncer", fontSize: "10" }}>SLIIT</div> */}
             <div className="header__pane ml-auto">
               <div>
