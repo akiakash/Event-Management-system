@@ -48,7 +48,7 @@ function FlightBookingUpdate() {
           "success"
         );
         // window.location.reload();
-        history.push("/AgentBooking");
+        history.push("/FlightBookings");
       })
       .catch((error) => {
         setLoading(false);
@@ -550,12 +550,12 @@ function FlightBookingUpdate() {
                   <Form>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Agent First Name
+                        Airline Name
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          defaultValue={clientFlightBooking.AgentFirstName}
+                          defaultValue={clientFlightBooking.AirlineName}
                           disabled
                           placeholder="Food Name"
                         />
@@ -563,24 +563,36 @@ function FlightBookingUpdate() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Agent Last Name
+                        From Location
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          defaultValue={clientFlightBooking.AgentLastName}
+                          defaultValue={clientFlightBooking.FromLocation}
                           disabled
                         />
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        User FirstName
+                        To Location
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          defaultValue={clientFlightBooking.FirstName}
+                          defaultValue={clientFlightBooking.ToLocation}
+                          disabled
+                        />
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        NoOfSeats
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="text"
+                          defaultValue={clientFlightBooking.NoOfSeats}
                           disabled
                         />
                       </Col>
@@ -604,7 +616,7 @@ function FlightBookingUpdate() {
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          defaultValue={clientFlightBooking.ContactNumber}
+                          defaultValue={clientFlightBooking.Contactnumber}
                           disabled
                         />
                       </Col>
@@ -616,7 +628,55 @@ function FlightBookingUpdate() {
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          defaultValue={clientFlightBooking.EMail}
+                          defaultValue={clientFlightBooking.Email}
+                          disabled
+                        />
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Passport Number
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="text"
+                          defaultValue={clientFlightBooking.PassportNumber}
+                          disabled
+                        />
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Nic Number
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="text"
+                          defaultValue={clientFlightBooking.NicNumber}
+                          disabled
+                        />
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Address
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="text"
+                          defaultValue={clientFlightBooking.Address}
+                          disabled
+                        />
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Price
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="text"
+                          defaultValue={clientFlightBooking.Price}
                           disabled
                         />
                       </Col>

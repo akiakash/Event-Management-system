@@ -51,7 +51,7 @@ function PackageBookingUpdate() {
           "success"
         );
         // window.location.reload();
-        history.push("/PackageBooking");
+        history.push("/PackageBookings");
       })
       .catch((error) => {
         setLoading(false);

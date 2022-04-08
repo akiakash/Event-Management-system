@@ -28,7 +28,7 @@ function FoodBookings() {
   const history = useHistory();
   function editCleaningCompany(item) {
     window.sessionStorage.setItem("clientFoodBooking", JSON.stringify(item));
-    history.push("/FoodUpdate");
+    history.push("/FoodBookingUpdate");
   }
 
   return (

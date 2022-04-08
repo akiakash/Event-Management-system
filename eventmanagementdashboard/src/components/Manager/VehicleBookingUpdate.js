@@ -51,7 +51,7 @@ function VehicleBookingUpdate() {
           "success"
         );
         // window.location.reload();
-        history.push("/AgentBooking");
+        history.push("/VehicleBookings");
       })
       .catch((error) => {
         setLoading(false);

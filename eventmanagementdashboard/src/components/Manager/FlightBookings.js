@@ -29,7 +29,7 @@ function FlightBookings() {
   const history = useHistory();
   function editCleaningCompany(item) {
     window.sessionStorage.setItem("clientFlightBooking", JSON.stringify(item));
-    history.push("/FoodUpdate");
+    history.push("/FlightBookingUpdate");
   }
 
   return (

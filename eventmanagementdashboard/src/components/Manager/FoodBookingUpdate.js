@@ -48,7 +48,7 @@ function FoodBookingUpdate() {
           "success"
         );
         // window.location.reload();
-        history.push("/AgentBooking");
+        history.push("/FoodBookings");
       })
       .catch((error) => {
         setLoading(false);

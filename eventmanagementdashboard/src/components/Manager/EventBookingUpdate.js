@@ -48,7 +48,7 @@ function EventBookingUpdate() {
           "success"
         );
         // window.location.reload();
-        history.push("/AgentBooking");
+        history.push("/EventBookings");
       })
       .catch((error) => {
         setLoading(false);
@@ -550,26 +550,14 @@ function EventBookingUpdate() {
                   <Form>
                     <Form.Group as={Row} className="mb-3" controlId="">
                       <Form.Label column sm={3}>
-                        Agent First Name
+                        Event Name
                       </Form.Label>
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          defaultValue={clientEventBooking.AgentFirstName}
+                          defaultValue={clientEventBooking.EventName}
                           disabled
                           placeholder="Food Name"
-                        />
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="">
-                      <Form.Label column sm={3}>
-                        Agent Last Name
-                      </Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          defaultValue={clientEventBooking.AgentLastName}
-                          disabled
                         />
                       </Col>
                     </Form.Group>
@@ -604,7 +592,7 @@ function EventBookingUpdate() {
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          defaultValue={clientEventBooking.ContactNumber}
+                          defaultValue={clientEventBooking.Contactnumber}
                           disabled
                         />
                       </Col>
@@ -616,7 +604,7 @@ function EventBookingUpdate() {
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          defaultValue={clientEventBooking.EMail}
+                          defaultValue={clientEventBooking.Email}
                           disabled
                         />
                       </Col>

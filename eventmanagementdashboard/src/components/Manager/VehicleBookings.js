@@ -27,7 +27,7 @@ function VehicleBookings() {
   const history = useHistory();
   function editCleaningCompany(item) {
     window.sessionStorage.setItem("clientVehicleBooking", JSON.stringify(item));
-    history.push("/FoodUpdate");
+    history.push("/VehicleBookingUpdate");
   }
 
   return (

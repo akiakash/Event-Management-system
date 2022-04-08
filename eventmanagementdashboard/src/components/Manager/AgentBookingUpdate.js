@@ -48,7 +48,7 @@ function AgentBookingUpdate() {
           "success"
         );
         // window.location.reload();
-        history.push("/AgentBooking");
+        history.push("/AgentBookings");
       })
       .catch((error) => {
         setLoading(false);

@@ -48,7 +48,7 @@ function HotelBookingUpdate() {
           "success"
         );
         // window.location.reload();
-        history.push("/AgentBooking");
+        history.push("/HotelBookings");
       })
       .catch((error) => {
         setLoading(false);
@@ -640,7 +640,7 @@ function HotelBookingUpdate() {
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          defaultValue={clientHotelBooking.ContactNumber}
+                          defaultValue={clientHotelBooking.Contactnumber}
                           disabled
                         />
                       </Col>
@@ -652,7 +652,7 @@ function HotelBookingUpdate() {
                       <Col sm={9}>
                         <Form.Control
                           type="text"
-                          defaultValue={clientHotelBooking.EMail}
+                          defaultValue={clientHotelBooking.Email}
                           disabled
                         />
                       </Col>
