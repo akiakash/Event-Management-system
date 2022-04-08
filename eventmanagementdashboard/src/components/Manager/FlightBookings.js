@@ -11,6 +11,7 @@ import Button from "@material-ui/core/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 function FlightBookings() {
   const [flightBookings, setFlightBookings] = useState("");
@@ -24,6 +25,12 @@ function FlightBookings() {
     .catch((error) => {
       console.log("error message", error.data);
     });
+
+  const history = useHistory();
+  function editCleaningCompany(item) {
+    window.sessionStorage.setItem("clientFlightBooking", JSON.stringify(item));
+    history.push("/FoodUpdate");
+  }
 
   return (
     <div>
@@ -582,6 +589,9 @@ function FlightBookings() {
                       <TableCell align="right" style={{ fontWeight: "bold" }}>
                         Status
                       </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Action
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                 </Table>
@@ -667,6 +677,13 @@ function FlightBookings() {
                             >
                               {item.Status}
                             </TableCell>
+                            <Button
+                              // variant="outlined"
+                              onClick={() => editCleaningCompany(item)}
+                              color="primary"
+                            >
+                              <EditIcon />
+                            </Button>
                           </TableRow>
                         </TableHead>
                       </Table>

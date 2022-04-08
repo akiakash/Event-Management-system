@@ -1,33 +1,60 @@
-import React, { useState } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Button from "@material-ui/core/Button";
-import EditIcon from "@mui/icons-material/Edit";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Form from "react-bootstrap/Form";
+import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Col from "react-bootstrap/esm/Col";
+import Row from "react-bootstrap/esm/Row";
+import swal from "sweetalert";
 import { useHistory } from "react-router-dom";
 
-function EventBookings() {
-  const [agentBookings, setAgentBookings] = useState("");
+function FlightBookingUpdate() {
+  const [loading, setLoading] = useState(false);
+  const [Status, setStatus] = useState([]);
 
-  axios
-    .get("http://localhost:3000/AgentBooking")
-    .then((response) => {
-      setAgentBookings(response.data);
-      console.log("inserted", response.data);
-    })
-    .catch((error) => {
-      console.log("error message", error.data);
-    });
+  const clientFlightBooking = JSON.parse(
+    window.sessionStorage.getItem("clientFlightBooking")
+  );
 
+  console.log("clientFlightBooking : ", clientFlightBooking);
+
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+      margin: 50,
+    },
+    paper: {
+      padding: theme.spacing(5),
+      margin: "auto",
+      maxWidth: 1000,
+    },
+  }));
+
+  const classes = useStyles();
   const history = useHistory();
-  function editCleaningCompany(item) {
-    window.sessionStorage.setItem("clientAgentBooking", JSON.stringify(item));
-    history.push("/AgentBookingUpdate");
+
+  function UpdateCleaningCompany() {
+    setLoading(true);
+    axios
+      .patch(`http://localhost:3000/FlightBooking/${clientFlightBooking._id}`, {
+        Status: Status,
+      })
+      .then((response) => {
+        setLoading(false);
+        swal(
+          "Good job!",
+          "Your data has been successfully Updated..!",
+          "success"
+        );
+        // window.location.reload();
+        history.push("/AgentBooking");
+      })
+      .catch((error) => {
+        setLoading(false);
+        alert("Sorry, Something Error...");
+        swal("Sorry!", "Something Error..!", "warning");
+      });
   }
 
   return (
@@ -35,10 +62,8 @@ function EventBookings() {
       <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <div className="app-header header-shadow">
           <div className="app-header__logo">
-            {/* <div className="logo-src" /> */}
             {/* <img src={logo} style={{ width: 110 }} /> */}
             <div>LOGO</div>
-            {/* <div style={{ fontFamily: "lyncer", fontSize: "10" }}>SLIIT</div> */}
             <div className="header__pane ml-auto">
               <div>
                 <button
@@ -149,7 +174,7 @@ function EventBookings() {
                       </div>
                     </div>
                     <div className="widget-content-left  ml-3 header-user-info">
-                      <div className="widget-heading">SLIIT</div>
+                      <div className="widget-heading">SLIIT </div>
                       <div className="widget-subheading">
                         Full-Stack Developer
                       </div>
@@ -469,18 +494,6 @@ function EventBookings() {
                           <i className="metismenu-icon"></i> FLIGHT | BOOKINGS
                         </a>
                       </li>
-
-                      <li>
-                        <a href="/VehicleBookings">
-                          <i className="metismenu-icon"></i> VEHICLE | BOOKINGS
-                        </a>
-                      </li>
-
-                      <li>
-                        <a href="/FlightBookings">
-                          <i className="metismenu-icon"></i> FLIGHT | BOOKINGS
-                        </a>
-                      </li>
                       <li>
                         <a href="/HotelBookings">
                           <i className="metismenu-icon"></i> HOTEL | BOOKINGS
@@ -496,7 +509,6 @@ function EventBookings() {
                           <i className="metismenu-icon"></i> FOOD | BOOKINGS
                         </a>
                       </li>
-
                       <li>
                         <a href="/PackageBookings">
                           <i className="metismenu-icon"></i> PACKAGE | BOOKINGS
@@ -522,108 +534,118 @@ function EventBookings() {
                       <i className="pe-7s-car icon-gradient bg-mean-fruit"></i>
                     </div>
                     <div>
-                      Analytics Dashboard
+                      Add Cleaning Company Details
                       <div className="page-title-subheading">
-                        This is an example dashboard created using build-in
-                        elements and components.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Duis risus massa, tempor a imperdiet vel, faucibus sit
+                        amet arcu.
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              {/* add from here */}
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>{""}</TableCell>
-                    <TableCell style={{ fontWeight: "bold" }}>
-                      Agent First Name
-                    </TableCell>
-                    <TableCell align="right" style={{ fontWeight: "bold" }}>
-                      Agent Last Name
-                    </TableCell>
-                    <TableCell align="right" style={{ fontWeight: "bold" }}>
-                      First Name
-                    </TableCell>
-                    <TableCell align="right" style={{ fontWeight: "bold" }}>
-                      Last Name
-                    </TableCell>
-                    <TableCell align="right" style={{ fontWeight: "bold" }}>
-                      Contact number
-                    </TableCell>
-                    <TableCell align="right" style={{ fontWeight: "bold" }}>
-                      Email
-                    </TableCell>
-
-                    <TableCell align="right" style={{ fontWeight: "bold" }}>
-                      Status
-                    </TableCell>
-                    <TableCell align="right" style={{ fontWeight: "bold" }}>
-                      Action
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-              </Table>
-              {agentBookings
-                ? agentBookings.map((item) => (
-                    <TableContainer component={Paper}>
-                      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                        <TableBody>
-                          <TableRow>
-                            <TableCell>{""}</TableCell>
-                            <TableCell style={{ fontWeight: "bold" }}>
-                              {item.AgentFirstName}
-                            </TableCell>
-                            <TableCell
-                              align="right"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              {item.AgentLastName}
-                            </TableCell>
-                            <TableCell
-                              align="right"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              {item.FirstName}
-                            </TableCell>
-                            <TableCell
-                              align="right"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              {item.LastName}
-                            </TableCell>
-                            <TableCell
-                              align="right"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              {item.ContactNumber}
-                            </TableCell>
-                            <TableCell
-                              align="right"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              {item.EMail}
-                            </TableCell>
-
-                            <TableCell
-                              align="right"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              {item.Status}
-                            </TableCell>
-                            <Button
-                              // variant="outlined"
-                              onClick={() => editCleaningCompany(item)}
-                              color="primary"
-                            >
-                              <EditIcon />
-                            </Button>
-                          </TableRow>
-                        </TableBody>
-                      </Table>
-                    </TableContainer>
-                  ))
-                : "Null"}
+              {/* Add Form Here */}
+              <div className={classes.root}>
+                <Paper className={classes.paper}>
+                  <Form>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Agent First Name
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="text"
+                          defaultValue={clientFlightBooking.AgentFirstName}
+                          disabled
+                          placeholder="Food Name"
+                        />
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Agent Last Name
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="text"
+                          defaultValue={clientFlightBooking.AgentLastName}
+                          disabled
+                        />
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        User FirstName
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="text"
+                          defaultValue={clientFlightBooking.FirstName}
+                          disabled
+                        />
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        User FirstName
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="text"
+                          defaultValue={clientFlightBooking.LastName}
+                          disabled
+                        />
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        User Conatct Number
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="text"
+                          defaultValue={clientFlightBooking.ContactNumber}
+                          disabled
+                        />
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        User Email
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="text"
+                          defaultValue={clientFlightBooking.EMail}
+                          disabled
+                        />
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="">
+                      <Form.Label column sm={3}>
+                        Booking Status
+                      </Form.Label>
+                      <Col sm={9}>
+                        <Form.Control
+                          type="text"
+                          defaultValue={clientFlightBooking.Status}
+                          onChange={(e) => setStatus(e.target.value)}
+                        />
+                      </Col>
+                    </Form.Group>
+                    <center>
+                      <div className="button">
+                        <input
+                          type="button"
+                          onClick={UpdateCleaningCompany}
+                          value={loading ? "Loading... Please Wait!" : "SUBMIT"}
+                          className="btn btn-block app-sidebar__heading Login-Button"
+                        />
+                      </div>
+                    </center>
+                  </Form>
+                </Paper>
+              </div>
             </div>
             <div className="app-wrapper-footer">
               <div className="app-footer">
@@ -647,5 +669,4 @@ function EventBookings() {
     </div>
   );
 }
-
-export default EventBookings;
+export default FlightBookingUpdate;

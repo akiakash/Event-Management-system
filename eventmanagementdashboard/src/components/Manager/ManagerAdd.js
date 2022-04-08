@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
 import swal from "sweetalert";
+import { useHistory } from "react-router-dom";
 
 function ManagerAdd() {
   const useStyles = makeStyles((theme) => ({

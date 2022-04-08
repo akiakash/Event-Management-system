@@ -42,6 +42,14 @@ import HotelBookings from "./components/Manager/HotelBookings";
 import PackageBookings from "./components/Manager/PackageBookings";
 import VehicleBookings from "./components/Manager/VehicleBookings";
 import AgentBookings from "./components/Manager/AgentBookings";
+import AgentBookingUpdate from "./components/Manager/AgentBookingUpdate";
+import EventBookingUpdate from "./components/Manager/EventBookingUpdate";
+import FlightBookingUpdate from "./components/Manager/FlightBookingUpdate";
+import FoodBookingUpdate from "./components/Manager/FoodBookingUpdate";
+import HotelBookingUpdate from "./components/Manager/HotelBookingUpdate";
+import PackageBookingUpdate from "./components/Manager/PackageBookingUpdate";
+import VehicleBookingUpdate from "./components/Manager/VehicleBookingUpdate";
+
 // All routing routes ddefined here
 const Routing = () => {
   return (
@@ -86,6 +94,25 @@ const Routing = () => {
       <Route exact path="/PackageBookings" component={PackageBookings} />
       <Route exact path="/VehicleBookings" component={VehicleBookings} />
       <Route exact path="/AgentBookings" component={AgentBookings} />
+      <Route exact path="/AgentBookingUpdate" component={AgentBookingUpdate} />
+      <Route exact path="/EventBookingUpdate" component={EventBookingUpdate} />
+      <Route
+        exact
+        path="/FlightBookingUpdate"
+        component={FlightBookingUpdate}
+      />
+      <Route exact path="/FoodBookingUpdate" component={FoodBookingUpdate} />
+      <Route exact path="/HotelBookingUpdate" component={HotelBookingUpdate} />
+      <Route
+        exact
+        path="/PackageBookingUpdate"
+        component={PackageBookingUpdate}
+      />
+      <Route
+        exact
+        path="/VehicleBookingUpdate"
+        component={VehicleBookingUpdate}
+      />
     </Switch>
   );
 };

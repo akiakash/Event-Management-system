@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 function FoodBookings() {
   const [foodBookings, setFoodBookings] = useState("");
@@ -23,6 +24,12 @@ function FoodBookings() {
     .catch((error) => {
       console.log("error message", error.data);
     });
+
+  const history = useHistory();
+  function editCleaningCompany(item) {
+    window.sessionStorage.setItem("clientFoodBooking", JSON.stringify(item));
+    history.push("/FoodUpdate");
+  }
 
   return (
     <div>
@@ -548,6 +555,9 @@ function FoodBookings() {
                       <TableCell align="right" style={{ fontWeight: "bold" }}>
                         Status
                       </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Action
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                 </Table>
@@ -603,6 +613,13 @@ function FoodBookings() {
                             >
                               {item.Status}
                             </TableCell>
+                            <Button
+                              // variant="outlined"
+                              onClick={() => editCleaningCompany(item)}
+                              color="primary"
+                            >
+                              <EditIcon />
+                            </Button>
                           </TableRow>
                         </TableBody>
                       </Table>

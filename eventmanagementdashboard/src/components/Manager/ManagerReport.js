@@ -12,6 +12,7 @@ import { PDFExport, savePDF } from "@progress/kendo-react-pdf";
 import { useRef } from "react";
 import { padding } from "@mui/system";
 import Button from "@mui/material/Button";
+import { useHistory } from "react-router-dom";
 
 export default function ManagerReport() {
   const [cleaning, setCleaning] = useState([]);

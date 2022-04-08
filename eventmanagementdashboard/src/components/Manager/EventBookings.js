@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 function EventBookings() {
   const [eventBookings, setEventBookings] = useState("");
@@ -23,6 +24,12 @@ function EventBookings() {
     .catch((error) => {
       console.log("error message", error.data);
     });
+
+  const history = useHistory();
+  function editCleaningCompany(item) {
+    window.sessionStorage.setItem("clientEventBooking", JSON.stringify(item));
+    history.push("/EventBookingUpdate");
+  }
 
   return (
     <div>
@@ -86,26 +93,6 @@ function EventBookings() {
                 </div>
                 <button className="close" />
               </div>
-              {/* <ul class="header-menu nav">
-                      <li class="nav-item">
-                          <a href="javascript:void(0);" class="nav-link">
-                              <i class="nav-link-icon fa fa-database"> </i>
-                              Statistics
-                          </a>
-                      </li>
-                      <li class="btn-group nav-item">
-                          <a href="javascript:void(0);" class="nav-link">
-                              <i class="nav-link-icon fa fa-edit"></i>
-                              Projects
-                          </a>
-                      </li>
-                      <li class="dropdown nav-item">
-                          <a href="javascript:void(0);" class="nav-link">
-                              <i class="nav-link-icon fa fa-cog"></i>
-                              Settings
-                          </a>
-                      </li>
-                  </ul> */}
             </div>
             <div className="app-header-right">
               <div className="header-btn-lg pr-0">
@@ -119,12 +106,6 @@ function EventBookings() {
                           aria-expanded="false"
                           className="p-0 btn"
                         >
-                          {/* <img
-                                                        width={42}
-                                                        className="rounded-circle"
-                                                        src="assets/images/avatars/1.jpg"
-                                                        alt
-                                                    /> */}
                           <i className="fa fa-angle-down ml-2 opacity-8" />
                         </a>
                         <div
@@ -563,6 +544,9 @@ function EventBookings() {
                     <TableCell align="right" style={{ fontWeight: "bold" }}>
                       Status
                     </TableCell>
+                    <TableCell align="right" style={{ fontWeight: "bold" }}>
+                      Action
+                    </TableCell>
                   </TableRow>
                 </TableHead>
               </Table>
@@ -607,262 +591,24 @@ function EventBookings() {
                             >
                               {item.Status}
                             </TableCell>
+                            <Button
+                              // variant="outlined"
+                              onClick={() => editCleaningCompany(item)}
+                              color="primary"
+                            >
+                              <EditIcon />
+                            </Button>
                           </TableRow>
                         </TableBody>
                       </Table>
                     </TableContainer>
                   ))
                 : "Null"}
-
-              {/* <div className="row">
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">Total Doctors</div>
-                          <div className="widget-subheading">
-                            Last year expenses
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-success">
-                            1896
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">Total Hospital</div>
-                          <div className="widget-subheading">
-                            Revenue streams
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-warning">156</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">Total Blood Bank</div>
-                          <div className="widget-subheading">
-                            People Interested
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-danger">451</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-              {/* <div className="row">
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">
-                            Total Cleaning Service
-                          </div>
-                          <div className="widget-subheading">
-                            Last year expenses
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-success">
-                            1896
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">
-                            Total Ambulance Details
-                          </div>
-                          <div className="widget-subheading">
-                            Revenue streams
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-warning">156</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">
-                            Total Camping Details
-                          </div>
-                          <div className="widget-subheading">
-                            People Interested
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-danger">451</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-              {/* <div className="row">
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">
-                            Total Technology Details
-                          </div>
-                          <div className="widget-subheading">
-                            Last year expenses
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-success">
-                            1896
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">
-                            Total Facility Details
-                          </div>
-                          <div className="widget-subheading">
-                            Revenue streams
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-warning">156</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">
-                            Total Laboratory Details
-                          </div>
-                          <div className="widget-subheading">
-                            People Interested
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-danger">451</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-              {/* <div className="row">
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">Total Disease</div>
-                          <div className="widget-subheading">
-                            Last year expenses
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-success">
-                            1896
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">
-                            Total Pharmacy Details
-                          </div>
-                          <div className="widget-subheading">
-                            Revenue streams
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-warning">156</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6 col-xl-4">
-                  <div className="card mb-3 widget-content">
-                    <div className="widget-content-outer">
-                      <div className="widget-content-wrapper">
-                        <div className="widget-content-left">
-                          <div className="widget-heading">
-                            Total Equipments Details
-                          </div>
-                          <div className="widget-subheading">
-                            People Interested
-                          </div>
-                        </div>
-                        <div className="widget-content-right">
-                          <div className="widget-numbers text-danger">451</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
             </div>
             <div className="app-wrapper-footer">
               <div className="app-footer">
                 <div className="app-footer__inner">
-                  <div className="app-footer-left">
-                    {/* <ul className="nav">
-                      <li className="nav-item">
-                        <a href="javascript:void(0);" className="nav-link">
-                          Copyright 2019-2021 SLIIT.io. All rights reserved
-                        </a>
-                      </li>
-                    </ul> */}
-                  </div>
+                  <div className="app-footer-left"></div>
                   <div className="app-footer-right">
                     <ul className="nav">
                       <li className="nav-item">

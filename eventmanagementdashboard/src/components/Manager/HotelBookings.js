@@ -10,12 +10,13 @@ import Button from "@material-ui/core/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 function HotelBookings() {
   const [hotelBookings, setHotelBookings] = useState("");
 
   axios
-    .get("http://localhost:3000/HotelBookings")
+    .get("http://localhost:3000/HotelBooking")
     .then((response) => {
       setHotelBookings(response.data);
       console.log("displayed", response.data);
@@ -23,6 +24,13 @@ function HotelBookings() {
     .catch((error) => {
       console.log("error", error.data);
     });
+
+  const history = useHistory();
+  function editCleaningCompany(item) {
+    window.sessionStorage.setItem("clientHotelBooking", JSON.stringify(item));
+    history.push("/FoodUpdate");
+  }
+
   return (
     <div>
       <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
@@ -577,6 +585,9 @@ function HotelBookings() {
                       <TableCell align="right" style={{ fontWeight: "bold" }}>
                         Status
                       </TableCell>
+                      <TableCell align="right" style={{ fontWeight: "bold" }}>
+                        Action
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                 </Table>
@@ -648,6 +659,13 @@ function HotelBookings() {
                             >
                               {item.Status}
                             </TableCell>
+                            <Button
+                              // variant="outlined"
+                              onClick={() => editCleaningCompany(item)}
+                              color="primary"
+                            >
+                              <EditIcon />
+                            </Button>
                           </TableRow>
                         </TableBody>
                       </Table>
