@@ -107,6 +107,9 @@ const NavBar = () => {
               <MenuItem key={"Home"} onClick={handleCloseNavMenu}>
                 <Typography textAlign="center">CONTACT US</Typography>
               </MenuItem>
+              <MenuItem key={"Home"} onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">User</Typography>
+              </MenuItem>
             </Menu>
           </Box>
           <Typography
@@ -230,6 +233,15 @@ const NavBar = () => {
                 style={{ textDecoration: "none", color: "#000" }}
               >
                 CONTACT US
+              </a>
+            </Button>
+            <Button
+              key="Home"
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              <a href="/User" style={{ textDecoration: "none", color: "#000" }}>
+                User
               </a>
             </Button>
           </Box>
