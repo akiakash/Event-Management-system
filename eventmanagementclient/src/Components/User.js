@@ -89,6 +89,7 @@ function User() {
         </table>
       ))}
 
+      <hr></hr>
       {/* Event bookings */}
       {event.map((item) => (
         <table style={{ width: "50px", border: "20px black " }}>
@@ -109,6 +110,7 @@ function User() {
         </table>
       ))}
 
+      <hr></hr>
       {/* flight Bookigs */}
       {flight.map((item) => (
         <table style={{ width: "50px", border: "20px black " }}>
@@ -129,6 +131,7 @@ function User() {
         </table>
       ))}
 
+      <hr></hr>
       {/* Food Bookigs */}
       {food.map((item) => (
         <table style={{ width: "50px", border: "20px black " }}>
@@ -149,6 +152,7 @@ function User() {
         </table>
       ))}
 
+      <hr></hr>
       {/* hotel Bookigs */}
       {hotel.map((item) => (
         <table style={{ width: "50px", border: "20px black " }}>
@@ -169,6 +173,7 @@ function User() {
         </table>
       ))}
 
+      <hr></hr>
       {/* package Bookigs */}
       {packages.map((item) => (
         <table style={{ width: "50px", border: "20px black " }}>
@@ -189,6 +194,7 @@ function User() {
         </table>
       ))}
 
+      <hr></hr>
       {/* package Bookigs */}
       {vehicle.map((item) => (
         <table style={{ width: "50px", border: "20px black " }}>
