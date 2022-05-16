@@ -27,6 +27,13 @@ import SingleFood from "./Components/Food/SingleFood";
 import FoodBook from "./Components/Food/FoodBook";
 import PackageBook from "./Components/Package/BookPackage";
 import User from "./Components/User";
+import AgentEdit from "./Components/Agent/AgentEdit";
+import EventEdit from "./Components/Event/EventEdit";
+import FlightEdit from "./Components/Flight/FlightEdit";
+import FoodEdit from "./Components/Food/FoodEdit";
+import HotelEdit from "./Components/Hotel/HotelEdit";
+import PackageEdit from "./Components/Package/PackageEdit";
+import VehicleEdit from "./Components/Vehicle/VehicleEdit";
 
 function App() {
   return (
@@ -58,6 +65,13 @@ function App() {
           <Route path="/FoodBook" element={<FoodBook />} />
           <Route path="/PackageBook" element={<PackageBook />} />
           <Route path="/User" element={<User />} />
+          <Route path="/AgentEdit" element={<AgentEdit />} />
+          <Route path="/EventEdit" element={<EventEdit />} />
+          <Route path="/FlightEdit" element={<FlightEdit />} />
+          <Route path="/FoodEdit" element={<FoodEdit />} />
+          <Route path="/HotelEdit" element={<HotelEdit />} />
+          <Route path="/PackageEdit" element={<PackageEdit />} />
+          <Route path="/VehicleEdit" element={<VehicleEdit />} />
         </Routes>
       </BrowserRouter>
     </>
