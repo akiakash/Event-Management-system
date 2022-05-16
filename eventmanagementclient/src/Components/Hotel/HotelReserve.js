@@ -63,8 +63,8 @@ function HotelReserve() {
         })
         .then((res) => {
           console.log(res.data);
-          alert("Flight Tickets have been Successfully Booked...!");
-          window.location.reload(true);
+          alert("Hotel have been Successfully Booked...!");
+          window.location = "/SingleHotel";
         })
         .catch((error) => {
           console.log(error.data);

@@ -7,6 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
+import background from "./hotelbg.jpg";
 
 function Hotel() {
   const [HotelDetails, setHotelDetails] = useState();
@@ -28,7 +29,14 @@ function Hotel() {
     <div>
       <NavBar />
       <Container>
-        <div class="row">
+        <div
+          class="row"
+          // style={{
+          //   backgroundImage: `url(${background})`,
+          //   width: "50vw",
+          //   height: "100vh",
+          // }}
+        >
           {HotelDetails
             ? HotelDetails.map((item) => (
                 <div class="column">

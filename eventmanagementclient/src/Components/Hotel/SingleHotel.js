@@ -30,9 +30,9 @@ function SingleHotel() {
             </div>
           </div>
           <center style={{ margin: 20 }}>
-            <Button variant="outlined" style={{ marginRight: 10 }}>
+            {/* <Button variant="outlined" style={{ marginRight: 10 }}>
               Cancel
-            </Button>
+            </Button> */}
             <Button variant="contained">
               <a
                 href="/HotelReserve"
